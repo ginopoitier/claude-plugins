@@ -13,7 +13,7 @@
       "name": "dev-kit",
       "source": "./dev-kit",
       "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, Atlassian MCP integration, and full tech lead workflow (epics, SDRs, refinement, SDLC compliance, PR prep, standup).",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "author": {
         "name": "Gino Poitier"
       },
