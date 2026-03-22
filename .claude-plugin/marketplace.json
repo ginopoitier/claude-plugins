@@ -13,7 +13,7 @@
       "name": "dev-kit",
       "source": "./dev-kit",
       "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, Atlassian MCP integration, and full tech lead workflow (epics, SDRs, refinement, SDLC compliance, PR prep, standup).",
-      "version": "0.3.1",
+      "version": "0.3.4",
       "author": {
         "name": "Gino Poitier"
       },
@@ -30,7 +30,7 @@
       "name": "kit-maker",
       "source": "./kit-maker",
       "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding, kit health checks, and quality standards.",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Gino Poitier"
       },
@@ -42,7 +42,7 @@
       "name": "git-kit",
       "source": "./git-kit",
       "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, stash, undo, repo health, and hooks. Includes installable git hooks (commit-msg validator, pre-push guard) and two specialist agents (git-historian, git-surgeon).",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Gino Poitier"
       },
