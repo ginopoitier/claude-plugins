@@ -1,22 +1,30 @@
 {
-  "id": "kit-maker",
   "name": "kit-maker",
   "version": "1.0.0",
   "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
   "author": {
     "name": "Gino Poitier"
   },
-  "tags": ["meta", "scaffolding", "kit-creation", "plugin-development"],
-  "requires": [],
-  "install": {
-    "rules": "~/.claude/rules/kit-maker/",
-    "skills": "~/.claude/skills/",
-    "knowledge": "~/.claude/knowledge/kit-maker/",
-    "agents": "~/.claude/agents/",
-    "hooks": "~/.claude/hooks/kit-maker/"
-  },
-  "entrypoint": "CLAUDE.md",
-  "commands": ["./skills/"],
-  "agents": ["./agents/"],
-  "mcp": null
+  "license": "MIT",
+  "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
+  "commands": "./skills/",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-skill-frontmatter.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync-skills-index.sh"
+      }
+    ]
+  }
 }

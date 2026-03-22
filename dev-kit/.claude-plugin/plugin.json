@@ -1,22 +1,18 @@
 {
-  "id": "dev-kit",
   "name": "dev-kit",
   "version": "0.3.0",
   "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. Covers CQRS, Clean Architecture, EF Core, Minimal APIs, Vue 3, TailwindCSS, Serilog, SignalR, CI/CD pipeline generation, and a full tech lead workflow (epics, SDRs, technical refinement, SDLC compliance, PR prep).",
   "author": {
     "name": "Gino Poitier"
   },
-  "tags": ["dotnet", "vue", "clean-architecture", "cqrs", "ef-core"],
-  "requires": [],
-  "install": {
-    "rules": "~/.claude/rules/dev-kit/",
-    "skills": "~/.claude/skills/",
-    "knowledge": "~/.claude/knowledge/dev-kit/",
-    "agents": "~/.claude/agents/",
-    "hooks": "~/.claude/hooks/dev-kit/"
-  },
-  "entrypoint": "CLAUDE.md",
-  "commands": ["./skills/"],
-  "agents": ["./agents/"],
-  "mcp": null
+  "license": "MIT",
+  "keywords": ["dotnet", "vue", "clean-architecture", "cqrs", "ef-core"],
+  "commands": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": {
+    "atlassian": {
+      "type": "sse",
+      "url": "https://mcp.atlassian.com/v1/sse"
+    }
+  }
 }
