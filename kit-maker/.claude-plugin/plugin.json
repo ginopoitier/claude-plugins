@@ -16,6 +16,7 @@
     "hooks": "~/.claude/hooks/kit-maker/"
   },
   "entrypoint": "CLAUDE.md",
-  "commands": ["autonomous-loops", "context-discipline", "convention-learner", "instinct-system", "kit-health-check", "kit-packager", "kit-setup", "learning-log", "model-selection", "scaffold-agent", "scaffold-kit", "scaffold-knowledge", "scaffold-rule", "scaffold-skill", "self-correction-loop", "self-evolution", "skill-auditor", "verification-loop"],
+  "commands": ["./skills/"],
+  "agents": ["./agents/"],
   "mcp": null
 }

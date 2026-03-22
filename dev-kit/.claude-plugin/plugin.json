@@ -16,6 +16,7 @@
     "hooks": "~/.claude/hooks/dev-kit/"
   },
   "entrypoint": "CLAUDE.md",
-  "commands": ["scaffold", "verify", "dotnet-health-check", "health-check", "80-20-review", "de-sloppify", "convention-learner", "security-scan", "dependency-audit", "domain-event-map", "testing", "caching", "configuration", "dependency-injection", "authentication", "messaging", "resilience", "httpclient-factory", "opentelemetry", "aspire", "openapi", "scalar", "error-handling", "modern-csharp", "sqlserver", "migration-workflow", "adr", "docker", "ci-cd", "container-publish", "session-management", "workflow-mastery", "wrap-up-ritual", "seq-dig", "dotnet-init", "project-setup", "project-structure", "architecture-advisor", "kit-setup", "marketplace"],
+  "commands": ["./skills/"],
+  "agents": ["./agents/"],
   "mcp": null
 }
