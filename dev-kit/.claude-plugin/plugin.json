@@ -1,14 +1,19 @@
 {
-  "name": "dev-kit",
-  "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. Covers CQRS, Clean Architecture, EF Core, Minimal APIs, Vue 3, TailwindCSS, Serilog, SignalR, CI/CD pipeline generation, and a full tech lead workflow (epics, SDRs, technical refinement, SDLC compliance, PR prep).",
+  "id": "dev-kit",
+  "name": "Dev Kit",
   "version": "0.3.0",
-  "commands": ["./skills/"],
-  "agents": ["./agents/"],
-  "hooks": "./hooks/hooks.json",
-  "mcpServers": {
-    "atlassian": {
-      "type": "sse",
-      "url": "https://mcp.atlassian.com/v1/sse"
-    }
-  }
+  "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. Covers CQRS, Clean Architecture, EF Core, Minimal APIs, Vue 3, TailwindCSS, Serilog, SignalR, CI/CD pipeline generation, and a full tech lead workflow (epics, SDRs, technical refinement, SDLC compliance, PR prep).",
+  "author": "Dev Kit Team",
+  "tags": ["dotnet", "vue", "clean-architecture", "cqrs", "ef-core"],
+  "requires": [],
+  "install": {
+    "rules": "~/.claude/rules/dev-kit/",
+    "skills": "~/.claude/skills/",
+    "knowledge": "~/.claude/knowledge/dev-kit/",
+    "agents": "~/.claude/agents/",
+    "hooks": "~/.claude/hooks/dev-kit/"
+  },
+  "entrypoint": "CLAUDE.md",
+  "commands": ["/scaffold", "/verify", "/dotnet-health-check", "/health-check", "/80-20-review", "/de-sloppify", "/convention-learner", "/security-scan", "/dependency-audit", "/domain-event-map", "/testing", "/caching", "/configuration", "/dependency-injection", "/authentication", "/messaging", "/resilience", "/httpclient-factory", "/opentelemetry", "/aspire", "/openapi", "/scalar", "/error-handling", "/modern-csharp", "/sqlserver", "/migration-workflow", "/adr", "/docker", "/ci-cd", "/container-publish", "/session-management", "/workflow-mastery", "/wrap-up-ritual", "/seq-dig", "/dotnet-init", "/project-setup", "/project-structure", "/architecture-advisor", "/kit-setup", "/marketplace"],
+  "mcp": null
 }

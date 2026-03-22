@@ -1,26 +1,19 @@
 {
-  "name": "kit-maker",
-  "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
+  "id": "kit-maker",
+  "name": "Kit Maker",
   "version": "1.0.0",
-  "commands": ["./skills/"],
-  "agents": ["./agents/"],
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-skill-frontmatter.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "type": "command",
-        "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync-skills-index.sh"
-      }
-    ]
-  }
+  "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
+  "author": "Kit Maker Team",
+  "tags": ["meta", "scaffolding", "kit-creation", "plugin-development"],
+  "requires": [],
+  "install": {
+    "rules": "~/.claude/rules/kit-maker/",
+    "skills": "~/.claude/skills/",
+    "knowledge": "~/.claude/knowledge/kit-maker/",
+    "agents": "~/.claude/agents/",
+    "hooks": "~/.claude/hooks/kit-maker/"
+  },
+  "entrypoint": "CLAUDE.md",
+  "commands": ["/autonomous-loops", "/context-discipline", "/convention-learner", "/instinct-system", "/kit-health-check", "/kit-packager", "/kit-setup", "/learning-log", "/model-selection", "/scaffold-agent", "/scaffold-kit", "/scaffold-knowledge", "/scaffold-rule", "/scaffold-skill", "/self-correction-loop", "/self-evolution", "/skill-auditor", "/verification-loop"],
+  "mcp": null
 }
