@@ -13,7 +13,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>devkit-mcp</ToolCommandName>
     <PackageId>DevKit.Mcp</PackageId>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <Authors>Gino Poitier</Authors>
     <Description>MCP server for dev-kit — Roslyn-powered C# analysis, SQL Server diagnostics, and Neo4j graph queries for Claude Code.</Description>
     <PackageTags>mcp;claude;dotnet;csharp;roslyn;sqlserver;neo4j</PackageTags>
