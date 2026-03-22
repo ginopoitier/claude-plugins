@@ -160,6 +160,35 @@ After installing, run `/kit-setup` to set your personal configuration.
 {any other requirements}
 ```
 
+### Pre-Commit Version Bump
+
+Run this before every `git commit` on a kit. Check `git diff --stat` first, then apply the bump:
+
+```
+Change includes removed/renamed user-facing skill or config key → MAJOR
+Change includes new skill, rule, knowledge doc, or agent        → MINOR
+Change is a fix, wording update, or trigger keyword addition    → PATCH
+```
+
+**Steps:**
+
+```bash
+# 1. Review scope
+git diff --stat
+
+# 2. Update version in plugin.json
+#    "version": "0.3.1"  →  "version": "0.4.0"
+
+# 3. Update matching entry in marketplace.json
+#    "version": "0.3.1"  →  "version": "0.4.0"
+
+# 4. Stage both
+git add .claude-plugin/plugin.json
+git add ../.claude-plugin/marketplace.json   # root marketplace
+
+# 5. Commit together with the kit changes
+```
+
 ## Anti-patterns
 
 ### Don't Ship Without Running kit-health-check

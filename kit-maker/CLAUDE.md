@@ -8,6 +8,7 @@
 @~/.claude/rules/kit-maker/kit-structure.md
 @~/.claude/rules/kit-maker/quality-standards.md
 @~/.claude/rules/kit-maker/naming-conventions.md
+@~/.claude/rules/kit-maker/versioning.md
 
 ## Meta — Always Apply
 
