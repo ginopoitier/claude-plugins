@@ -15,5 +15,10 @@ kit.config.md
 .env
 .env.*
 
+# .NET build output
+**/bin/
+**/obj/
+dev-kit/mcp/publish/
+
 # Windows
 $RECYCLE.BIN/

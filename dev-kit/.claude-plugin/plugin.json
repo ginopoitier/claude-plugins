@@ -9,6 +9,10 @@
   "keywords": ["dotnet", "vue", "clean-architecture", "cqrs", "ef-core"],
   "commands": "./skills/",
   "mcpServers": {
+    "devkit-mcp": {
+      "command": "devkit-mcp",
+      "type": "stdio"
+    },
     "atlassian": {
       "type": "sse",
       "url": "https://mcp.atlassian.com/v1/sse"

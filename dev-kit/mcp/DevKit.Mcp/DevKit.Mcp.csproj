@@ -8,6 +8,19 @@
     <AssemblyName>DevKit.Mcp</AssemblyName>
     <RootNamespace>DevKit.Mcp</RootNamespace>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+
+    <!-- NuGet / dotnet tool -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>devkit-mcp</ToolCommandName>
+    <PackageId>DevKit.Mcp</PackageId>
+    <Version>0.3.0</Version>
+    <Authors>Gino Poitier</Authors>
+    <Description>MCP server for dev-kit — Roslyn-powered C# analysis, SQL Server diagnostics, and Neo4j graph queries for Claude Code.</Description>
+    <PackageTags>mcp;claude;dotnet;csharp;roslyn;sqlserver;neo4j</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ginopoitier/claude-plugins</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +38,10 @@
 
     <!-- SQL Server -->
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

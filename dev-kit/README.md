@@ -41,6 +41,7 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 
 | Service | MCP | Purpose |
 |---------|-----|---------|
+| **Dev Kit** | `devkit-mcp` (dotnet tool) | Roslyn C# analysis, SQL Server diagnostics, Neo4j graph queries |
 | Jira | Atlassian Remote MCP | Search issues, create tickets, transition status, add comments |
 | Confluence | Atlassian Remote MCP | Create and update documentation pages |
 | Bitbucket | REST API | Create PRs, add comments (Bitbucket not in Atlassian MCP) |
@@ -102,7 +103,21 @@ git clone https://github.com/ginopoitier/claude-plugins.git
 
 Walks through: identity · VCS host · CI/CD provider · project management · documentation · local dev infrastructure.
 
-### 2. Set secret environment variables
+### 2. Install the MCP server
+
+```bash
+dotnet tool install -g DevKit.Mcp
+```
+
+This installs `devkit-mcp` globally. The plugin wires it up automatically via `mcpServers` in `plugin.json`. Provides Claude with Roslyn-powered C# analysis, SQL Server diagnostic queries, and Neo4j graph access.
+
+To update later:
+
+```bash
+dotnet tool update -g DevKit.Mcp
+```
+
+### 3. Set secret environment variables
 
 Only Bitbucket token needed — Atlassian auth is handled by MCP OAuth.
 
@@ -122,7 +137,7 @@ export SEQ_API_KEY="your-seq-key"
 
 Get your Bitbucket token: Bitbucket Settings → Personal access tokens
 
-### 3. Authenticate Atlassian MCP (work machines only)
+### 4. Authenticate Atlassian MCP (work machines only)
 
 ```
 /mcp authenticate atlassian
@@ -135,11 +150,11 @@ Verify:
 /mcp status
 ```
 
-### 4. Restart Claude Code
+### 5. Restart Claude Code
 
 Restart after setting environment variables.
 
-### 5. Configure a project
+### 6. Configure a project
 
 Inside any repo:
 
