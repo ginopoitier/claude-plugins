@@ -1,0 +1,26 @@
+{
+  "name": "kit-maker",
+  "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
+  "version": "1.0.0",
+  "commands": ["./skills/"],
+  "agents": ["./agents/"],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-skill-frontmatter.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync-skills-index.sh"
+      }
+    ]
+  }
+}

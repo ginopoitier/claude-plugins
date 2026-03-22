@@ -1,0 +1,107 @@
+name: Validate Kit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-structure:
+    name: Validate Kit Structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          required=("CLAUDE.md" "kit.manifest.json" "rules" "skills" "knowledge")
+          for item in "${required[@]}"; do
+            [ -e "$item" ] || { echo "FAIL: Missing required item: $item"; exit 1; }
+            echo "✓ $item"
+          done
+
+      - name: Validate manifest JSON
+        run: |
+          python3 -m json.tool kit.manifest.json > /dev/null && echo "✓ kit.manifest.json is valid JSON"
+
+      - name: Check all skills have SKILL.md
+        run: |
+          failed=0
+          for skill_dir in skills/*/; do
+            if [ ! -f "$skill_dir/SKILL.md" ]; then
+              echo "FAIL: $skill_dir missing SKILL.md"
+              failed=1
+            fi
+          done
+          [ $failed -eq 0 ] && echo "✓ All skills have SKILL.md"
+          exit $failed
+
+  validate-skill-frontmatter:
+    name: Validate Skill Frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required frontmatter fields
+        run: |
+          failed=0
+          for skill_file in skills/*/SKILL.md; do
+            skill=$(dirname "$skill_file" | xargs basename)
+            for field in "^name:" "^description:" "^user-invocable:" "^allowed-tools:"; do
+              if ! grep -q "$field" "$skill_file"; then
+                echo "FAIL: $skill_file missing field: $field"
+                failed=1
+              fi
+            done
+            # Check trigger keywords
+            if ! grep -q "Load this skill when" "$skill_file"; then
+              echo "WARN: $skill_file missing trigger keywords"
+            fi
+          done
+          [ $failed -eq 0 ] && echo "✓ All skill frontmatter valid"
+          exit $failed
+
+  validate-skill-sections:
+    name: Validate Skill Body Sections
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required body sections
+        run: |
+          failed=0
+          for skill_file in skills/*/SKILL.md; do
+            skill=$(dirname "$skill_file" | xargs basename)
+            for section in "## Core Principles" "## Patterns" "## Anti-patterns" "## Decision Guide"; do
+              if ! grep -q "$section" "$skill_file"; then
+                echo "FAIL: $skill_file missing section: $section"
+                failed=1
+              fi
+            done
+          done
+          [ $failed -eq 0 ] && echo "✓ All skill sections present"
+          exit $failed
+
+  validate-install-paths:
+    name: Validate Install Paths
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check install paths use ~/.claude/ prefix
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          with open("kit.manifest.json") as f:
+              manifest = json.load(f)
+          install = manifest.get("install", {})
+          failed = False
+          for key, path in install.items():
+              if not path.startswith("~/.claude/"):
+                  print(f"FAIL: install.{key} = '{path}' — must start with ~/.claude/")
+                  failed = True
+              else:
+                  print(f"✓ install.{key}")
+          sys.exit(1 if failed else 0)
+          EOF

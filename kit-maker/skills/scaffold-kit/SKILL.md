@@ -1,0 +1,199 @@
+---
+name: scaffold-kit
+description: >
+  Interactive wizard for creating a complete Claude Code kit from scratch.
+  Produces a fully structured kit with CLAUDE.md, rules, skills, knowledge docs,
+  templates, agents, hooks, and a marketplace-ready manifest.
+  Load this skill when: "create a kit", "new kit", "scaffold kit", "build a kit",
+  "kit from scratch", "kit wizard", "make a plugin", "kit manifest".
+user-invocable: true
+argument-hint: "[kit name and domain]"
+allowed-tools: Read, Write, Edit, Bash, Glob
+---
+
+# Scaffold Kit
+
+## Core Principles
+
+1. **Domain-first** — Before creating any files, deeply understand the domain. A dev kit looks nothing like a data-science kit or a security kit. Don't reuse structure blindly.
+2. **Meta-skills in every kit** — Every kit ships with context-discipline, model-selection, instinct-system, and self-correction-loop. These make the kit self-improving.
+3. **Install-ready from day one** — The kit.manifest.json and install conventions must be correct from the start. An uninstallable kit is a broken kit.
+4. **Quality-gated release** — Run `/kit-health-check` before considering the kit ready for distribution.
+
+## Patterns
+
+### Kit Creation Wizard
+
+**Phase 1: Domain Discovery**
+Ask:
+1. What is the kit's domain? (e.g., data science, DevOps, mobile development)
+2. Who is the target user? (their role, expertise level, workflow)
+3. What problems does this kit solve that Claude doesn't solve well by default?
+4. What are the 5–8 most common tasks in this domain?
+5. What tools/technologies are central? (determines rules + knowledge topics)
+6. Does the kit need a config system? (user-specific values like API keys, paths)
+7. Does the kit warrant a custom MCP server? (complex tool integration, external APIs)
+
+**Phase 2: Structure Planning**
+Based on answers, produce a plan:
+
+```
+kit-name/
+  CLAUDE.md
+  kit.manifest.json
+  config/
+    kit.config.template.md    # if user-specific config needed
+  rules/                      # 3–6 always-loaded rules
+    {domain}-conventions.md
+    {domain}-patterns.md
+    quality-standards.md
+    {tool-specific}.md
+  skills/                     # 8–15 skills
+    # Meta (always include)
+    context-discipline/
+    model-selection/
+    verification-loop/        # adapted for this domain
+    instinct-system/
+    self-correction-loop/
+    learning-log/
+    # Domain-specific
+    scaffold-{primary-artifact}/
+    {domain}-health-check/
+    {domain}-auditor/
+    [4–8 more domain skills]
+  knowledge/                  # 3–6 reference docs
+    {domain}-patterns.md
+    [specific topic docs]
+  templates/                  # starter templates
+    [domain-specific templates]
+  agents/                     # 2–4 specialized agents
+    [role-based agents]
+  hooks/                      # 1–3 automation scripts
+    validate-{artifact}.sh
+    auto-sync-index.sh
+```
+
+**Phase 3: Skeleton Generation**
+Generate in this order (each can be parallel):
+1. `CLAUDE.md` — entry point, references all rules and lists all skills
+2. `kit.manifest.json` — metadata, install paths, version
+3. All rule files (3–6 files)
+4. All skill SKILL.md files (meta + domain)
+5. All knowledge docs
+6. Templates
+7. Agent definitions
+8. Hook scripts
+9. Config template
+
+**Phase 4: Meta-skill Wiring**
+Copy meta-skills from the reference kit or write them fresh:
+
+```bash
+# Copy shared meta-skills
+for skill in context-discipline model-selection verification-loop \
+             instinct-system self-correction-loop autonomous-loops learning-log; do
+  cp -r ~/.claude/skills/$skill kit-name/skills/
+done
+```
+
+**Phase 5: Quality Gate**
+Run `/kit-health-check` on the generated kit. Fix all blockers before marking done.
+
+### Minimal Kit (fast scaffold)
+
+For simple kits (≤5 skills, single domain), use the minimal template:
+
+```
+kit-name/
+  CLAUDE.md                  # rules + 5 skills listed
+  kit.manifest.json
+  rules/{domain}.md          # single combined rule file
+  skills/{5 domain skills}/
+  knowledge/{1 reference doc}.md
+```
+
+### kit.manifest.json Format
+
+```json
+{
+  "id": "kit-name",
+  "name": "Kit Display Name",
+  "version": "1.0.0",
+  "description": "One sentence: what this kit does and who it's for",
+  "author": "author-name",
+  "tags": ["domain", "technology", "use-case"],
+  "requires": [],
+  "install": {
+    "rules": "~/.claude/rules/kit-name/",
+    "skills": "~/.claude/skills/",
+    "knowledge": "~/.claude/knowledge/kit-name/",
+    "agents": "~/.claude/agents/",
+    "hooks": "~/.claude/hooks/kit-name/"
+  },
+  "config": "config/kit.config.template.md",
+  "entrypoint": "CLAUDE.md",
+  "commands": ["/scaffold-X", "/health-check", "/audit"],
+  "mcp": null
+}
+```
+
+## Anti-patterns
+
+### Don't Start with Files Before Understanding the Domain
+
+```
+# BAD — jumping straight to writing
+User: "Create a data-science kit"
+→ Immediately writes files based on generic assumptions
+
+# GOOD — ask first, then generate
+User: "Create a data-science kit"
+→ "What language? Python/R/Julia? What tasks? EDA, modeling, deployment?
+    Who's the user — junior analyst or senior ML engineer?
+    Do you need Jupyter integration?"
+→ Generate a kit tailored to actual needs
+```
+
+### Don't Skip Meta-Skills
+
+```
+# BAD — kit without self-improvement
+skills/
+  scaffold-model/
+  data-health-check/
+  # No instinct-system, no self-correction-loop
+
+# GOOD — every kit has meta backbone
+skills/
+  context-discipline/     # cost optimization
+  model-selection/        # right model per task
+  instinct-system/        # learns from usage
+  self-correction-loop/   # improves from corrections
+  scaffold-model/
+  data-health-check/
+```
+
+### Don't Hardcode Paths in CLAUDE.md
+
+```markdown
+<!-- BAD — absolute path breaks on other machines -->
+@C:/Users/specific-user/.claude/rules/my-rules.md
+
+<!-- GOOD — always use ~/.claude/ prefix -->
+@~/.claude/rules/kit-name/my-rules.md
+```
+
+## Decision Guide
+
+| Scenario | Recommendation |
+|----------|---------------|
+| Domain has 3+ distinct tools/patterns | Full kit with 10+ skills |
+| Simple domain, few patterns | Minimal kit (5 skills, 1 rule file) |
+| Kit needs user-specific config | Include config/kit.config.template.md + /kit-setup skill |
+| Kit integrates with external API/tool | Include MCP server stub in manifest |
+| Kit targets beginners | More knowledge docs, simpler rules, `/getting-started` skill |
+| Kit targets experts | Fewer basics, more advanced patterns, code-heavy skills |
+| Distributing to a team | Include install.sh script, README, manifest with author field |
+
+## Deep Reference
+For full kit structure and component anatomy: @~/.claude/knowledge/kit-maker/kit-anatomy.md

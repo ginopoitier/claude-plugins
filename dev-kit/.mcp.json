@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "dev-kit-mcp": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "/path/to/dev-kit/mcp/publish/DevKit.Mcp.dll",
+        "--solution",
+        "/path/to/your/solution.sln"
+      ],
+      "env": {
+        "Neo4j__Uri": "bolt://localhost:7687",
+        "Neo4j__Username": "neo4j",
+        "Neo4j__Password": ""
+      }
+    }
+  }
+}

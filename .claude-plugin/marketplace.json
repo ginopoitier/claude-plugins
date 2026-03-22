@@ -1,0 +1,42 @@
+{
+  "name": "ginopoitier-plugins",
+  "owner": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "metadata": {
+    "description": "Personal Claude Code plugin marketplace — dev-kit (.NET/Vue tech lead toolkit with SDLC workflow) and kit-maker (build and audit Claude Code plugins)",
+    "version": "1.1.0"
+  },
+  "plugins": [
+    {
+      "name": "dev-kit",
+      "source": "./dev-kit",
+      "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, Atlassian MCP integration, and full tech lead workflow (epics, SDRs, refinement, SDLC compliance, PR prep, standup).",
+      "version": "0.3.0",
+      "author": {
+        "name": "Gino Poitier"
+      },
+      "license": "MIT",
+      "keywords": [
+        "dotnet", "csharp", "vue", "typescript",
+        "clean-architecture", "cqrs", "ef-core", "mediatr",
+        "serilog", "signalr", "tailwindcss", "sql-server",
+        "teamcity", "octopus", "atlassian", "github-actions"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "kit-maker",
+      "source": "./kit-maker",
+      "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding, kit health checks, and quality standards.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Gino Poitier"
+      },
+      "license": "MIT",
+      "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
+      "category": "tooling"
+    }
+  ]
+}
