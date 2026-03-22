@@ -7,24 +7,5 @@
   },
   "license": "MIT",
   "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
-  "commands": "./skills/",
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-skill-frontmatter.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "type": "command",
-        "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-sync-skills-index.sh"
-      }
-    ]
-  }
+  "commands": "./skills/"
 }
