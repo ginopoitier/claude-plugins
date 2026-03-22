@@ -7,14 +7,14 @@ Personal Claude Code plugin marketplace. One repository — all plugins.
 Add this marketplace in Claude Code:
 
 ```
-/plugin marketplace add YOUR_ORG/claude-plugins
+/plugin marketplace add ginopoitier/claude-plugins
 ```
 
 Install a plugin:
 
 ```
-/plugin install dev-kit@YOUR_ORG-plugins
-/plugin install kit-maker@YOUR_ORG-plugins
+/plugin install dev-kit@ginopoitier-plugins
+/plugin install kit-maker@ginopoitier-plugins
 ```
 
 Update all plugins:
@@ -73,10 +73,10 @@ To suggest these plugins to everyone who opens a project:
 ```json
 {
   "extraKnownMarketplaces": {
-    "YOUR_ORG-plugins": {
+    "ginopoitier-plugins": {
       "source": {
         "source": "github",
-        "repo": "YOUR_ORG/claude-plugins"
+        "repo": "ginopoitier/claude-plugins"
       }
     }
   }

@@ -62,32 +62,28 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 First, add your marketplace:
 
 ```
-/plugin marketplace add YOUR_ORG/claude-marketplace
+/plugin marketplace add ginopoitier/claude-plugins
 ```
 
 Then install dev-kit:
 
 ```
-/plugin install dev-kit@YOUR_ORG-plugins
+/plugin install dev-kit@ginopoitier-plugins
 ```
 
 Preview before installing:
 
 ```
-/plugin install dev-kit@YOUR_ORG-plugins --dry-run
+/plugin install dev-kit@ginopoitier-plugins --dry-run
 ```
 
-### Direct install
+### Direct install (local development)
+
+Clone the repo and install the plugin locally:
 
 ```bash
-# From GitHub
-curl -sSL https://raw.githubusercontent.com/YOUR_ORG/dev-kit/main/install.sh | bash
-
-# From local directory
-bash /path/to/dev-kit/install.sh
-
-# Dry run first
-bash install.sh --dry-run
+git clone https://github.com/ginopoitier/claude-plugins.git
+/plugin install ./claude-plugins/dev-kit
 ```
 
 ### Validate the plugin (local development)
