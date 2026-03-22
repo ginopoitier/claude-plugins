@@ -7,5 +7,15 @@
   },
   "license": "MIT",
   "keywords": ["dotnet", "vue", "clean-architecture", "cqrs", "ef-core"],
-  "commands": "./skills/"
+  "commands": "./skills/",
+  "mcpServers": {
+    "devkit-mcp": {
+      "type": "stdio",
+      "command": "devkit-mcp"
+    },
+    "atlassian": {
+      "type": "sse",
+      "url": "https://mcp.atlassian.com/v1/sse"
+    }
+  }
 }
