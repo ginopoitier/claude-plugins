@@ -1,9 +1,11 @@
 {
   "id": "kit-maker",
-  "name": "Kit Maker",
+  "name": "kit-maker",
   "version": "1.0.0",
   "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
-  "author": "Kit Maker Team",
+  "author": {
+    "name": "Gino Poitier"
+  },
   "tags": ["meta", "scaffolding", "kit-creation", "plugin-development"],
   "requires": [],
   "install": {
@@ -14,6 +16,6 @@
     "hooks": "~/.claude/hooks/kit-maker/"
   },
   "entrypoint": "CLAUDE.md",
-  "commands": ["/autonomous-loops", "/context-discipline", "/convention-learner", "/instinct-system", "/kit-health-check", "/kit-packager", "/kit-setup", "/learning-log", "/model-selection", "/scaffold-agent", "/scaffold-kit", "/scaffold-knowledge", "/scaffold-rule", "/scaffold-skill", "/self-correction-loop", "/self-evolution", "/skill-auditor", "/verification-loop"],
+  "commands": ["autonomous-loops", "context-discipline", "convention-learner", "instinct-system", "kit-health-check", "kit-packager", "kit-setup", "learning-log", "model-selection", "scaffold-agent", "scaffold-kit", "scaffold-knowledge", "scaffold-rule", "scaffold-skill", "self-correction-loop", "self-evolution", "skill-auditor", "verification-loop"],
   "mcp": null
 }
