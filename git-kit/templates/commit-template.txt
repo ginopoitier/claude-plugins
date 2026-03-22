@@ -1,0 +1,20 @@
+# <type>(<scope>): <subject> (max 72 chars)
+# |<----  Using a maximum of 72 characters  ---->|
+#
+# Explain WHY this change is made (not what — the diff shows that):
+#
+#
+# --- COMMIT END ---
+# Type: feat | fix | docs | style | refactor | test | chore | perf | ci
+# Scope: the module, component, or area affected (optional)
+# Subject: imperative mood — "Add X", not "Added X" or "Adds X"
+#
+# Footer (optional):
+# Fixes #<issue>
+# Closes #<issue>
+#
+# --- REMINDERS ---
+# Atomic: one logical change per commit
+# Subject: under 72 characters, imperative mood
+# Body: explain WHY, not WHAT (the diff shows what)
+# Breaking change: add BREAKING CHANGE: in footer or ! after type

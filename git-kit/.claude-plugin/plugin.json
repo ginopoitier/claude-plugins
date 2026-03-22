@@ -1,0 +1,12 @@
+{
+  "name": "git-kit",
+  "version": "1.0.0",
+  "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, undo, and repo health for developers.",
+  "author": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["git", "version-control", "commits", "branching", "rebase", "cli"],
+  "commands": "./skills/"
+}

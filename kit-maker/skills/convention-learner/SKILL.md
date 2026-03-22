@@ -4,7 +4,7 @@ description: >
   Detects and enforces project-specific coding conventions by analyzing
   existing codebase patterns using Grep, Glob, and config files.
   Works for any language or framework — learns naming, structure, style, and test
-  organization from what already exists. Load when: "conventions", "coding standards",
+  organization from what already exists. Load this skill when: "conventions", "coding standards",
   "project patterns", "enforce style", "detect patterns", "learn conventions", "code consistency".
 user-invocable: false
 allowed-tools: Read, Write, Grep, Glob, Bash
