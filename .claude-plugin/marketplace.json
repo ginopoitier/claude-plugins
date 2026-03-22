@@ -5,8 +5,8 @@
     "email": "gino.poitier@gmail.com"
   },
   "metadata": {
-    "description": "Personal Claude Code plugin marketplace — dev-kit (.NET/Vue tech lead toolkit with SDLC workflow) and kit-maker (build and audit Claude Code plugins)",
-    "version": "1.1.0"
+    "description": "Personal Claude Code plugin marketplace — dev-kit (.NET/Vue tech lead toolkit with SDLC workflow), kit-maker (build and audit Claude Code plugins), and git-kit (git CLI toolkit).",
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -37,6 +37,18 @@
       "license": "MIT",
       "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
       "category": "tooling"
+    },
+    {
+      "name": "git-kit",
+      "source": "./git-kit",
+      "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, stash, undo, repo health, and hooks. Includes installable git hooks (commit-msg validator, pre-push guard) and two specialist agents (git-historian, git-surgeon).",
+      "version": "1.0.0",
+      "author": {
+        "name": "Gino Poitier"
+      },
+      "license": "MIT",
+      "keywords": ["git", "version-control", "commits", "branching", "rebase", "cli"],
+      "category": "development"
     }
   ]
 }
