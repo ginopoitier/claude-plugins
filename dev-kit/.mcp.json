@@ -2,16 +2,7 @@
   "mcpServers": {
     "devkit-mcp": {
       "type": "stdio",
-      "command": "devkit-mcp",
-      "args": [
-        "--solution",
-        "${SOLUTION_PATH}"
-      ],
-      "env": {
-        "Neo4j__Uri": "${NEO4J_URI}",
-        "Neo4j__Username": "${NEO4J_USERNAME}",
-        "Neo4j__Password": "${NEO4J_PASSWORD}"
-      }
+      "command": "devkit-mcp"
     },
     "atlassian": {
       "type": "sse",
