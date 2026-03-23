@@ -25,21 +25,21 @@ Claude Code kits extend Claude's behavior for a specific domain. Kit Maker gives
 
 ## Install
 
+### Via Claude Code plugin system (recommended)
+
+```
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install kit-maker@ginopoitier-plugins
+```
+
+### Direct install (local development)
+
 ```bash
-git clone https://github.com/your-org/kit-maker
-cd kit-maker
-bash install.sh
+git clone https://github.com/ginopoitier/claude-plugins.git
+/plugin install ./claude-plugins/kit-maker
 ```
 
-Then add to your `~/.claude/CLAUDE.md`:
-```markdown
-@~/.claude/rules/kit-maker/skill-format.md
-@~/.claude/rules/kit-maker/kit-structure.md
-@~/.claude/rules/kit-maker/quality-standards.md
-@~/.claude/rules/kit-maker/naming-conventions.md
-```
-
-Restart Claude Code. Run `/scaffold-kit` to create your first kit.
+Restart Claude Code. Run `/kit-setup` to configure, then `/scaffold-kit` to create your first kit.
 
 ## Configure
 

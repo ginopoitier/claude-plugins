@@ -4,7 +4,7 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 
 ## What's Included
 
-### Skills (51)
+### Skills (49 user-invokable + 7 auto-active = 56 total)
 
 | Category | Skills |
 |----------|--------|
@@ -18,10 +18,11 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 | **Session & Workflow** | `/session-management`, `/workflow-mastery`, `/wrap-up-ritual` |
 | **Diagnostics** | `/seq-dig` |
 | **Project Setup** | `/dotnet-init`, `/project-setup`, `/project-structure`, `/architecture-advisor` |
-| **Kit** | `/kit-setup`, `/marketplace` |
-| **Meta (auto-active)** | `instinct-system`, `self-correction-loop`, `autonomous-loops`, `learning-log` |
+| **Tech Lead Workflow** | `/epic`, `/tech-refinement`, `/sdr`, `/sdlc-check`, `/pr-prep`, `/standup`, `/review` |
+| **Kit** | `/kit-setup` |
+| **Meta (auto-active)** | `instinct-system`, `self-correction-loop`, `autonomous-loops`, `learning-log`, `context-discipline`, `model-selection`, `verification-loop` |
 
-### Agents (11)
+### Agents (12)
 
 | Agent | Role |
 |-------|------|
@@ -36,6 +37,7 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 | `performance-analyst` | N+1 queries, missing indexes, caching opportunities |
 | `refactor-cleaner` | Technical debt, modern C# idioms, complexity reduction |
 | `security-auditor` | OWASP, auth/authz, secrets, vulnerability scanning |
+| `tech-lead` | Tech lead oversight — epics, refinement, PR prep, SDLC compliance |
 
 ### MCP Integrations
 
