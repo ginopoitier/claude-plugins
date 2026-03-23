@@ -216,3 +216,5 @@ Always summarize findings and suggest concrete next actions:
 2. For blocking → identify the head blocker query and suggest optimization
 3. For slow queries → suggest Query Store review and specific indexing strategy
 4. For pending migrations → remind to run `/migration-workflow apply`
+
+$ARGUMENTS

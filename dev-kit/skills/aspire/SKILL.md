@@ -157,3 +157,9 @@ builder.AddNpgsqlDbContext<AppDbContext>("myappdb");
 | Service discovery | Aspire's built-in service discovery |
 | Production deployment | Docker / Kubernetes / Azure Container Apps |
 | Observability in local dev | Aspire dashboard (auto-configured) |
+
+## Execution
+
+Configure or scaffold the requested .NET Aspire component — AppHost, ServiceDefaults, resource references, or service discovery — following the patterns above and applying the appropriate decision guide entry.
+
+$ARGUMENTS

@@ -277,3 +277,5 @@ Read `~/.claude/kit.config.md` for `DEFAULT_NAMESPACE` and `NEW_PROJECT_BASE_PAT
 1. Remind the user to add EF Core configuration in Infrastructure (`IEntityTypeConfiguration<TEntity>`)
 2. Remind to configure the strongly-typed ID value converter
 3. Remind to register domain events if using the Outbox pattern
+
+$ARGUMENTS

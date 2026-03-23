@@ -1,0 +1,12 @@
+{
+  "name": "confluence-kit",
+  "version": "1.0.1",
+  "description": "Confluence documentation toolkit — ADRs, SDRs, SDLC pages, and work documentation via the Atlassian MCP.",
+  "author": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["confluence", "documentation", "adr", "sdr", "atlassian"],
+  "commands": "./skills/"
+}

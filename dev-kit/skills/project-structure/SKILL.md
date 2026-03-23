@@ -215,3 +215,9 @@ tests/
 | Large / modular app | Module-per-project with shared `Contracts` |
 | Multiple versions of same package | Never — use central management to enforce one version |
 | Legacy `.sln` file exists | Migrate to `.slnx` — run `dotnet sln migrate MyApp.sln` |
+
+## Execution
+
+Scaffold or audit the solution structure — generate `Directory.Build.props`, `Directory.Packages.props`, `.slnx`, `global.json`, and `.editorconfig` — or flag violations in an existing layout.
+
+$ARGUMENTS

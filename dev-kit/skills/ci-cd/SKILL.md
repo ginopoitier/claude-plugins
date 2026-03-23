@@ -368,3 +368,9 @@ Before generating a pipeline file, check config:
 ```
 
 If no config exists, ask: "Are you using GitHub Actions, TeamCity, or Azure DevOps for CI?"
+
+## Execution
+
+Read `CI_PROVIDER` and `CD_PROVIDER` from config, then generate the appropriate pipeline configuration file(s) for the user's toolchain with project-specific values substituted — never call CI/CD APIs directly.
+
+$ARGUMENTS

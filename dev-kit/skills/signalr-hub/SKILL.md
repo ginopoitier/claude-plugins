@@ -222,3 +222,5 @@ Generates:
 
 ### After Generation
 Run `/verify` to ensure the solution builds cleanly.
+
+$ARGUMENTS

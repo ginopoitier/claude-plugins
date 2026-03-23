@@ -9,9 +9,9 @@ kits/{kit-name}/
   CLAUDE.md               # Entry point — loads all rules, lists all skills
   .claude-plugin/
     plugin.json           # Official Claude Code plugin manifest (required for /plugin install)
-    marketplace.json      # Optional — marketplace registration metadata
   config/
-    kit.config.template.md  # User-fillable config values (one per kit)
+    kit.config.template.md    # User-fillable config values
+    project.config.template.md  # Project-level config values (committed to repos)
   rules/                  # Always-loaded domain rules (3–8 files)
     {rule-name}.md
   skills/                 # Lazy-loaded behaviors (subdirs with SKILL.md)
@@ -23,9 +23,12 @@ kits/{kit-name}/
     {template-name}/
   agents/                 # Specialized agent definitions
     {agent-name}.md
-  hooks/                  # Shell scripts for automated enforcement
-    {hook-name}.sh
+  hooks/                  # Required — settings check on every prompt
+    check-settings.sh     # Checks config file exists + required fields set; exit 0 always
+    hooks.json            # Registers check-settings.sh as UserPromptSubmit hook
 ```
+
+> **`marketplace.json`** lives at the **repo root** `.claude-plugin/marketplace.json` — one catalog for all kits. Never create a per-kit marketplace.json.
 
 ## CLAUDE.md Structure (required sections, in order)
 
@@ -53,9 +56,13 @@ An `install.sh` script is **optional** — useful for manual/offline installatio
 - Keep rules **always-loaded** (≤8, high value) — everything else is lazy
 - Include a `config/kit.config.template.md` if the kit needs user-specific values
 - Every kit ships with a `/kit-health-check` equivalent for its domain
+- Always include `hooks/check-settings.sh` + `hooks/hooks.json` — without them, users are never prompted to configure the kit
+- Bump `plugin.json` version by at least `0.0.1` before every push — and update the matching entry in the root `marketplace.json`
 
 ## DON'T
 - Don't put knowledge docs in `rules/` — rules are loaded every session, knowledge is loaded on demand
 - Don't create rules that are just prose — rules must have DO/DON'T structure
 - Don't create skills without trigger keywords — they'll never auto-load
 - Don't reference hardcoded paths in CLAUDE.md — use `~/.claude/` prefix always
+- Don't create `kit.manifest.json` or `install.sh` — they are not part of the distribution format
+- Don't create a per-kit `marketplace.json` — the marketplace catalog lives at the repo root only

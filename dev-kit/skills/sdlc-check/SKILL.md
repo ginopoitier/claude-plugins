@@ -187,3 +187,9 @@ If SDLC says "optional" or "consider" → 🔵 Suggestion
 | SDLC page not found for a check type | Apply sensible defaults, note the gap clearly |
 | Blocker found | Do not mark as ready/merged — return actionable fix |
 | All checks pass | State verdict clearly: "✅ READY for {stage}" |
+
+## Execution
+
+Detect the check stage from the argument, fetch the relevant SDLC pages from Confluence, then produce a structured compliance report with clearly separated blockers, warnings, and passing items — and an unambiguous verdict.
+
+$ARGUMENTS

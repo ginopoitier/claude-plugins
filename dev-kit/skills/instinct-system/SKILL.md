@@ -251,3 +251,9 @@ Instincts that can't reach 0.5 within 3 sessions get removed.
 | Generating code and instinct is 0.7+ | Apply silently, mention on first use |
 | Conflicting instincts in same category | Keep both, note the conflict, seek the distinguishing condition |
 | User partially confirms ("only for commands") | Narrow scope, reset to 0.5, re-confirm with narrowed definition |
+
+## Execution
+
+Load `.claude/instincts.md` at session start, track new pattern observations during work using the confidence scoring rules, seek active confirmation, and promote mature instincts to MEMORY.md when they reach 0.9.
+
+$ARGUMENTS

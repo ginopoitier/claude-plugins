@@ -187,7 +187,8 @@ Break a large feature or epic into a structured multi-session plan:
 2. **Explore codebase**: Spawn an Explore subagent (Haiku) to understand the affected areas — what exists, what needs to be created
 3. **Architecture decision**: If the approach is non-obvious or involves a significant trade-off, create an ADR via `/adr new ...` before planning sessions
 4. **Create workflow file** at `~/.claude/projects/{sanitized-cwd}/workflow.md` using the format above
-5. Show the plan and ask for approval before saving
+5. **Obsidian (optional):** If `~/.claude/obsidian-kit.config.md` exists and `.claude/obsidian.config.md` has `OBSIDIAN_PROJECT_FOLDER`, mirror the workflow file to `{VAULT}/{PROJECT_FOLDER}/workflow-{epic-kebab}.md`. This makes the plan visible across repos in the same project.
+6. Show the plan and ask for approval before saving
 
 ### `/workflow-mastery next`
 Determine the best next task to work on:
@@ -223,3 +224,5 @@ Show current epic progress:
 - Use with `/session-management` for individual session tracking
 - Use with `/adr` to document architecture decisions made during planning
 - Use with `/review` before marking sessions complete
+
+$ARGUMENTS

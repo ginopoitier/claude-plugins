@@ -247,3 +247,5 @@ Always read the context of any hit before escalating to a finding.
 - Check for `app.UseHsts()`
 - Look for CORS configuration — flag `AllowAnyOrigin` with credentials
 - Check rate limiting is applied to auth endpoints
+
+$ARGUMENTS

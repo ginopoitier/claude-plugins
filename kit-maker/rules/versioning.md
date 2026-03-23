@@ -18,25 +18,26 @@ Kits use semantic versioning: `MAJOR.MINOR.PATCH`. Version is declared in
 
 ## DO
 - Bump the version before staging the commit — not after
-- Update **both** `plugin.json` and `marketplace.json` when bumping
+- Update **both** `plugin.json` (per-kit) AND the matching entry in the **root** `marketplace.json` when bumping
 - Use `git diff --stat` to review all changed files before deciding the bump level
 - When in doubt between MINOR and PATCH, use MINOR
+- Default bump for any session's worth of changes is PATCH (`0.0.1`) unless new skills were added
 
 ## DON'T
 - Don't ship two consecutive commits with the same version
 - Don't bump MAJOR for additive changes — adding skills is always MINOR
-- Don't forget `marketplace.json` — mismatched versions between files cause install confusion
+- Don't forget to update the root `marketplace.json` — mismatched versions cause install confusion
 
 ## Pre-Commit Version Bump Checklist
 
 Before every `git commit` on a kit:
 
 ```
-1. git diff --stat                         # review scope of changes
+1. git diff --stat                                  # review scope of changes
 2. Determine bump level from the table above
-3. Update version in .claude-plugin/plugin.json
-4. Update version in .claude-plugin/marketplace.json (matching entry)
-5. git add .claude-plugin/                 # stage both files
+3. Update version in {kit}/.claude-plugin/plugin.json
+4. Update matching plugin entry in {repo-root}/.claude-plugin/marketplace.json
+5. git add {kit}/.claude-plugin/ .claude-plugin/   # stage both files
 6. Proceed with commit
 ```
 

@@ -45,7 +45,7 @@ Auto-detect rules:
 | Input | Action |
 |-------|--------|
 | Nothing | git diff HEAD |
-| PR number | Fetch diff via GitHub/Bitbucket VCS MCP using VCS_ORG from kit config |
+| PR number | Detect platform from git remote → use `/pr diff {n}` from github-kit or bitbucket-kit |
 | File path | Read file directly |
 | Branch name | git diff main...{branch} |
 

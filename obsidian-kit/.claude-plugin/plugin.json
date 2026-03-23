@@ -1,0 +1,12 @@
+{
+  "name": "obsidian-kit",
+  "version": "1.0.1",
+  "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault.",
+  "author": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["obsidian", "notes", "personal-knowledge", "markdown"],
+  "commands": "./skills/"
+}

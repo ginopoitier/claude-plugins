@@ -34,12 +34,6 @@ CACHING=memory                            # memory | redis | hybrid | none
 FRONTEND=none                             # none | vue | blazor | react
 ```
 
-## Version Control (project-specific)
-```
-VCS_REPO=                                 # repo name, e.g. myorg/order-service (GitHub) or myworkspace/order-service (Bitbucket)
-DEFAULT_BRANCH=main                       # overrides user VCS_DEFAULT_BRANCH if set
-```
-
 ## CI / CD (project-specific)
 ```
 # TeamCity (leave blank if using user CI_PROVIDER=github-actions)
@@ -51,20 +45,6 @@ OCTOPUS_PROJECT=                          # e.g. OrderService
 OCTOPUS_LIFECYCLE=                        # e.g. Default Lifecycle
 ```
 
-## Project Management (project-specific)
-```
-# Jira (leave blank if PM_PROVIDER=none or github-issues)
-JIRA_PROJECT_KEY=                         # e.g. ORD or CUST — overrides JIRA_DEFAULT_PROJECT_KEY
-
-# Confluence (leave blank if not using Confluence)
-CONFLUENCE_SPACE_KEY=                     # e.g. ORD — overrides CONFLUENCE_DEFAULT_SPACE_KEY
-
-# SDR storage — where /sdr saves Software Decision Records in Confluence
-# Defaults to CONFLUENCE_SPACE_KEY + "Software Decision Records" if blank.
-SDR_CONFLUENCE_SPACE=                     # Confluence space key for SDRs (defaults to CONFLUENCE_SPACE_KEY)
-SDR_PARENT_PAGE=Software Decision Records # Title of the parent page under which SDRs are stored
-```
-
 ## Database Connections (local dev)
 ```
 SQLSERVER_CONNECTION_STRING=Server=localhost;Database=;Trusted_Connection=True;TrustServerCertificate=True
@@ -72,8 +52,3 @@ NEO4J_URI=bolt://localhost:7687
 NEO4J_USERNAME=neo4j
 ```
 
-## Documentation (project-specific)
-```
-# Obsidian subfolder for this project (overrides OBSIDIAN_PROJECTS_FOLDER)
-OBSIDIAN_PROJECT_FOLDER=                  # e.g. Projects/OrderService
-```

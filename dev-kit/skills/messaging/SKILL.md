@@ -193,3 +193,9 @@ await bus.PublishAsync(new OrderCreated(...));
 | Local development broker | RabbitMQ (via Docker or Aspire) |
 | Production cloud broker | Azure Service Bus or RabbitMQ |
 | Want single lib for mediator + messaging | Wolverine (replaces both MediatR and MassTransit) |
+
+## Execution
+
+Implement the requested messaging scenario — Wolverine or MassTransit setup, outbox configuration, event publishing, consumer, or saga — using the transactional outbox and the patterns above.
+
+$ARGUMENTS

@@ -7,6 +7,7 @@ description: >
   "run tests", "pre-review check", "phase 1", "phase 4", "dotnet build", "dotnet test",
   "ready for review", "verification pipeline", "quality gate".
 user-invocable: false
+allowed-tools: []
 ---
 
 # Verification Loop
@@ -73,3 +74,9 @@ Phase 7 Diff         ✅ PASS
 Verdict: READY FOR REVIEW
 Warnings to address: [list]
 ```
+
+## Execution
+
+Run all 7 verification phases in order, halting on Phase 1 or Phase 4 failures and logging all other findings, then produce the structured Verification Report with a clear READY FOR REVIEW or NEEDS FIXES verdict.
+
+$ARGUMENTS

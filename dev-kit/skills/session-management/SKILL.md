@@ -141,7 +141,15 @@ Where {sanitized-cwd} is the current working directory with slashes replaced by 
 3. Ask what the user wants to accomplish if no goal given
 4. Write a session file to `~/.claude/projects/{sanitized-cwd}/session.md` using the format above
 5. Create a TodoWrite task list matching the plan
-6. Confirm the session started and state the first task
+6. **Obsidian (optional):** If `~/.claude/obsidian-kit.config.md` exists, append a session-start entry to today's dev journal:
+   ```bash
+   VAULT=$(grep "^OBSIDIAN_VAULT_PATH=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
+   DEV_FOLDER=$(grep "^OBSIDIAN_DEV_FOLDER=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
+   JOURNAL="${VAULT}/${DEV_FOLDER:-Dev}/$(date +%Y-%m-%d).md"
+   # Append: ## Session Started HH:MM — {goal}
+   ```
+   If the journal file doesn't exist yet, create it with a minimal frontmatter header.
+7. Confirm the session started and state the first task
 
 ### `/session-management end` (or `/session-management stop`)
 1. Read the current `session.md`
@@ -152,7 +160,8 @@ Where {sanitized-cwd} is the current working directory with slashes replaced by 
    - Any blockers or in-progress items noted
    - A **Handoff** section: what was done, what's next, any important context
 5. Save project memory for next session with key facts
-6. Output a clean session summary for the user
+6. **Obsidian (optional):** If `~/.claude/obsidian-kit.config.md` exists, append a session-end summary to today's dev journal (same file as session start). Include: goal, completed items, what's pending, key decisions.
+7. Output a clean session summary for the user
 
 ### `/session-management status`
 1. Read `session.md` and current TodoWrite state
@@ -164,3 +173,5 @@ Where {sanitized-cwd} is the current working directory with slashes replaced by 
 2. Reconstruct the TodoWrite task list from incomplete items
 3. Show what was done and what remains
 4. Ask the user to confirm resuming or starting fresh
+
+$ARGUMENTS

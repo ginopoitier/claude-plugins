@@ -38,18 +38,21 @@
 Config is split into two levels — **never hardcode values**:
 
 ### User / Device Level — `~/.claude/kit.config.md`
-Device-specific toolchain and credentials. Different on each machine:
-- **Home:** `VCS_HOST=github`, `CI_PROVIDER=github-actions`, `DOCS_PRIMARY=obsidian`
-- **Work:** `VCS_HOST=bitbucket`, `CI_PROVIDER=teamcity`, `CD_PROVIDER=octopus`, `PM_PROVIDER=jira`
+Device-specific toolchain. Different on each machine:
+- **Home:** `CI_PROVIDER=github-actions`, `DOCS_PRIMARY=obsidian`
+- **Work:** `CI_PROVIDER=teamcity`, `CD_PROVIDER=octopus`, `PM_PROVIDER=jira`
 
-Run `/kit-setup` to configure. Key values: `VCS_HOST` · `VCS_ORG` · `CI_PROVIDER` · `CD_PROVIDER` · `PM_PROVIDER` · `JIRA_BASE_URL` · `CONFLUENCE_BASE_URL` · `TEAMCITY_BASE_URL` · `OCTOPUS_URL` · `OBSIDIAN_VAULT_PATH` · `SEQ_URL` · `DEFAULT_NAMESPACE` · `SPRINT_DURATION_DAYS` · `SDLC_CONFLUENCE_SPACE` · `SDLC_PARENT_PAGE`
+Run `/kit-setup` to configure. Key values: `CI_PROVIDER` · `CD_PROVIDER` · `TEAMCITY_BASE_URL` · `OCTOPUS_URL` · `SEQ_URL` · `DEFAULT_NAMESPACE`
 
-**Atlassian MCP** (work machines): Jira and Confluence use the Atlassian Remote MCP — no API token in config. Authenticate once with `/mcp authenticate atlassian`.
+**VCS / Git:** `/github-setup` (home) or `/bitbucket-setup` (work) · `/git-setup`
+**Jira:** `/jira-setup` → `~/.claude/jira-kit.config.md`
+**Confluence:** `/confluence-setup` → `~/.claude/confluence-kit.config.md`
+**Obsidian:** `/obsidian-setup` → `~/.claude/obsidian-kit.config.md`
 
 ### Project Level — `.claude/project.config.md` (in each repo)
 Project-specific identifiers and stack choices. Committed to version control:
 - Architecture, database, messaging, caching choices
-- `PROJECT_NAMESPACE` · `VCS_REPO` · `JIRA_PROJECT_KEY` · `CONFLUENCE_SPACE_KEY` · `SDR_CONFLUENCE_SPACE` · `SDR_PARENT_PAGE` · `TEAMCITY_PROJECT_ID` · `OCTOPUS_PROJECT` · `SQLSERVER_CONNECTION_STRING`
+- `PROJECT_NAMESPACE` · `TEAMCITY_PROJECT_ID` · `OCTOPUS_PROJECT` · `SQLSERVER_CONNECTION_STRING`
 
 Run `/project-setup` to generate. Project config **overrides** user config where values overlap.
 
@@ -58,11 +61,11 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 
 ## Documentation Target
 
-Check `DOCS_PRIMARY` in kit config:
-- `obsidian` → write to `OBSIDIAN_VAULT_PATH/OBSIDIAN_DEV_FOLDER/`
-- `confluence` → page in `CONFLUENCE_SPACE_KEY`
-- `both` → write to both
-- `GRAPHRAG_MCP_URL` set → also index in GraphRAG after writing
+Documentation is handled by dedicated kits:
+- **obsidian-kit** — personal notes, dev journal (`/note`)
+- **confluence-kit** — ADRs, SDRs, work documentation (`/adr`, `/sdr`)
+
+When a dev-kit skill needs to write documentation, check which kit is installed and read the vault path or space key from its config.
 
 ## Skills Available
 
@@ -108,14 +111,12 @@ Check `DOCS_PRIMARY` in kit config:
 - `/migration-workflow` — EF Core migration management
 
 ### Tech Lead Workflow
-- `/epic` — write epics + child user stories in Jira (reads story format from SDLC)
-- `/tech-refinement` — technically refine a story: unknowns, subtasks with context + time estimates, DoR check
-- `/sdr` — Software Decision Records: create, list, show, deprecate (stored in Confluence)
-- `/sdlc-check` — validate work against company SDLC (pre-sprint, pre-merge, pre-release)
-- `/pr-prep` — prepare a PR description from the diff + Jira ticket ACs + SDLC template
-- `/standup` — morning standup brief: PRs to review, blockers, sprint health, your items
+- `/sdlc-check` — validate work against company SDLC (pre-sprint, pre-merge, pre-release) — reads SDLC from confluence-kit config
+- `/pr-prep` — prepare a PR description from the diff + Jira ticket ACs + SDLC template — reads Jira from jira-kit config
 - `/review` — tech lead code review with `--mentoring` (coaching) or `--gatekeeper` (strict) modes
-- `/adr` — Architecture Decision Records
+
+> Sprint skills moved to **jira-kit**: `/epic` · `/tech-refinement` · `/standup`
+> Decision records moved to **confluence-kit**: `/adr` · `/sdr`
 
 ### DevOps & Environment
 - `/docker` — Docker Compose management and scaffolding

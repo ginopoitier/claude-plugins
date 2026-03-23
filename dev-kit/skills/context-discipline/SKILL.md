@@ -8,6 +8,7 @@ description: >
   "file reads", "context filling", "Grep vs Read", "context discipline", "token cost",
   "context management", "avoid reading files", "context overflow".
 user-invocable: false
+allowed-tools: []
 ---
 
 # Context Discipline
@@ -69,3 +70,9 @@ If you're deep into implementation and context is filling up, delegate remaining
 - Don't load the full knowledge base upfront — load on demand
 - Don't explore in the main thread when an Explore subagent would do
 - Don't repeat tool calls — cache results in your working notes
+
+## Execution
+
+Apply context discipline automatically throughout every session: prefer targeted tool calls over full file reads, load skills lazily, delegate broad exploration to subagents, and stay within phase budgets.
+
+$ARGUMENTS

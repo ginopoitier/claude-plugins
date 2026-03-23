@@ -169,3 +169,9 @@ Spend that 20 minutes reviewing the authentication change instead
 | Rename/formatting/docs PR | Low (glance) | Tests pass, build passes |
 | EF Core query changes | High (15-30 min) | N+1, tracking, cancellation |
 | Middleware or filter changes | Critical (30+ min) | Blast radius — affects every request |
+
+## Execution
+
+Score the blast radius of the target code, identify the top-priority checks from the Top 10 list, then focus review effort proportionally — deep on critical paths, a glance on low-impact changes.
+
+$ARGUMENTS

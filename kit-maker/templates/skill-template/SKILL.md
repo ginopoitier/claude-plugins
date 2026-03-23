@@ -87,3 +87,9 @@ good code example
 | Scenario 4 | Specific recommendation |
 | Scenario 5 | Specific recommendation |
 | Scenario 6 | Specific recommendation |
+
+## Execution
+
+One sentence describing exactly what Claude should do when this skill is invoked — the entry point action. Reference the patterns and decision guide above to shape behavior.
+
+$ARGUMENTS

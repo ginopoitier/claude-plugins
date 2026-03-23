@@ -23,6 +23,8 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob  # only tools this skill need
 3. `## Patterns` — Code examples with `// GOOD` / `// BAD` labels, named subsections
 4. `## Anti-patterns` — The 3 most common mistakes with before/after examples
 5. `## Decision Guide` — Markdown table: Scenario → Recommendation
+6. `## Execution` — One sentence: what Claude does when this skill is invoked (the entry point)
+7. `$ARGUMENTS` — Literal token on its own line at the very end; receives user arguments at runtime
 
 ## DO
 - Include **5+ trigger keywords** in the description so Claude loads this skill at the right time
@@ -30,6 +32,7 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob  # only tools this skill need
 - Make the Decision Guide scannable — it's the most-referenced section
 - Keep Core Principles to 5 or fewer — more dilutes focus
 - Use `allowed-tools` to scope the skill — don't request tools it doesn't need
+- End every skill with `$ARGUMENTS` on its own line after `## Execution`
 
 ## DON'T
 - Don't write skills as prose documentation — every section must have code examples

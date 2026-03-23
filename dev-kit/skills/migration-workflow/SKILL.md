@@ -191,3 +191,5 @@ Generate idempotent SQL script for deployment:
 - Never run `database update` on prod without a backup
 - Always test migrations on a copy of production data first
 - Non-nullable column additions need a default value or two-phase migration
+
+$ARGUMENTS

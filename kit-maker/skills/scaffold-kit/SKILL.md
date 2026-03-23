@@ -17,7 +17,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 
 1. **Domain-first** — Before creating any files, deeply understand the domain. A dev kit looks nothing like a data-science kit or a security kit. Don't reuse structure blindly.
 2. **Meta-skills in every kit** — Every kit ships with context-discipline, model-selection, instinct-system, and self-correction-loop. These make the kit self-improving.
-3. **Install-ready from day one** — The kit.manifest.json and install conventions must be correct from the start. An uninstallable kit is a broken kit.
+3. **Install-ready from day one** — The `plugin.json` must be correct from the start, and `hooks/check-settings.sh` + `hooks/hooks.json` must exist. An uninstallable or silently-misconfigured kit is a broken kit.
 4. **Quality-gated release** — Run `/kit-health-check` before considering the kit ready for distribution.
 
 ## Patterns
@@ -40,9 +40,11 @@ Based on answers, produce a plan:
 ```
 kit-name/
   CLAUDE.md
-  kit.manifest.json
+  .claude-plugin/
+    plugin.json               # required for /plugin install
   config/
     kit.config.template.md    # if user-specific config needed
+    project.config.template.md  # project-level config (optional)
   rules/                      # 3–6 always-loaded rules
     {domain}-conventions.md
     {domain}-patterns.md
@@ -57,10 +59,11 @@ kit-name/
     self-correction-loop/
     learning-log/
     # Domain-specific
+    {domain}-setup/           # always include — runs on first use
     scaffold-{primary-artifact}/
     {domain}-health-check/
     {domain}-auditor/
-    [4–8 more domain skills]
+    [3–6 more domain skills]
   knowledge/                  # 3–6 reference docs
     {domain}-patterns.md
     [specific topic docs]
@@ -68,16 +71,19 @@ kit-name/
     [domain-specific templates]
   agents/                     # 2–4 specialized agents
     [role-based agents]
-  hooks/                      # 1–3 automation scripts
-    validate-{artifact}.sh
-    auto-sync-index.sh
+  hooks/                      # Required — always include both
+    check-settings.sh         # checks config exists + required fields; exit 0 always
+    hooks.json                # registers check-settings.sh as UserPromptSubmit hook
 ```
+
+> Do NOT create `kit.manifest.json` or `install.sh`. The marketplace catalog lives at the repo root `.claude-plugin/marketplace.json` — add a new entry there when creating a new kit.
 
 **Phase 3: Skeleton Generation**
 Generate in this order (each can be parallel):
 1. `CLAUDE.md` — entry point, references all rules and lists all skills
-2. `kit.manifest.json` — metadata, install paths, version
-3. All rule files (3–6 files)
+2. `.claude-plugin/plugin.json` — name, version, description, keywords, commands pointer
+3. `hooks/check-settings.sh` + `hooks/hooks.json` — settings enforcement on every prompt
+4. All rule files (3–6 files)
 4. All skill SKILL.md files (meta + domain)
 5. All knowledge docs
 6. Templates
@@ -105,37 +111,35 @@ For simple kits (≤5 skills, single domain), use the minimal template:
 
 ```
 kit-name/
-  CLAUDE.md                  # rules + 5 skills listed
-  kit.manifest.json
-  rules/{domain}.md          # single combined rule file
+  CLAUDE.md                     # rules + 5 skills listed
+  .claude-plugin/
+    plugin.json
+  rules/{domain}.md             # single combined rule file
   skills/{5 domain skills}/
   knowledge/{1 reference doc}.md
+  hooks/
+    check-settings.sh
+    hooks.json
 ```
 
-### kit.manifest.json Format
+### plugin.json Format
 
 ```json
 {
-  "id": "kit-name",
-  "name": "Kit Display Name",
+  "name": "kit-name",
   "version": "1.0.0",
   "description": "One sentence: what this kit does and who it's for",
-  "author": "author-name",
-  "tags": ["domain", "technology", "use-case"],
-  "requires": [],
-  "install": {
-    "rules": "~/.claude/rules/kit-name/",
-    "skills": "~/.claude/skills/",
-    "knowledge": "~/.claude/knowledge/kit-name/",
-    "agents": "~/.claude/agents/",
-    "hooks": "~/.claude/hooks/kit-name/"
+  "author": {
+    "name": "Author Name",
+    "email": "author@example.com"
   },
-  "config": "config/kit.config.template.md",
-  "entrypoint": "CLAUDE.md",
-  "commands": ["/scaffold-X", "/health-check", "/audit"],
-  "mcp": null
+  "license": "MIT",
+  "keywords": ["domain", "technology", "use-case"],
+  "commands": "./skills/"
 }
 ```
+
+After creating the kit, add an entry for it in the repo root `.claude-plugin/marketplace.json`.
 
 ## Anti-patterns
 
@@ -193,7 +197,7 @@ skills/
 | Kit integrates with external API/tool | Include MCP server stub in manifest |
 | Kit targets beginners | More knowledge docs, simpler rules, `/getting-started` skill |
 | Kit targets experts | Fewer basics, more advanced patterns, code-heavy skills |
-| Distributing to a team | Include install.sh script, README, manifest with author field |
+| Distributing to a team | Include README.md + add entry to root marketplace.json |
 
 ## Deep Reference
 For full kit structure and component anatomy: @~/.claude/knowledge/kit-maker/kit-anatomy.md

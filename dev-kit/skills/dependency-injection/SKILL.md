@@ -174,3 +174,9 @@ public class OrderService(AppDbContext db) { }
 | Convention-based registration | Scrutor |
 | Runtime implementation selection | Factory delegate |
 | Strongly-typed config | `AddOptions<T>().BindConfiguration()` |
+
+## Execution
+
+Register or refactor the requested service using the correct lifetime and DI pattern — keyed services, decorator, factory, or convention-based scanning — avoiding captive dependency and service locator pitfalls.
+
+$ARGUMENTS

@@ -155,3 +155,9 @@ app.MapScalarApiReference(options =>
 | Dark theme preference | `.ForceDarkMode()` or `.WithTheme(ScalarTheme.Moon)` |
 | Multiple API versions | Multiple `AddOpenApi()` calls — Scalar detects automatically |
 | Sensitive APIs | `.WithProxy(null)` to disable external proxy |
+
+## Execution
+
+Configure Scalar as the API documentation UI — setup, theme selection, authentication prefill, proxy settings, or production authorization — wrapping in `IsDevelopment()` by default.
+
+$ARGUMENTS

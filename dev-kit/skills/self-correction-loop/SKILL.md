@@ -182,3 +182,9 @@ Claude reads it at session start and applies rules proactively
 | User asks to forget a rule | Remove it from MEMORY.md immediately |
 | Pattern observed but not yet confirmed | Create an instinct via `instinct-system` skill (confidence 0.3) instead of a MEMORY.md rule |
 | Instinct reaches 0.9 confidence | Promote to MEMORY.md as a permanent rule (see `instinct-system` skill) |
+
+## Execution
+
+Detect corrections the user makes during the session, generalize each to a class-level rule, deduplicate against existing entries, and write the result to the appropriate category in `MEMORY.md` — confirming to the user what was captured.
+
+$ARGUMENTS

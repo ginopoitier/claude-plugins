@@ -264,3 +264,5 @@ Follow all rules in `~/.claude/rules/csharp.md`, `~/.claude/rules/cqrs.md`, `~/.
 
 ### After Generation
 Run `/verify` to confirm the slice builds and the integration tests pass.
+
+$ARGUMENTS

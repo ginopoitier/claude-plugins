@@ -165,3 +165,9 @@ src/
 | MVP / startup, speed is priority | VSA |
 | Regulatory / compliance-heavy | Clean Architecture or DDD |
 | Will need independent scaling later | Modular Monolith |
+
+## Execution
+
+Run the full architecture questionnaire across all six categories, then apply the decision matrix to recommend the best-fit architecture with a clear rationale before any architecture-specific skill is loaded.
+
+$ARGUMENTS

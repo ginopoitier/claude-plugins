@@ -1,0 +1,12 @@
+{
+  "name": "github-kit",
+  "version": "1.0.1",
+  "description": "GitHub platform toolkit — PR creation, review, releases, and GitHub-specific workflows.",
+  "author": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["github", "pull-requests", "releases", "platform"],
+  "commands": "./skills/"
+}

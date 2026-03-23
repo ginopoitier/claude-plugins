@@ -321,3 +321,9 @@ Fix: Add missing reference or create the missing class
 | User says "keep going" | Extend by 3 iterations | Current + 3 | Never exceed hard cap of 10 |
 | User says "stop" | Exit immediately | N/A | Report progress, preserve current state |
 | 3+ cascading failures | Exit immediately | N/A | The approach is fundamentally wrong |
+
+## Execution
+
+Select the appropriate loop type (build-fix, test-fix, refactor, or scaffold), execute it with bounded iterations and progress tracking, and report the outcome clearly — stopping immediately on emergency exit conditions.
+
+$ARGUMENTS

@@ -159,3 +159,9 @@ dotnet publish /t:PublishContainer -p ContainerRegistry=ghcr.io
 | Multi-arch deployment | `ContainerRuntimeIdentifiers` property |
 | Production image size | `noble-chiseled` (~110 MB) |
 | Registry push | `ContainerRegistry` + `docker login` |
+
+## Execution
+
+Configure the target project for SDK container publishing using the appropriate `.csproj` MSBuild properties and `ContainerFamily`, then generate the publish command or CI step needed to build and push the image.
+
+$ARGUMENTS

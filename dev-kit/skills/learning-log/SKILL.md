@@ -169,3 +169,9 @@ Archive stale entries
 | Same gotcha appeared 3+ times in the log | Promote to MEMORY.md as a preventive rule |
 | Learning log exceeds 50 entries | Monthly review — archive old, promote recurring |
 | Starting a new session | Scan recent log entries for context on the working area |
+
+## Execution
+
+Detect auto-logging triggers during work and immediately write concise entries to `.claude/learning-log.md` under the appropriate category; periodically surface recurring patterns for promotion to MEMORY.md.
+
+$ARGUMENTS

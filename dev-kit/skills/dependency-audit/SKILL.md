@@ -223,3 +223,5 @@ After the report, offer to generate the upgrade commands:
 ```bash
 dotnet add package <name> --version <safe-version>
 ```
+
+$ARGUMENTS

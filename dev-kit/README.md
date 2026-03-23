@@ -4,7 +4,7 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 
 ## What's Included
 
-### Skills (49 user-invokable + 7 auto-active = 56 total)
+### Skills (44 user-invokable + 7 auto-active = 51 total)
 
 | Category | Skills |
 |----------|--------|
@@ -13,14 +13,16 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 | **Infrastructure & Patterns** | `/caching`, `/configuration`, `/dependency-injection`, `/authentication`, `/messaging`, `/resilience`, `/httpclient-factory`, `/opentelemetry`, `/aspire` |
 | **API Design** | `/openapi`, `/scalar`, `/error-handling`, `/modern-csharp` |
 | **Database** | `/sqlserver`, `/migration-workflow` |
-| **Documentation** | `/adr` |
 | **DevOps** | `/docker`, `/ci-cd`, `/container-publish` |
 | **Session & Workflow** | `/session-management`, `/workflow-mastery`, `/wrap-up-ritual` |
 | **Diagnostics** | `/seq-dig` |
 | **Project Setup** | `/dotnet-init`, `/project-setup`, `/project-structure`, `/architecture-advisor` |
-| **Tech Lead Workflow** | `/epic`, `/tech-refinement`, `/sdr`, `/sdlc-check`, `/pr-prep`, `/standup`, `/review` |
+| **Tech Lead Workflow** | `/sdlc-check`, `/pr-prep`, `/review` |
 | **Kit** | `/kit-setup` |
 | **Meta (auto-active)** | `instinct-system`, `self-correction-loop`, `autonomous-loops`, `learning-log`, `context-discipline`, `model-selection`, `verification-loop` |
+
+> Sprint skills are in **jira-kit**: `/epic`, `/story`, `/tech-refinement`, `/standup`
+> Decision records are in **confluence-kit**: `/adr`, `/sdr`
 
 ### Agents (12)
 
@@ -44,9 +46,8 @@ Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit for 
 | Service | MCP | Purpose |
 |---------|-----|---------|
 | **Dev Kit** | `devkit-mcp` (dotnet tool) | Roslyn C# analysis, SQL Server diagnostics, Neo4j graph queries |
-| Jira | Atlassian Remote MCP | Search issues, create tickets, transition status, add comments |
-| Confluence | Atlassian Remote MCP | Create and update documentation pages |
-| Bitbucket | REST API | Create PRs, add comments (Bitbucket not in Atlassian MCP) |
+
+> Atlassian (Jira/Confluence) and Bitbucket integrations are provided by **jira-kit**, **confluence-kit**, and **bitbucket-kit**.
 
 ## Stack
 
@@ -103,7 +104,9 @@ git clone https://github.com/ginopoitier/claude-plugins.git
 /kit-setup
 ```
 
-Walks through: identity · VCS host · CI/CD provider · project management · documentation · local dev infrastructure.
+Walks through: CI/CD provider · local dev infrastructure · scaffolding defaults · communication tools.
+
+Also run the setup skills for any companion kits: `/git-setup` · `/github-setup` or `/bitbucket-setup` · `/jira-setup` · `/confluence-setup` · `/obsidian-setup`
 
 ### 2. Install the MCP server
 
@@ -121,21 +124,19 @@ dotnet tool update -g DevKit.Mcp
 
 ### 3. Set secret environment variables
 
-Only Bitbucket token needed — Atlassian auth is handled by MCP OAuth.
-
 **Windows (CMD):**
 
 ```cmd
-setx BITBUCKET_API_TOKEN  "your-bitbucket-token"   (work only — if VCS_HOST=bitbucket)
-setx SEQ_API_KEY          "your-seq-key"            (if Seq auth enabled)
+setx SEQ_API_KEY  "your-seq-key"    (if Seq auth is enabled)
 ```
 
 **bash/zsh (`~/.bashrc` or `~/.zshrc`):**
 
 ```bash
-export BITBUCKET_API_TOKEN="your-bitbucket-token"
 export SEQ_API_KEY="your-seq-key"
 ```
+
+> Bitbucket token and Atlassian auth are configured in bitbucket-kit and jira-kit/confluence-kit respectively.
 
 Get your Bitbucket token: Bitbucket Settings → Personal access tokens
 

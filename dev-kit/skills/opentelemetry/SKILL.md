@@ -222,3 +222,9 @@ builder.Services.AddOpenTelemetry().UseOtlpExporter();
 | High-performance logging | `[LoggerMessage]` source generator |
 | Metric tag cardinality | Max ~1000 combinations per instrument |
 | Environment configuration | `OTEL_*` env vars |
+
+## Execution
+
+Set up or extend OpenTelemetry instrumentation for the requested feature — full three-signal setup, custom `ActivitySource` spans, `IMeterFactory` metrics, or OTLP export configuration — following the patterns above.
+
+$ARGUMENTS

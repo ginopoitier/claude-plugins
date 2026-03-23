@@ -75,7 +75,44 @@ This project uses [Selected Architecture].
 [List of relevant skills to load based on choices]
 ```
 
-**Step 5: Next Steps**
+**Step 5: Obsidian Project Note (optional)**
+If `~/.claude/obsidian-kit.config.md` exists, create a project overview note in the vault:
+
+```bash
+VAULT=$(grep "^OBSIDIAN_VAULT_PATH=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
+PROJECTS_FOLDER=$(grep "^OBSIDIAN_PROJECTS_FOLDER=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
+PROJECT_NOTE="${VAULT}/${PROJECTS_FOLDER:-Projects}/{kebab-project-name}/overview.md"
+```
+
+Note content:
+```markdown
+---
+date: {YYYY-MM-DD}
+tags: [project, dotnet]
+repos: [{repo-path}]
+---
+
+# {Project Name}
+
+## Stack
+- **Architecture:** {selected}
+- **Backend:** .NET 10 / C# 14, {database}, {auth}, {caching}
+- **Frontend:** {Vue 3 / none}
+
+## Repositories
+- `{repo-path}` — {description}
+
+## Links
+- Jira: {JIRA_BASE_URL}/projects/{JIRA_PROJECT_KEY} *(if jira-kit configured)*
+- Confluence: {CONFLUENCE_BASE_URL}/wiki/spaces/{CONFLUENCE_SPACE_KEY} *(if confluence-kit configured)*
+
+## Sessions
+See [[sessions]] for session history.
+```
+
+Also write `OBSIDIAN_PROJECT_FOLDER={PROJECTS_FOLDER}/{kebab-project-name}` to `.claude/obsidian.config.md` so future sessions can find this note.
+
+**Step 6: Next Steps**
 Suggest:
 - Initial project structure with `dotnet new` commands
 - Directory.Build.props with common settings
@@ -228,3 +265,9 @@ dotnet build  # 47 errors
 | "Generate CLAUDE.md for this project" | Project Init (skip new project steps) | get_project_graph |
 | Code quality declining | Health Check → set baseline → periodic re-check | All MCP tools |
 | Onboarding new developers | Health Check + Init (generates CLAUDE.md documenting conventions) | convention-learner skill |
+
+## Execution
+
+Execute the appropriate workflow — interactive project init with architecture questionnaire, MCP-driven health check producing a graded report card, or migration planning — based on the user's request.
+
+$ARGUMENTS

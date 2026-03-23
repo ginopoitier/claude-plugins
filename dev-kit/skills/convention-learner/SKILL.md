@@ -188,3 +188,9 @@ I'll use block-bodied methods to match your project settings."
 | .editorconfig exists | Trust it, don't override | Read .editorconfig |
 | Pattern seen once | Create instinct at 0.3 confidence via `instinct-system` skill | instinct-system |
 | Pattern confirmed 3+ times | Instinct auto-promotes to 0.7, suggest adding to CLAUDE.md | instinct-system |
+
+## Execution
+
+Run the full convention detection flow on the existing codebase using MCP tools and file inspection, then produce a structured summary of detected conventions and flag any deviations in generated or reviewed code.
+
+$ARGUMENTS

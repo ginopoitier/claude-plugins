@@ -182,3 +182,9 @@ var orders = new List<Order>();
 | Type checking + extraction | Pattern matching with `is` / `switch` |
 | Enforced initialization | `required` modifier |
 | Adding methods to external types | Extension members |
+
+## Execution
+
+Apply or recommend the appropriate C# 14 / .NET 10 language feature for the given code — primary constructors, collection expressions, the `field` keyword, extension members, or pattern matching — using the decision guide above.
+
+$ARGUMENTS

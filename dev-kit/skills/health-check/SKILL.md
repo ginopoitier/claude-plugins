@@ -179,3 +179,9 @@ MCP: get_test_coverage_map → 68% coverage
 | Pre-release quality gate | Full Health Check | All 8 |
 | Post-dependency update | Targeted | Build + Security |
 | Tech debt prioritization | Full Health Check | All 8, focus on lowest grades |
+
+## Execution
+
+Run MCP tools across all 8 health dimensions, assign letter grades with data-backed justification, calculate the GPA, and output the structured report card with prioritized, actionable recommendations.
+
+$ARGUMENTS

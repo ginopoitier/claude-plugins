@@ -1,124 +1,137 @@
 # Marketplace Spec — Kit Distribution Format
 
-## Overview
+> **Evolved 2026-03-23**: Rewrote to match actual Claude Code plugin system.
+> Previous version incorrectly documented `kit.manifest.json` and `install.sh` as required.
+> Both are wrong — see below.
 
-A marketplace-ready kit is self-contained: one directory with everything needed to install, configure, and use it. No external dependencies except Claude Code itself.
+## How Distribution Works
 
-## Required Files for Distribution
+All kits live in a **single repository**. Distribution uses Claude Code's native `/plugin install` system:
 
 ```
-kit-name/
-  CLAUDE.md           # Entry point — required
-  kit.manifest.json   # Metadata and install paths — required
-  install.sh          # One-command installer — required for marketplace
-  README.md           # Human-readable documentation — required for marketplace
-  [content dirs]      # rules/, skills/, knowledge/, etc.
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install kit-name@ginopoitier-plugins
 ```
 
-## kit.manifest.json Full Specification
+There is **no `install.sh`** and **no per-kit `kit.manifest.json`**. The two relevant files are:
+
+| File | Location | Purpose |
+|------|----------|---------|
+| `plugin.json` | `{kit}/.claude-plugin/plugin.json` | Per-kit plugin manifest — Claude Code reads this |
+| `marketplace.json` | `{repo-root}/.claude-plugin/marketplace.json` | ONE catalog for the whole repo — lists all kits |
+
+## plugin.json — Per-Kit Manifest
+
+Claude Code reads this to install a kit. One per kit.
 
 ```json
 {
-  "$schema": "https://claude-kits.dev/manifest/v1",
-  "id": "kit-name",                              // kebab-case, globally unique
-  "name": "Kit Display Name",                    // Title Case, shown in marketplace
-  "version": "1.0.0",                            // semver: MAJOR.MINOR.PATCH
-  "description": "One sentence. Who it's for.",  // max 140 chars
-  "author": "author-handle",                     // used in attribution
-  "homepage": "https://github.com/org/kit-name", // optional
-  "license": "MIT",                              // optional, defaults to proprietary
-  "tags": ["domain", "technology"],              // 2–5 tags for discovery
-  "requires": [],                                // other kit IDs this depends on
-  "min_claude_code_version": "1.0.0",            // minimum Claude Code version
-
-  "install": {
-    "rules":     "~/.claude/rules/kit-name/",    // rule files go here
-    "skills":    "~/.claude/skills/",            // flat namespace
-    "knowledge": "~/.claude/knowledge/kit-name/",
-    "agents":    "~/.claude/agents/",
-    "hooks":     "~/.claude/hooks/kit-name/",
-    "templates": "~/.claude/templates/kit-name/"
+  "name": "kit-name",
+  "version": "1.0.0",
+  "description": "One sentence description",
+  "author": {
+    "name": "Author Name",
+    "email": "email@example.com"
   },
-
-  "config": "config/kit.config.template.md",    // null if no config needed
-
-  "entrypoint": "CLAUDE.md",                    // file to include in user's CLAUDE.md
-
-  "commands": [                                  // user-invocable slash commands
-    "/scaffold-skill",
-    "/kit-health-check"
-  ],
-
-  "mcp": {                                       // null if no MCP server
-    "server": "mcp/publish/KitName.Mcp.dll",
-    "env": {
-      "REQUIRED_VAR": "description of what to put here"
+  "license": "MIT",
+  "keywords": ["tag1", "tag2"],
+  "commands": "./skills/",
+  "mcpServers": {
+    "server-name": {
+      "type": "stdio",
+      "command": "server-command"
     }
   }
 }
 ```
 
+`mcpServers` is optional — omit if the kit has no MCP dependency.
+
+## marketplace.json — Repo Root Catalog
+
+ONE file at `{repo-root}/.claude-plugin/marketplace.json`. Lists all kits in the repository. Claude Code reads this when a user adds the marketplace.
+
+```json
+{
+  "name": "author-claude-plugins",
+  "owner": {
+    "name": "Author Name",
+    "email": "author@example.com"
+  },
+  "metadata": {
+    "description": "Brief description of the marketplace",
+    "version": "1.3.0"
+  },
+  "plugins": [
+    {
+      "name": "kit-name",
+      "source": "./kit-name",
+      "description": "One sentence — what this kit does and who it's for",
+      "version": "1.0.0",
+      "author": { "name": "Author Name" },
+      "license": "MIT",
+      "keywords": ["dotnet", "architecture"],
+      "category": "development",
+      "requires": ["atlassian-mcp-oauth"]
+    }
+  ]
+}
+```
+
+**`category` values:** `development`, `productivity`, `tooling`, `data`, `security`, `mobile`
+
+**`requires`** is optional — use for external prerequisites like OAuth sessions.
+
 ## Semantic Versioning Rules
 
-| Change Type | Version Bump | Example |
-|-------------|-------------|---------|
-| New skill added | MINOR | 1.0.0 → 1.1.0 |
-| New rule added | MINOR | 1.0.0 → 1.1.0 |
-| Bug fix in skill | PATCH | 1.0.0 → 1.0.1 |
-| Skill renamed (breaking) | MAJOR | 1.0.0 → 2.0.0 |
-| Rule removed (breaking) | MAJOR | 1.0.0 → 2.0.0 |
-| CLAUDE.md structure changed | MAJOR | 1.0.0 → 2.0.0 |
+Bump version in **both** `plugin.json` AND the matching entry in the root `marketplace.json`.
 
-## Tag Vocabulary
+| Change Type | Bump | Example |
+|-------------|------|---------|
+| Skill/rule/agent removed or renamed (breaking) | **MAJOR** | `/scaffold` → `/scaffold-feature` |
+| Breaking change to config keys or CLAUDE.md structure | **MAJOR** | Renaming config keys |
+| New skill, rule, knowledge doc, or agent added | **MINOR** | Adding `/new-skill` |
+| Existing skill extended with new patterns | **MINOR** | New `## Pattern` section |
+| Bug fix, wording, trigger keyword added | **PATCH** | Fixing broken example |
+| Meta-skill sync from another kit | **PATCH** | Syncing context-discipline |
 
-Use these standard tags for marketplace discoverability:
-
-**Domain tags:** `dotnet`, `python`, `javascript`, `typescript`, `go`, `rust`, `java`, `data-science`, `devops`, `security`, `mobile`, `ml`
-
-**Use case tags:** `code-generation`, `analysis`, `testing`, `deployment`, `observability`, `documentation`, `refactoring`, `architecture`
-
-**Stack tags:** `azure`, `aws`, `gcp`, `kubernetes`, `docker`, `github`, `gitlab`, `postgres`, `mongodb`
-
-## install.sh Requirements
-
-A compliant install.sh must:
-1. Accept `--dry-run` flag (shows what would be installed without making changes)
-2. Use `$CLAUDE_CONFIG_DIR` if set, fall back to `$HOME/.claude`
-3. Exit with code 0 on success, non-zero on failure
-4. Print what it installed (one line per component)
-5. NOT require sudo
-6. NOT modify any files outside `~/.claude/`
+**Bump before staging the commit — not after.**
 
 ## README.md Required Sections
 
 ```markdown
-# Kit Name
+# kit-name
 
-> One sentence description
+One sentence description.
 
-## What This Kit Does
-[2-3 sentences — the problem it solves and who it's for]
+## What's Included
 
-## Skills
-| Command | Description |
-|---------|-------------|
-| /skill-name | what it does |
+| Category | Skills |
+|----------|--------|
+| Category | `/skill-name` — what it does |
 
 ## Install
-```bash
-git clone {url}
-cd kit-name
-bash install.sh
-```
 
-## Configure
-[what config is needed and how to set it up]
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install kit-name@ginopoitier-plugins
+
+Then run `/kit-setup` in Claude Code.
+
+## Configuration
+
+| Level | File | Contains |
+|-------|------|----------|
+| User / Device | `~/.claude/kit-name.config.md` | ... |
+| Project | `.claude/kit.config.md` | ... |
 
 ## Requirements
+
 - Claude Code 1.0.0+
-- [other requirements]
+- [any other requirements]
 
 ## License
+
+MIT
 ```
 
 ## Namespace Collision Prevention
@@ -129,22 +142,34 @@ Skills share a flat namespace (`~/.claude/skills/`). To prevent collisions:
    - `dotnet-health-check` not `health-check`
    - `python-scaffold` not `scaffold`
 
-2. Check for existing skill names before publishing:
-   ```bash
-   ls ~/.claude/skills/ | grep "your-skill-name"
-   ```
+2. Declare all user-invocable commands in the `commands` field of `plugin.json`.
 
-3. Declare your skill names in `kit.manifest.json` `commands` array — marketplace tooling will flag conflicts.
+3. Check for existing skill names: `ls ~/.claude/skills/ | grep "your-skill-name"`
 
-## Update/Upgrade Protocol
+## Kit Structure Reminder
 
-When a user has an older version installed:
-```bash
-# Re-run install.sh — it overwrites with new versions
-bash install.sh
+Every kit requires a settings hook to check config. Without it, users won't be prompted to run setup.
 
-# For major version upgrades (breaking changes):
-bash install.sh --migrate  # runs migration script if provided
+```
+hooks/
+  check-settings.sh     ← exits 0, prints message if config missing
+  hooks.json            ← registers check-settings.sh as UserPromptSubmit hook
 ```
 
-Migration scripts live at `migrations/{old-version}-to-{new-version}.sh`.
+`hooks.json` format:
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/check-settings.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```

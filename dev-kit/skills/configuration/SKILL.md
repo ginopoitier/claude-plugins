@@ -190,3 +190,9 @@ builder.Services.AddOptions<JwtOptions>()
 | Production secrets | Azure Key Vault or environment variables |
 | Validating config | `ValidateDataAnnotations()` + `ValidateOnStart()` |
 | Multiple configs of same type | Named options with `IOptionsSnapshot<T>.Get(name)` |
+
+## Execution
+
+Set up the requested configuration class or section using the Options pattern with startup validation, using the correct `IOptions<T>` variant and appropriate secrets management for the environment.
+
+$ARGUMENTS

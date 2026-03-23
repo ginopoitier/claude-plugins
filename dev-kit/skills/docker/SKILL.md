@@ -247,3 +247,5 @@ Generate Docker files for the current project:
 - `seq` — structured log viewer (port 5341 API, port 8081 UI)
 - `redis` — cache/session (port 6379)
 - `rabbitmq` — message broker (port 5672, management UI port 15672)
+
+$ARGUMENTS

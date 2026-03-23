@@ -173,3 +173,9 @@ catch (PaymentException ex)
 | API error format | RFC 9457 ProblemDetails — always |
 | Validation in handler | Return Result.Failure, don't throw |
 | External service failure | Catch specific exception, return Result.Failure |
+
+## Execution
+
+Implement the requested error handling scenario — Result pattern usage, global exception handler, FluentValidation filter, or ProblemDetails error response — following the patterns and decision guide above.
+
+$ARGUMENTS

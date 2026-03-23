@@ -206,3 +206,9 @@ group.MapGet("/{id:guid}", GetOrder).WithName("GetOrder");
 | Multiple API versions | Multiple `AddOpenApi("v1")` calls + `WithGroupName()` |
 | Client code generation | Kiota (Microsoft recommended) or NSwag |
 | Per-endpoint customization | `.AddOpenApiOperationTransformer()` on the endpoint |
+
+## Execution
+
+Configure or extend the OpenAPI setup for the requested scenario — basic setup, security scheme transformer, multiple documents, or endpoint metadata — using built-in `Microsoft.AspNetCore.OpenApi` without Swashbuckle.
+
+$ARGUMENTS

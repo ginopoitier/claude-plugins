@@ -1,0 +1,12 @@
+{
+  "name": "jira-kit",
+  "version": "1.0.1",
+  "description": "Jira sprint toolkit — epics, story writing, tech refinement, and daily standup prep via the Atlassian MCP.",
+  "author": {
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["jira", "sprint", "agile", "stories", "atlassian"],
+  "commands": "./skills/"
+}

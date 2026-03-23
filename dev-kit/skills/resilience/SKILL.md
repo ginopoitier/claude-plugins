@@ -178,3 +178,9 @@ httpClient.DefaultRequestHeaders.Add("Idempotency-Key", Guid.NewGuid().ToString(
 | Graceful degradation | `AddFallback(...)` | Return cached/default value |
 | API rate limiting | `AddRateLimiter()` + `RequireRateLimiting()` | Fixed, sliding, or token bucket |
 | Non-idempotent writes | Retry with idempotency key | Or no retry — fail fast |
+
+## Execution
+
+Add the appropriate Polly v8 resilience strategy — standard or custom HTTP resilience handler, non-HTTP pipeline, rate limiter — to the target service or HTTP client using the patterns and decision guide above.
+
+$ARGUMENTS

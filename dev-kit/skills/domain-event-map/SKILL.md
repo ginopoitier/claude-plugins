@@ -233,3 +233,5 @@ Produce text table by default. Add Mermaid diagram if `--mermaid` flag is presen
 - Events raised but no handlers registered → likely missing handler
 - Events with handlers in Infrastructure directly (should go through Application)
 - Circular event flows (A raises B which raises A)
+
+$ARGUMENTS

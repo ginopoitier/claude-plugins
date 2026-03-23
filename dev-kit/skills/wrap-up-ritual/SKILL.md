@@ -220,4 +220,10 @@ You are executing the /wrap-up-ritual command. Write a structured session handof
 2. Check for user corrections → capture in MEMORY.md via self-correction-loop
 3. Ensure `.claude/` directory exists
 4. Write `.claude/handoff.md` using the Session Summary Template above
-5. Confirm: "Handoff written to `.claude/handoff.md`. The next session can resume from there."
+5. **Obsidian (optional):** If `~/.claude/obsidian-kit.config.md` exists:
+   - Read `OBSIDIAN_VAULT_PATH` and the project folder from `.claude/obsidian.config.md` (field: `OBSIDIAN_PROJECT_FOLDER`) or fall back to `OBSIDIAN_PROJECTS_FOLDER`
+   - Append the session's **Completed** and **Learned** sections to a `sessions.md` note in `{VAULT}/{PROJECT_FOLDER}/sessions.md`
+   - This makes the session history searchable in Obsidian across multiple repos in the same project
+6. Confirm: "Handoff written to `.claude/handoff.md`. The next session can resume from there."
+
+$ARGUMENTS

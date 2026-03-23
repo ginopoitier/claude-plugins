@@ -5,35 +5,31 @@
     "email": "gino.poitier@gmail.com"
   },
   "metadata": {
-    "description": "Personal Claude Code plugin marketplace — dev-kit (.NET/Vue tech lead toolkit with SDLC workflow), kit-maker (build and audit Claude Code plugins), and git-kit (git CLI toolkit).",
-    "version": "1.2.0"
+    "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, and Obsidian personal notes.",
+    "version": "1.3.0"
   },
   "plugins": [
     {
       "name": "dev-kit",
       "source": "./dev-kit",
-      "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, Atlassian MCP integration, and full tech lead workflow (epics, SDRs, refinement, SDLC compliance, PR prep, standup).",
-      "version": "0.3.5",
-      "author": {
-        "name": "Gino Poitier"
-      },
+      "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, and full tech lead workflow (SDLC compliance, PR prep, code review). Session management with optional Obsidian journal integration.",
+      "version": "0.3.6",
+      "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": [
         "dotnet", "csharp", "vue", "typescript",
         "clean-architecture", "cqrs", "ef-core", "mediatr",
         "serilog", "signalr", "tailwindcss", "sql-server",
-        "teamcity", "octopus", "atlassian", "github-actions"
+        "teamcity", "octopus", "github-actions"
       ],
       "category": "development"
     },
     {
       "name": "kit-maker",
       "source": "./kit-maker",
-      "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding, kit health checks, and quality standards.",
-      "version": "1.0.2",
-      "author": {
-        "name": "Gino Poitier"
-      },
+      "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding wizards, kit health checks, self-evolution, and quality standards enforcement.",
+      "version": "1.0.4",
+      "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
       "category": "tooling"
@@ -41,14 +37,64 @@
     {
       "name": "git-kit",
       "source": "./git-kit",
-      "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, stash, undo, repo health, and hooks. Includes installable git hooks (commit-msg validator, pre-push guard) and two specialist agents (git-historian, git-surgeon).",
-      "version": "1.0.1",
-      "author": {
-        "name": "Gino Poitier"
-      },
+      "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, stash, undo, repo health, and hooks. Two specialist agents (git-historian, git-surgeon) and installable commit-msg validator and pre-push guard hooks.",
+      "version": "1.0.2",
+      "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["git", "version-control", "commits", "branching", "rebase", "cli"],
       "category": "development"
+    },
+    {
+      "name": "github-kit",
+      "source": "./github-kit",
+      "description": "GitHub platform toolkit — PR creation and management via gh CLI, semantic release tagging, and GitHub-specific workflows. Pairs with git-kit for local operations.",
+      "version": "1.0.1",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["github", "pull-requests", "releases", "platform"],
+      "category": "development"
+    },
+    {
+      "name": "bitbucket-kit",
+      "source": "./bitbucket-kit",
+      "description": "Bitbucket platform toolkit — PR creation and management via Bitbucket REST API v2. Pairs with git-kit for local operations. Does not require Bitbucket Pipelines.",
+      "version": "1.0.1",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["bitbucket", "pull-requests", "platform"],
+      "category": "development"
+    },
+    {
+      "name": "jira-kit",
+      "source": "./jira-kit",
+      "description": "Jira sprint toolkit — epics, single story writing (business and technical), tech refinement, and daily standup prep via the Atlassian MCP OAuth.",
+      "version": "1.0.1",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["jira", "sprint", "agile", "stories", "atlassian"],
+      "category": "productivity",
+      "requires": ["atlassian-mcp-oauth"]
+    },
+    {
+      "name": "confluence-kit",
+      "source": "./confluence-kit",
+      "description": "Confluence documentation toolkit — Architecture Decision Records (ADRs), Software Decision Records (SDRs), and SDLC page management via Atlassian MCP OAuth. Shares auth session with jira-kit.",
+      "version": "1.0.1",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["confluence", "documentation", "adr", "sdr", "atlassian"],
+      "category": "productivity",
+      "requires": ["atlassian-mcp-oauth"]
+    },
+    {
+      "name": "obsidian-kit",
+      "source": "./obsidian-kit",
+      "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with dev-kit session management.",
+      "version": "1.0.1",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["obsidian", "notes", "personal-knowledge", "markdown", "journal"],
+      "category": "productivity"
     }
   ]
 }

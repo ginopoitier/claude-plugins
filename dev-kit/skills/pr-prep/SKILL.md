@@ -205,3 +205,5 @@ You are executing the /pr-prep command. Prepare a PR description from the diff a
 5. Verify each AC against the diff: ✅ done | ⚠️ partial | ❌ missing
 6. Write the PR description using the template above (or the SDLC template if found)
 7. Output the AC verification report followed by the ready-to-paste PR description
+
+$ARGUMENTS

@@ -164,3 +164,9 @@ await hybridCache.GetOrCreateAsync(key, factory);
 | Cache invalidation on write | `cache.RemoveAsync()` or output cache tags |
 | Distributed deployment | HybridCache + Redis L2 backend |
 | Single-server deployment | HybridCache with in-memory only |
+
+## Execution
+
+Implement the requested caching strategy — HybridCache, output caching, or cache invalidation — for the target entity or endpoint, following the patterns and decision guide above.
+
+$ARGUMENTS

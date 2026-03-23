@@ -169,3 +169,9 @@ var result = await httpClient.GetFromJsonAsync<Order>("/orders/1", cancellationT
 | Hedging (parallel requests) | `AddStandardHedgingHandler()` |
 | Non-idempotent methods | `DisableForUnsafeHttpMethods()` on retry options |
 | API client generation | Refit with `AddRefitClient<T>()` |
+
+## Execution
+
+Configure the requested HTTP client using the appropriate pattern — named, typed, or keyed — with `AddStandardResilienceHandler()` and any required `DelegatingHandler` for auth or correlation IDs.
+
+$ARGUMENTS

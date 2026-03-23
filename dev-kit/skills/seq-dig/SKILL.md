@@ -197,3 +197,5 @@ Always show:
 - Message template (not interpolated string)
 - Key structured properties (CorrelationId, UserId, entity IDs)
 - Exception if present — first 10 lines only, offer full trace on request
+
+$ARGUMENTS

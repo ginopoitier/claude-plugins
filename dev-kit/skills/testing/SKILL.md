@@ -329,3 +329,9 @@ private AppDbContext CreateDb() => new(new DbContextOptionsBuilder<AppDbContext>
 | Domain entity behavior | Pure unit test — no DB, no HTTP |
 | Handler with DB access | Integration test via WebApplicationFactory |
 | Testing only happy path | Add at least one NotFound + one Validation failure test |
+
+## Execution
+
+Write the requested tests using the appropriate pattern — `WebApplicationFactory` integration tests with Testcontainers for end-to-end coverage, xUnit v3 unit tests with `FakeTimeProvider` for domain logic, or Verify snapshot tests for complex response validation — following the AAA pattern and covering both happy paths and key failure modes.
+
+$ARGUMENTS

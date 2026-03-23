@@ -7,6 +7,7 @@ description: >
   "step up model", "subagent model", "model cost", "Opus vs Sonnet", "model tier",
   "expensive model", "cheap model", "escalate to Opus".
 user-invocable: false
+allowed-tools: []
 ---
 
 # Model Selection
@@ -41,3 +42,9 @@ Match model to task complexity, not perceived importance.
 - Don't use Haiku for architecture decisions — false economy
 - Don't run all subagents on Opus — Haiku is sufficient for file reads and searches
 - Don't use Sonnet for debugging production incidents with incomplete logs — step up to Opus
+
+## Execution
+
+Evaluate the current task against the decision table and select the appropriate model tier — Opus for reasoning-heavy tasks, Sonnet for implementation, Haiku for subagent work — then proceed accordingly.
+
+$ARGUMENTS

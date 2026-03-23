@@ -203,3 +203,9 @@ options.TokenValidationParameters = new TokenValidationParameters
 | Multi-tenant API | Claims-based with tenant claim |
 | API-to-API communication | Client credentials (OAuth 2.0) |
 | Simple API keys | Custom `AuthenticationHandler<T>` |
+
+## Execution
+
+Implement the requested authentication or authorization scenario — JWT setup, OIDC integration, policy definition, or endpoint protection — using the patterns above and the decision guide to select the right approach.
+
+$ARGUMENTS
