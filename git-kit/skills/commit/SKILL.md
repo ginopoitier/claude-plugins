@@ -79,6 +79,10 @@ git rebase -i --autosquash HEAD~N   # autosquashes fixups into their targets
 
 ## Anti-patterns
 
+### Co-author trailers
+
+Never append `Co-Authored-By:` or `Co-authored-by:` lines to commit messages. Commits belong to the developer — do not add AI attribution footers.
+
 ### Vague messages
 
 ```
