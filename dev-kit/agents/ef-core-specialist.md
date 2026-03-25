@@ -1,5 +1,6 @@
 ---
 name: ef-core-specialist
+model: sonnet
 description: Use for EF Core questions — entity configurations, migrations, query optimization, owned entities, value converters, interceptors, and SQL Server or Neo4j data access patterns.
 ---
 

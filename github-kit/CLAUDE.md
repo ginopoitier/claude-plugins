@@ -30,6 +30,7 @@ When a skill needs config and it is missing → tell user to run `/github-setup`
 
 ### Pull Requests
 - `/pr` — create, view, list, and diff PRs using the `gh` CLI or GitHub MCP
+- `/review` — tech lead code review with `--mentoring` (coaching) or `--gatekeeper` (strict) modes; uses `gh pr diff` to fetch the PR diff
 
 ### Releases
 - `/release` — tag, create GitHub release, auto-generate release notes from commits

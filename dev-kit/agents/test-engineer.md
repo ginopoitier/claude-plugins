@@ -1,5 +1,6 @@
 ---
 name: test-engineer
+model: sonnet
 description: Use for testing strategy, writing xUnit tests, setting up Testcontainers, WebApplicationFactory integration tests, test data builders, and test coverage analysis.
 ---
 

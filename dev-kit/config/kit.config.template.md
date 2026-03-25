@@ -22,19 +22,6 @@
   Run /project-setup inside a repository to create it.
 -->
 
-## CI / CD
-```
-CI_PROVIDER=github-actions                # github-actions | teamcity | azure-devops | none
-CD_PROVIDER=github-actions                # github-actions | octopus | azure-devops | none
-
-# TeamCity (work machine) — used as reference values in generated Kotlin DSL
-TEAMCITY_BASE_URL=
-
-# Octopus Deploy (work machine) — used as reference values in generated configs
-OCTOPUS_URL=
-OCTOPUS_SPACE=Default
-```
-
 ## Dev Infrastructure (local)
 ```
 SEQ_URL=http://localhost:5341
@@ -48,11 +35,4 @@ NEO4J_DEFAULT_URI=bolt://localhost:7687
 ```
 DEFAULT_NAMESPACE=
 NEW_PROJECT_BASE_PATH=
-```
-
-## Communication (optional)
-```
-SLACK_WORKSPACE=
-SLACK_DEFAULT_CHANNEL=
-TEAMS_WEBHOOK_URL=
 ```

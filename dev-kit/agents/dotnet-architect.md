@@ -1,5 +1,6 @@
 ---
 name: dotnet-architect
+model: opus
 description: Use for architecture decisions — where code should live, layer design, CQRS structure, domain modeling, solution layout, and cross-cutting concerns. Activate when the user asks how to structure a feature or needs a new solution designed.
 ---
 

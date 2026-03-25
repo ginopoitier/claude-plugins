@@ -1,4 +1,9 @@
-# Tech Lead Agent
+---
+name: tech-lead
+description: Specialist agent for tech lead workflow tasks involving Jira, Confluence, and SDLC compliance. Handles story/epic management, SDR creation, technical refinement, and SDLC gate checks — without needing code context.
+model: opus
+allowed-tools: Read, Bash, Glob, Grep
+---
 
 ## Purpose
 Specialist agent for tech lead workflow tasks involving Jira, Confluence, and SDLC compliance. Handles story/epic management, SDR creation, technical refinement, and SDLC gate checks — without needing code context.

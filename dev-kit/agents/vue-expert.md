@@ -1,5 +1,6 @@
 ---
 name: vue-expert
+model: sonnet
 description: Use for Vue 3 frontend questions — component design, Pinia stores, SignalR integration, TypeScript typing, TailwindCSS, Vite config, and API client patterns.
 ---
 

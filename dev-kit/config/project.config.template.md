@@ -21,7 +21,7 @@ SOLUTION_PATH=                            # relative path to .sln/.slnx, e.g. sr
 
 ## Architecture
 ```
-ARCHITECTURE=clean-architecture           # clean-architecture | vsa | ddd | modular-monolith
+ARCHITECTURE=modular-monolith          # clean-architecture | vsa | ddd | modular-monolith
 # Run /architecture-advisor if unsure
 ```
 
@@ -32,17 +32,6 @@ ORM=ef-core                               # ef-core | dapper | none
 MESSAGING=none                            # none | wolverine | masstransit
 CACHING=memory                            # memory | redis | hybrid | none
 FRONTEND=none                             # none | vue | blazor | react
-```
-
-## CI / CD (project-specific)
-```
-# TeamCity (leave blank if using user CI_PROVIDER=github-actions)
-TEAMCITY_PROJECT_ID=                      # e.g. OrderService_Build
-TEAMCITY_BUILD_TYPE=                      # e.g. OrderService_Build_CI
-
-# Octopus Deploy (leave blank if not using Octopus)
-OCTOPUS_PROJECT=                          # e.g. OrderService
-OCTOPUS_LIFECYCLE=                        # e.g. Default Lifecycle
 ```
 
 ## Database Connections (local dev)

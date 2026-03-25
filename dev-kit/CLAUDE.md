@@ -113,7 +113,6 @@ When a dev-kit skill needs to write documentation, check which kit is installed 
 ### Tech Lead Workflow
 - `/sdlc-check` — validate work against company SDLC (pre-sprint, pre-merge, pre-release) — reads SDLC from confluence-kit config
 - `/pr-prep` — prepare a PR description from the diff + Jira ticket ACs + SDLC template — reads Jira from jira-kit config
-- `/review` — tech lead code review with `--mentoring` (coaching) or `--gatekeeper` (strict) modes
 
 > Sprint skills moved to **jira-kit**: `/epic` · `/tech-refinement` · `/standup`
 > Decision records moved to **confluence-kit**: `/adr` · `/sdr`

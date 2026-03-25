@@ -59,7 +59,7 @@ bash (add to ~/.bashrc or ~/.zshrc):
 Get your token: Bitbucket → Personal settings → Personal access tokens
 Required scopes: Repositories (Read), Pull requests (Write)
 
-After setting, restart your terminal and Claude Code.
+After setting, restart your terminal and Claude Code, if it still doesn't work restart the computer.
 ```
 
 **Section 3 — PR Defaults**

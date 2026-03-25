@@ -1,14 +1,14 @@
 ---
 name: review
 description: >
-  Code review of staged changes, a PR number, or specific files.
+  Code review of staged changes, a Bitbucket PR ID, or specific files.
   Supports two modes: --mentoring (constructive, explains why, coaching tone for juniors)
   and --gatekeeper (terse, blockers/warnings only, strict verdict for critical paths).
   Checks architecture, CQRS, Result pattern, EF Core, logging, Vue/TS, and SDLC compliance.
   Load this skill when: "review", "code review", "pr review", "review this", "review changes",
   "check pr", "review branch", "review my code", "tech lead review", "gatekeeper", "mentoring".
 user-invocable: true
-argument-hint: "[--mentoring|--gatekeeper] [pr-number | file-path | branch]"
+argument-hint: "[--mentoring|--gatekeeper] [pr-id | file-path | branch]"
 allowed-tools: Read, Glob, Grep, Bash, mcp__atlassian__confluence_search, mcp__atlassian__confluence_get_page, mcp__atlassian__jira_get_issue
 ---
 
@@ -41,11 +41,23 @@ Auto-detect rules:
 
 ### Gather the Diff
 
+```bash
+# Read Bitbucket config
+BITBUCKET_WORKSPACE=$(grep "^BITBUCKET_WORKSPACE=" ~/.claude/bitbucket-kit.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+BITBUCKET_REPO=$(grep "^BITBUCKET_REPO=" .claude/bitbucket.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+if [[ -z "$BITBUCKET_REPO" ]]; then
+  BITBUCKET_REPO=$(git remote get-url origin 2>/dev/null | sed 's|.*bitbucket.org[:/]||' | sed 's|\.git$||')
+fi
+TOKEN="${BITBUCKET_API_TOKEN}"
+API="https://api.bitbucket.org/2.0"
+REPO_API="${API}/repositories/${BITBUCKET_REPO}"
+```
+
 ```
 | Input | Action |
 |-------|--------|
 | Nothing | git diff HEAD |
-| PR number | Detect platform from git remote → use `/pr diff {n}` from github-kit or bitbucket-kit |
+| PR ID | curl -s -H "Authorization: Bearer ${TOKEN}" "${REPO_API}/pullrequests/{id}/diff" |
 | File path | Read file directly |
 | Branch name | git diff main...{branch} |
 

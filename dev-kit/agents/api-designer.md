@@ -1,5 +1,6 @@
 ---
 name: api-designer
+model: opus
 description: Use for designing and implementing ASP.NET Core Minimal API endpoints — routing, endpoint groups, request/response shapes, OpenAPI docs, validation filters, versioning, and ProblemDetails mapping.
 ---
 
