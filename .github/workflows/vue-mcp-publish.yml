@@ -1,5 +1,6 @@
 name: Vue MCP — Publish to npm
-
+permissions:
+  id-token: write
 on:
   release:
     types: [published]       # trigger: create a GitHub Release tagged vX.Y.Z
@@ -34,6 +35,10 @@ jobs:
           cache: 'npm'
           cache-dependency-path: MCP/Vue/vue-mcp/package-lock.json
 
+
+      - name: install npm latest globally (for npm pack --dry-run)
+        run: npm install -g npm@latest
+        
       - name: Install dependencies
         run: npm ci
 
