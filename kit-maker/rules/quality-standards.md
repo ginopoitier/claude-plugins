@@ -76,5 +76,5 @@ var items = await db.Orders.ToListAsync(ct);
 
 ## DON'T
 - Don't ship skills with empty Anti-patterns sections
-- Don't ship rules without code examples of what is and isn't allowed
+- Don't ship skills whose Patterns section contains only prose — every pattern needs a code block
 - Don't ship knowledge docs with `// TODO: add example` placeholders

@@ -48,7 +48,7 @@ Claude Code's native `/plugin install` command reads `.claude-plugin/plugin.json
 - Agents install to: `~/.claude/agents/`
 - Hooks register via: `~/.claude/settings.json`
 
-An `install.sh` script is **optional** — useful for manual/offline installation or CI environments where the Claude Code CLI is not available. It is not required for plugin distribution via the marketplace or `/plugin install`.
+No `install.sh` is needed. Claude Code's `/plugin install` handles installation natively from `plugin.json`.
 
 ## DO
 - Always include at least one **meta skill**: context-discipline + model-selection

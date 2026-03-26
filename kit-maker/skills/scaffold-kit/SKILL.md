@@ -84,11 +84,10 @@ Generate in this order (each can be parallel):
 2. `.claude-plugin/plugin.json` — name, version, description, keywords, commands pointer
 3. `hooks/check-settings.sh` + `hooks/hooks.json` — settings enforcement on every prompt
 4. All rule files (3–6 files)
-4. All skill SKILL.md files (meta + domain)
-5. All knowledge docs
-6. Templates
-7. Agent definitions
-8. Hook scripts
+5. All skill SKILL.md files (meta + domain)
+6. All knowledge docs
+7. Templates
+8. Agent definitions
 9. Config template
 
 **Phase 4: Meta-skill Wiring**
@@ -199,5 +198,11 @@ skills/
 | Kit targets experts | Fewer basics, more advanced patterns, code-heavy skills |
 | Distributing to a team | Include README.md + add entry to root marketplace.json |
 
+## Execution
+
+Ask the domain-discovery questions, plan the kit structure, then generate all files in the order listed in Phase 3 above.
+
 ## Deep Reference
 For full kit structure and component anatomy: @~/.claude/knowledge/kit-maker/kit-anatomy.md
+
+$ARGUMENTS

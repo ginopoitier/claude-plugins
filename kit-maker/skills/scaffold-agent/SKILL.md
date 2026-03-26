@@ -183,10 +183,9 @@ Structured markdown report card with:
 Maximum: ~1,000 tokens.
 
 ## Execution Steps
-1. `Glob` the kit root for required structure (CLAUDE.md, kit.manifest.json, rules/, skills/, knowledge/)
+1. `Glob` the kit root for required structure (CLAUDE.md, rules/, skills/, knowledge/)
 2. Read CLAUDE.md, validate all `@` references resolve to existing files
 3. For each skill dir: read SKILL.md, check frontmatter completeness and section presence
-4. Parse kit.manifest.json, validate JSON and install paths
 5. Check hooks for executability via `ls -la hooks/`
 6. Produce graded report
 ```

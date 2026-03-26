@@ -167,3 +167,9 @@ Anti-patterns: 1 example, no BAD/GOOD pair → Grade D
 | Code examples C or below | Add runnable examples — prose is not enough |
 | Scope Hygiene D or below | Split into two skills or remove unused tools |
 | Auditing for a team | Share the report with specific file:line fix locations |
+
+## Execution
+
+Read the target SKILL.md in full, score each of the 7 dimensions against the criteria above, and output the audit report with specific, copy-paste-ready fix recommendations.
+
+$ARGUMENTS

@@ -38,7 +38,7 @@
       "name": "kit-maker",
       "source": "./kit-maker",
       "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding wizards, kit health checks, self-evolution, and quality standards enforcement.",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],

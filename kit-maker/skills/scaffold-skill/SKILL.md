@@ -103,6 +103,12 @@ allowed-tools: {only-what-is-needed}
 | {scenario 2} | {recommendation} |
 | {scenario 3} | {recommendation} |
 | {scenario 4} | {recommendation} |
+
+## Execution
+
+{one sentence: what Claude does when this skill is invoked}
+
+$ARGUMENTS
 ```
 
 **Step 3: Audit immediately**
@@ -171,7 +177,13 @@ builder.Services.AddHttpClient("github", client =>
 | User-invocable vs auto-active | User-invocable if the user calls it explicitly; auto-active if it should load based on context |
 | Choosing trigger keywords | Use the exact words users say: "how do I X", "set up X", "X isn't working" |
 
+## Execution
+
+Ask the context questions from Step 1, generate the complete SKILL.md using the template above, then immediately audit it with `/skill-auditor`.
+
 ## Deep Reference
 
 For full skill anatomy, quality bar, and detailed writing guide:
 @~/.claude/knowledge/kit-maker/skill-writing-guide.md
+
+$ARGUMENTS

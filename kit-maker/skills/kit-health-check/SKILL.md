@@ -15,7 +15,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 ## Core Principles
 
-1. **Structure before content** — A kit with perfect skills but missing `kit.manifest.json` is uninstallable. Check structure first.
+1. **Structure before content** — A kit with perfect skills but missing `plugin.json` is uninstallable. Check structure first.
 2. **Coverage over depth** — A kit missing a critical domain skill is worse than a kit with imperfect skills. Map coverage gaps first.
 3. **Meta-skills are non-negotiable** — Any kit missing context-discipline, model-selection, and instinct-system gets an automatic grade cap of C.
 4. **Installability is the final gate** — The kit must be installable by someone who has never seen it before. Test the manifest and install paths.
@@ -31,15 +31,15 @@ Check for required files/dirs:
 ```bash
 # Required
 ls kit-name/CLAUDE.md
-ls kit-name/kit.manifest.json
+ls kit-name/.claude-plugin/plugin.json
 ls kit-name/rules/
 ls kit-name/skills/
-ls kit-name/knowledge/
+ls kit-name/hooks/check-settings.sh
 
 # Recommended
+ls kit-name/knowledge/
 ls kit-name/templates/
 ls kit-name/agents/
-ls kit-name/hooks/
 ls kit-name/config/kit.config.template.md
 ```
 
@@ -133,10 +133,10 @@ Run this before publishing any kit version:
 
 ```bash
 # 1. Required files present?
-ls kit-name/CLAUDE.md kit-name/kit.manifest.json kit-name/rules/ kit-name/skills/ kit-name/knowledge/
+ls kit-name/CLAUDE.md kit-name/.claude-plugin/plugin.json kit-name/rules/ kit-name/skills/ kit-name/hooks/check-settings.sh
 
 # 2. Manifest valid JSON?
-python3 -m json.tool kit-name/kit.manifest.json > /dev/null && echo "✓ JSON valid"
+python3 -m json.tool kit-name/.claude-plugin/plugin.json > /dev/null && echo "✓ JSON valid"
 
 # 3. All skills have frontmatter?
 grep -rL "^name:" kit-name/skills/*/SKILL.md
@@ -262,3 +262,9 @@ expensive models for simple tasks, fills context with unnecessary reads.
 | Adding skills to existing kit | Skill Quality + Domain Coverage only |
 | After major refactor | Full audit + re-check CLAUDE.md index |
 | GPA < 2.5 | Do not publish — return for rework |
+
+## Execution
+
+Read the target kit systematically using the 8-dimension assessment above, produce the graded report card, and list priority fixes ordered by impact.
+
+$ARGUMENTS

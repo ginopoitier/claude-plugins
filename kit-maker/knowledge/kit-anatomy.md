@@ -9,7 +9,6 @@ kits/{kit-name}/
   CLAUDE.md                   # Entry point (required)
   .claude-plugin/
     plugin.json               # Official Claude Code plugin manifest (required for /plugin install)
-    marketplace.json          # Marketplace registration metadata (optional)
   config/
     kit.config.template.md    # User fills this → saves to ~/.claude/kit.config.md
   rules/                      # Always loaded — keep lean (3–8 files)
@@ -188,26 +187,20 @@ Claude Code's native plugin system reads this file when you run `/plugin install
 
 ```json
 {
-  "id": "kit-name",
-  "name": "Display Name",
+  "name": "kit-name",
   "version": "1.0.0",
-  "description": "One sentence description",
-  "author": "author",
-  "tags": ["domain", "tech"],
-  "requires": [],
-  "install": {
-    "rules": "~/.claude/rules/kit-name/",
-    "skills": "~/.claude/skills/",
-    "knowledge": "~/.claude/knowledge/kit-name/",
-    "agents": "~/.claude/agents/"
+  "description": "One sentence: what this kit does and who it's for",
+  "author": {
+    "name": "Author Name",
+    "email": "author@example.com"
   },
-  "entrypoint": "CLAUDE.md",
-  "commands": ["/scaffold-X", "/health-check"],
-  "mcp": null
+  "license": "MIT",
+  "keywords": ["domain", "technology", "use-case"],
+  "commands": "./skills/"
 }
 ```
 
-An `install.sh` script is optional — useful for manual or offline installation when the Claude Code CLI is unavailable. For normal distribution, `/plugin install` + `plugin.json` is the recommended path.
+`mcpServers` is optional — add it only if the kit requires an MCP server. See `marketplace-spec.md` for the full `plugin.json` reference.
 
 ## Install Conventions
 

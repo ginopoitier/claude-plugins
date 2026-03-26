@@ -167,3 +167,9 @@ Kit is for data science → add data pipeline patterns because they came up in 4
 | Pattern appearing across 3 different kits | Update scaffold-kit templates |
 | After every kit-building session | Log to learning-log.md |
 | Quarterly review | Full kit retrospective across all sessions |
+
+## Execution
+
+Gather session findings using the questions in Step 1, classify each as Type A–E, apply changes in priority order, and log to `.claude/learning-log.md`.
+
+$ARGUMENTS
