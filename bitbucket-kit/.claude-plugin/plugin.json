@@ -1,6 +1,6 @@
 {
   "name": "bitbucket-kit",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Bitbucket platform toolkit — PR creation, review, releases, analytics, and Bitbucket-specific workflows.",
   "author": {
     "name": "Gino Poitier",
@@ -8,6 +8,5 @@
   },
   "license": "MIT",
   "keywords": ["bitbucket", "pull-requests", "platform", "releases", "code-review"],
-  "commands": "./skills/",
-  "agents": "./agents/"
+  "commands": "./skills/"
 }
