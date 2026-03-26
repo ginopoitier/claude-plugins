@@ -1,6 +1,6 @@
 {
   "name": "@ginopoitier/vue-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for vue-kit — Vue SFC analysis, Pinia store inspection, TypeScript type checking, and Vite project structure tools for Claude Code.",
   "author": "Gino Poitier",
   "license": "MIT",
