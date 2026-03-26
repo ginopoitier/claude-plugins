@@ -18,7 +18,11 @@ kit.config.md
 # .NET build output
 **/bin/
 **/obj/
-dev-kit/mcp/publish/
+MCP/DotNet/publish/
+
+# Node.js
+node_modules/
+MCP/Vue/vue-mcp/dist/
 
 # Windows
 $RECYCLE.BIN/

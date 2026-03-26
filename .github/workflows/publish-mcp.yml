@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - 'dev-kit/mcp/**'
+      - 'MCP/DotNet/**'
       - '.github/workflows/publish-mcp.yml'
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       - name: Extract version from csproj
         id: version
         run: |
-          VERSION=$(grep -oP '(?<=<Version>)[^<]+' dev-kit/mcp/DevKit.Mcp/DevKit.Mcp.csproj)
+          VERSION=$(grep -oP '(?<=<Version>)[^<]+' MCP/DotNet/DevKit.Mcp/DevKit.Mcp.csproj)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Check if version already published
@@ -39,11 +39,11 @@ jobs:
 
       - name: Build
         if: steps.check.outputs.exists == 'false'
-        run: dotnet build dev-kit/mcp/DevKit.Mcp/DevKit.Mcp.csproj -c Release
+        run: dotnet build MCP/DotNet/DevKit.Mcp/DevKit.Mcp.csproj -c Release
 
       - name: Pack
         if: steps.check.outputs.exists == 'false'
-        run: dotnet pack dev-kit/mcp/DevKit.Mcp/DevKit.Mcp.csproj -c Release --no-build -o ./nupkg
+        run: dotnet pack MCP/DotNet/DevKit.Mcp/DevKit.Mcp.csproj -c Release --no-build -o ./nupkg
 
       - name: Push to NuGet
         if: steps.check.outputs.exists == 'false'

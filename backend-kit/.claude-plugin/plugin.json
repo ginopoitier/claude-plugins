@@ -1,0 +1,17 @@
+{
+  "name": "backend-kit",
+  "version": "0.1.0",
+  "description": "Production-ready .NET Clean Architecture developer toolkit. Covers CQRS, Clean Architecture, EF Core, Minimal APIs, Serilog, SignalR hub scaffolding, CI/CD pipeline generation, and a full tech lead workflow.",
+  "author": {
+    "name": "Gino Poitier"
+  },
+  "license": "MIT",
+  "keywords": ["dotnet", "clean-architecture", "cqrs", "ef-core", "csharp"],
+  "commands": "./skills/",
+  "mcpServers": {
+    "devkit-mcp": {
+      "type": "stdio",
+      "command": "devkit-mcp"
+    }
+  }
+}

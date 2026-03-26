@@ -1,0 +1,57 @@
+{
+  "name": "@ginopoitier/vue-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for vue-kit — Vue SFC analysis, Pinia store inspection, TypeScript type checking, and Vite project structure tools for Claude Code.",
+  "author": "Gino Poitier",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "vue-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.js.map",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins.git",
+    "directory": "MCP/Vue/vue-mcp"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "@vue/compiler-sfc": "^3.5.13",
+    "glob": "^11.0.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^10.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "vue",
+    "typescript",
+    "pinia",
+    "vite"
+  ]
+}

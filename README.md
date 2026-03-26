@@ -13,7 +13,8 @@ Add this marketplace in Claude Code:
 Install a plugin:
 
 ```
-/plugin install dev-kit@ginopoitier-plugins
+/plugin install backend-kit@ginopoitier-plugins
+/plugin install vue-kit@ginopoitier-plugins
 /plugin install kit-maker@ginopoitier-plugins
 /plugin install git-kit@ginopoitier-plugins
 /plugin install github-kit@ginopoitier-plugins
@@ -33,7 +34,8 @@ Update all plugins:
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| [`dev-kit`](./dev-kit/) | 0.3.6 | .NET Clean Architecture + Vue/TypeScript developer toolkit |
+| [`backend-kit`](./backend-kit/) | 0.1.0 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
+| [`vue-kit`](./vue-kit/) | 0.1.0 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, TailwindCSS, Vite |
 | [`kit-maker`](./kit-maker/) | 1.0.3 | Build and audit Claude Code plugins |
 | [`git-kit`](./git-kit/) | 1.0.2 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
 | [`github-kit`](./github-kit/) | 1.0.1 | GitHub platform — PR creation, releases (home machine) |
@@ -44,21 +46,42 @@ Update all plugins:
 
 ## Typical install combinations
 
-**Home machine (GitHub):**
+**Full-stack .NET + Vue (home, GitHub):**
 ```
-dev-kit + git-kit + github-kit + kit-maker + obsidian-kit
+backend-kit + vue-kit + git-kit + github-kit + kit-maker + obsidian-kit
 ```
 
-**Work machine (Bitbucket + Atlassian):**
+**Full-stack .NET + Vue (work, Bitbucket + Atlassian):**
 ```
-dev-kit + git-kit + bitbucket-kit + jira-kit + confluence-kit + obsidian-kit
+backend-kit + vue-kit + git-kit + bitbucket-kit + jira-kit + confluence-kit + obsidian-kit
+```
+
+**Backend only:**
+```
+backend-kit + git-kit + github-kit (or bitbucket-kit)
+```
+
+**Frontend only:**
+```
+vue-kit + git-kit + github-kit (or bitbucket-kit)
 ```
 
 ## Post-install setup
 
-### dev-kit
+### backend-kit
 1. Run `/kit-setup` — configure CI/CD provider, documentation targets
-2. Install the MCP server: `dotnet tool install -g DevKit.Mcp`
+2. Install the MCP server: `dotnet tool install -g DevKit.Mcp --add-source G:/Claude/Kits/MCP/DotNet`
+   Or when published to NuGet: `dotnet tool install -g DevKit.Mcp`
+3. Restart Claude Code
+
+### vue-kit
+1. Run `/kit-setup` — configure project defaults
+2. Install the MCP server: `npm install -g @ginopoitier/vue-mcp`
+   Or build from source:
+   ```bash
+   cd G:/Claude/Kits/MCP/Vue/vue-mcp
+   npm install && npm run build
+   ```
 3. Restart Claude Code
 
 ### git-kit
@@ -84,65 +107,50 @@ dev-kit + git-kit + bitbucket-kit + jira-kit + confluence-kit + obsidian-kit
 ### kit-maker
 1. Run `/kit-setup` — configure author name and kit defaults
 
+## MCP Servers
+
+| MCP | Language | Powers | Source |
+|-----|----------|--------|--------|
+| `devkit-mcp` | .NET 9 | backend-kit — Roslyn analysis, SQL Server, Neo4j | `G:/Claude/Kits/MCP/DotNet/` |
+| `vue-mcp` | Node.js / TypeScript | vue-kit — Vue SFC analysis, Pinia, type checking | `G:/Claude/Kits/MCP/Vue/` |
+
 ## Repository structure
 
 ```
 claude-plugins/
-  .claude-plugin/
-    marketplace.json    ← marketplace catalog (Claude Code reads this)
-  dev-kit/
-    .claude-plugin/
-      plugin.json       ← dev-kit plugin manifest
-    skills/             ← 44 user-invokable + 7 meta skills
-    agents/             ← 12 agents
-    rules/              ← 17 always-active rules
-    knowledge/          ← reference docs
-    hooks/              ← registered automatically on plugin install
-  kit-maker/
-    .claude-plugin/
-      plugin.json
-    skills/             ← 10 user-invokable + 8 meta skills
-    agents/             ← kit-auditor, skill-writer
-    hooks/
-  git-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← 10 user-invokable + 7 meta skills
-    agents/             ← git-historian, git-surgeon
-    rules/              ← 4 always-active rules
-    knowledge/          ← reference docs
-    hooks/              ← commit-msg validator, pre-push guard
-  github-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← /pr, /release, /github-setup
-    rules/
-    hooks/
-  bitbucket-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← /pr, /bitbucket-setup
-    rules/
-    hooks/
-  jira-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← /epic, /story, /tech-refinement, /standup, /jira-setup
-    rules/
-    hooks/
-  confluence-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← /adr, /sdr, /confluence-setup
-    rules/
-    hooks/
-  obsidian-kit/
-    .claude-plugin/
-      plugin.json
-    skills/             ← /note, /obsidian-setup
-    rules/
-    hooks/
-  README.md
+  MCP/
+    DotNet/
+      DotNet.Mcp.sln          ← .NET solution for devkit-mcp global tool
+      DevKit.Mcp/             ← Roslyn, SQL Server, Neo4j MCP tools
+      publish/                ← pre-built binaries
+    Vue/
+      vue-mcp/                ← TypeScript MCP server for vue-kit
+        src/tools/            ← component-analyzer, pinia-analyzer, type-checker, project-analyzer
+  Kits/
+    README.md                 ← this file
+    backend-kit/
+      .claude-plugin/plugin.json
+      skills/                 ← 50 skills (backend + shared meta)
+      agents/                 ← 11 agents
+      rules/                  ← 15 rules
+      knowledge/              ← dotnet/, decisions/, tech-lead/, shared/
+      templates/              ← web-api/, worker-service/
+      hooks/                  ← auto-format .cs, NuGet restore, bash guard
+    vue-kit/
+      .claude-plugin/plugin.json
+      skills/                 ← 13 skills (vue + shared meta)
+      agents/                 ← 5 agents
+      rules/                  ← 8 rules
+      knowledge/              ← vue/, shared/
+      templates/              ← vue-app/
+      hooks/                  ← auto-format .ts/.vue with Prettier, bash guard
+    git-kit/
+    github-kit/
+    bitbucket-kit/
+    jira-kit/
+    confluence-kit/
+    obsidian-kit/
+    kit-maker/
 ```
 
 ## Add to a team project

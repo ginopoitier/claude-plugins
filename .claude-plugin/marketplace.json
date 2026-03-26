@@ -6,21 +6,31 @@
   },
   "metadata": {
     "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, and Obsidian personal notes.",
-    "version": "1.3.0"
+    "version": "2.0.0"
   },
   "plugins": [
     {
-      "name": "dev-kit",
-      "source": "./dev-kit",
-      "description": "Production-ready .NET Clean Architecture + Vue/TypeScript developer toolkit. CQRS, EF Core, Minimal APIs, SignalR, Serilog+Seq, CI/CD pipeline generation, and full tech lead workflow (SDLC compliance, PR prep, code review). Session management with optional Obsidian journal integration.",
-      "version": "0.3.6",
+      "name": "backend-kit",
+      "source": "./backend-kit",
+      "description": "Production-ready .NET Clean Architecture developer toolkit. CQRS, EF Core, Minimal APIs, Serilog+Seq, CI/CD pipeline generation, and full tech lead workflow (SDLC compliance, PR prep, code review). Powered by devkit-mcp Roslyn analysis server.",
+      "version": "0.1.0",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": [
-        "dotnet", "csharp", "vue", "typescript",
-        "clean-architecture", "cqrs", "ef-core", "mediatr",
-        "serilog", "signalr", "tailwindcss", "sql-server",
-        "teamcity", "octopus", "github-actions"
+        "dotnet", "csharp", "clean-architecture", "cqrs", "ef-core",
+        "mediatr", "serilog", "sql-server", "teamcity", "octopus", "github-actions"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "vue-kit",
+      "source": "./vue-kit",
+      "description": "Vue 3 + TypeScript developer toolkit. Composition API, Pinia stores, SignalR integration, TailwindCSS, Vite config, and typed API client patterns. Powered by vue-mcp SFC analysis server.",
+      "version": "0.1.0",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": [
+        "vue", "typescript", "pinia", "vite", "tailwindcss", "signalr"
       ],
       "category": "development"
     },
@@ -89,7 +99,7 @@
     {
       "name": "obsidian-kit",
       "source": "./obsidian-kit",
-      "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with dev-kit session management.",
+      "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with backend-kit or vue-kit session management.",
       "version": "1.0.1",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
