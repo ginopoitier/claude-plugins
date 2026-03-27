@@ -10,8 +10,8 @@
   },
   "plugins": [
     {
-      "name": "backend-kit",
-      "source": "./backend-kit",
+      "name": "dotnet-kit",
+      "source": "./dotnet-kit",
       "description": "Production-ready .NET Clean Architecture developer toolkit. CQRS, EF Core, Minimal APIs, Serilog+Seq, CI/CD pipeline generation, and full tech lead workflow (SDLC compliance, PR prep, code review). Powered by devkit-mcp Roslyn analysis server.",
       "version": "0.1.0",
       "author": { "name": "Gino Poitier" },
@@ -99,7 +99,7 @@
     {
       "name": "obsidian-kit",
       "source": "./obsidian-kit",
-      "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with backend-kit or vue-kit session management.",
+      "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with dotnet-kit or vue-kit session management.",
       "version": "1.0.1",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",

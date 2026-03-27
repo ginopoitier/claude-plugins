@@ -1,4 +1,4 @@
-# Backend Kit
+# .NET Kit
 
 > **Config:** @~/.claude/kit.config.md — run `/kit-setup` if missing.
 

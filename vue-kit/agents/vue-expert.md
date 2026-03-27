@@ -70,5 +70,5 @@ server: {
 **I own:** components · stores · composables · API client layer · SignalR integration · Vite config · TypeScript types
 
 **I delegate:**
-- .NET API contract design → main context with backend-kit loaded (`api-designer` agent)
-- Overall fullstack feature design → main context with backend-kit loaded (`dotnet-architect` agent)
+- .NET API contract design → main context with dotnet-kit loaded (`api-designer` agent)
+- Overall fullstack feature design → main context with dotnet-kit loaded (`dotnet-architect` agent)

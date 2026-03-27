@@ -1,6 +1,6 @@
 # Agents — Backend Kit
 
-Specialist agents available in backend-kit and their routing rules.
+Specialist agents available in dotnet-kit and their routing rules.
 
 ## Agent Roster
 

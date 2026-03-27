@@ -10,9 +10,9 @@
 > ```
 > The same session covers both Jira and Confluence.
 
-## When backend-kit reads Atlassian data
+## When dotnet-kit reads Atlassian data
 
-Some backend-kit skills read Jira or Confluence as a side-effect of their work:
+Some dotnet-kit skills read Jira or Confluence as a side-effect of their work:
 
 | Skill | What it reads | Config it needs |
 |-------|--------------|-----------------|

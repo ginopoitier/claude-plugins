@@ -8,7 +8,7 @@ KIT_CONFIG="${HOME}/.claude/kit.config.md"
 # ── 1. Config file missing ──────────────────────────────────────────────────
 
 if [[ ! -f "$KIT_CONFIG" ]]; then
-  echo "NOTICE: ~/.claude/kit.config.md is missing. Run /kit-setup to configure the backend-kit before using skills that depend on config (VCS, CI/CD, PM, docs, scaffolding)."
+  echo "NOTICE: ~/.claude/kit.config.md is missing. Run /kit-setup to configure the dotnet-kit before using skills that depend on config (VCS, CI/CD, PM, docs, scaffolding)."
   exit 0
 fi
 
@@ -31,7 +31,7 @@ check_field() {
 check_field "DEFAULT_NAMESPACE"
 
 if [[ ${#MISSING[@]} -gt 0 ]]; then
-  echo "NOTICE: The following backend-kit settings are not configured in ~/.claude/kit.config.md: ${MISSING[*]}. Run /kit-setup to fill them in. Skills that depend on these values may not work correctly."
+  echo "NOTICE: The following dotnet-kit settings are not configured in ~/.claude/kit.config.md: ${MISSING[*]}. Run /kit-setup to fill them in. Skills that depend on these values may not work correctly."
 fi
 
 exit 0

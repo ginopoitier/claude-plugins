@@ -13,7 +13,7 @@ Add this marketplace in Claude Code:
 Install a plugin:
 
 ```
-/plugin install backend-kit@ginopoitier-plugins
+/plugin install dotnet-kit@ginopoitier-plugins
 /plugin install vue-kit@ginopoitier-plugins
 /plugin install kit-maker@ginopoitier-plugins
 /plugin install git-kit@ginopoitier-plugins
@@ -34,9 +34,9 @@ Update all plugins:
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| [`backend-kit`](./backend-kit/) | 0.1.0 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
+| [`dotnet-kit`](./dotnet-kit/) | 0.1.0 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
 | [`vue-kit`](./vue-kit/) | 0.1.0 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, TailwindCSS, Vite |
-| [`kit-maker`](./kit-maker/) | 1.0.3 | Build and audit Claude Code plugins |
+| [`kit-maker`](./kit-maker/) | 1.0.5 | Build and audit Claude Code plugins |
 | [`git-kit`](./git-kit/) | 1.0.2 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
 | [`github-kit`](./github-kit/) | 1.0.1 | GitHub platform — PR creation, releases (home machine) |
 | [`bitbucket-kit`](./bitbucket-kit/) | 1.0.1 | Bitbucket platform — PR creation and review (work machine) |
@@ -48,17 +48,17 @@ Update all plugins:
 
 **Full-stack .NET + Vue (home, GitHub):**
 ```
-backend-kit + vue-kit + git-kit + github-kit + kit-maker + obsidian-kit
+dotnet-kit + vue-kit + git-kit + github-kit + kit-maker + obsidian-kit
 ```
 
 **Full-stack .NET + Vue (work, Bitbucket + Atlassian):**
 ```
-backend-kit + vue-kit + git-kit + bitbucket-kit + jira-kit + confluence-kit + obsidian-kit
+dotnet-kit + vue-kit + git-kit + bitbucket-kit + jira-kit + confluence-kit + obsidian-kit
 ```
 
-**Backend only:**
+**.NET only:**
 ```
-backend-kit + git-kit + github-kit (or bitbucket-kit)
+dotnet-kit + git-kit + github-kit (or bitbucket-kit)
 ```
 
 **Frontend only:**
@@ -68,7 +68,7 @@ vue-kit + git-kit + github-kit (or bitbucket-kit)
 
 ## Post-install setup
 
-### backend-kit
+### dotnet-kit
 1. Run `/kit-setup` — configure CI/CD provider, documentation targets
 2. Install the MCP server: `dotnet tool install -g DevKit.Mcp --add-source G:/Claude/Kits/MCP/DotNet`
    Or when published to NuGet: `dotnet tool install -g DevKit.Mcp`
@@ -111,7 +111,7 @@ vue-kit + git-kit + github-kit (or bitbucket-kit)
 
 | MCP | Language | Powers | Source |
 |-----|----------|--------|--------|
-| `devkit-mcp` | .NET 9 | backend-kit — Roslyn analysis, SQL Server, Neo4j | `G:/Claude/Kits/MCP/DotNet/` |
+| `devkit-mcp` | .NET 9 | dotnet-kit — Roslyn analysis, SQL Server, Neo4j | `G:/Claude/Kits/MCP/DotNet/` |
 | `vue-mcp` | Node.js / TypeScript | vue-kit — Vue SFC analysis, Pinia, type checking | `G:/Claude/Kits/MCP/Vue/` |
 
 ## Repository structure
@@ -128,7 +128,7 @@ claude-plugins/
         src/tools/            ← component-analyzer, pinia-analyzer, type-checker, project-analyzer
   Kits/
     README.md                 ← this file
-    backend-kit/
+    dotnet-kit/
       .claude-plugin/plugin.json
       skills/                 ← 50 skills (backend + shared meta)
       agents/                 ← 11 agents

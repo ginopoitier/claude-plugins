@@ -25,7 +25,7 @@ Use this agent when the task is Jira/Confluence-heavy and does not require readi
 **Does not:**
 - Read or analyze source code (stays in main context for that)
 - Review PRs for code quality (use `code-reviewer` agent or `/review`)
-- Make architecture decisions (stay in main context; load backend-kit for .NET architectural work)
+- Make architecture decisions (stay in main context; load dotnet-kit for .NET architectural work)
 
 ## Tools Available
 - Read
@@ -72,4 +72,4 @@ Return a structured report to the calling context. Include:
 | SDLC gate check on a ticket | ✅ | |
 | PR review (code quality) | | ✅ (use /review) |
 | Sprint status overview | ✅ | |
-| Architecture decision | | ✅ (main context; load backend-kit for .NET) |
+| Architecture decision | | ✅ (main context; load dotnet-kit for .NET) |
