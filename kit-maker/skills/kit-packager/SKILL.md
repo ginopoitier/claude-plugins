@@ -2,13 +2,12 @@
 name: kit-packager
 description: >
   Package a Claude Code kit for distribution and marketplace publishing.
-  Generates kit.manifest.json, install.sh script, README.md, and validates
-  the kit is installable by someone who has never seen it.
+  Validates plugin.json, updates marketplace.json, ensures the kit is
+  installable via /plugin install, and performs a pre-release health check.
   Load this skill when: "publish kit", "package kit", "distribute kit",
-  "share kit", "kit manifest", "install script", "kit release", "kit for others",
-  "marketplace", "kit version".
+  "share kit", "kit release", "marketplace", "kit version", "release kit".
 user-invocable: true
-argument-hint: "[kit path and version number]"
+argument-hint: "[kit path and version bump: major|minor|patch]"
 allowed-tools: Read, Write, Edit, Bash, Glob
 ---
 
@@ -16,182 +15,169 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 
 ## Core Principles
 
-1. **Installability is the only metric that matters** — A beautiful kit that can't be installed by a new user is worthless. Test the install path, not just the content.
-2. **Manifest-first distribution** — Everything a user needs to install the kit comes from `kit.manifest.json`. No manual steps that aren't in the manifest.
-3. **Semantic versioning** — `MAJOR.MINOR.PATCH`. Breaking changes to CLAUDE.md structure or skill APIs = major. New skills/rules = minor. Fixes = patch.
-4. **README is for humans, manifest is for machines** — README explains what the kit does and why. Manifest defines how to install it.
+1. **Installability is the only metric that matters** — A beautiful kit that can't be installed by a new user is worthless. Validate before publishing.
+2. **plugin.json is the manifest** — Everything Claude Code needs to install a kit comes from `{kit}/.claude-plugin/plugin.json`. No `install.sh`, no `kit.manifest.json`.
+3. **marketplace.json is the catalog** — One file at the repo root `.claude-plugin/marketplace.json` lists all kits. Version numbers must stay in sync between `plugin.json` and `marketplace.json`.
+4. **Semantic versioning** — `MAJOR.MINOR.PATCH`. Breaking changes = major. New skills/rules/agents = minor. Fixes/wording = patch.
+5. **Health gate** — Run `/kit-health-check` before packaging. GPA < 3.0 = fix first.
 
 ## Patterns
 
 ### Pre-Package Checklist
 
-Before generating distribution files, verify:
+Before bumping a version, verify:
 
 ```bash
 # 1. Kit health check passes (GPA ≥ 3.0)
-# 2. All SKILL.md files have complete frontmatter
-# 3. All @-references in CLAUDE.md point to existing files
-# 4. All skill directories referenced in CLAUDE.md actually exist
-# 5. No hardcoded absolute paths (no C:/, D:/, /home/user/)
-# 6. Config template has no user-specific values
+# 2. All SKILL.md files have complete frontmatter (name, description, user-invocable, allowed-tools)
+# 3. All @-references in CLAUDE.md point to valid installed paths
+# 4. All skill directories referenced in CLAUDE.md actually exist on disk
+# 5. No hardcoded absolute paths in any file (no C:/, D:/, /home/user/)
+# 6. Config template has no user-specific values filled in
+# 7. README.md Install section uses /plugin install, not bash install.sh
 ```
 
-### Generate kit.manifest.json
+### plugin.json — Per-Kit Manifest
 
 ```json
 {
-  "id": "{kit-name}",
-  "name": "{Kit Display Name}",
-  "version": "{MAJOR.MINOR.PATCH}",
-  "description": "{One sentence: what this kit does and who it helps}",
-  "author": "{author-name-or-org}",
-  "homepage": "{optional URL}",
-  "tags": ["{domain}", "{technology}", "{use-case}"],
-  "requires": [],
-  "install": {
-    "claude_md": "~/.claude/CLAUDE.md",
-    "rules": "~/.claude/rules/{kit-name}/",
-    "skills": "~/.claude/skills/",
-    "knowledge": "~/.claude/knowledge/{kit-name}/",
-    "agents": "~/.claude/agents/",
-    "hooks": "~/.claude/hooks/{kit-name}/"
+  "name": "kit-name",
+  "version": "MAJOR.MINOR.PATCH",
+  "description": "One sentence: what this kit does and who it helps",
+  "author": {
+    "name": "Author Name",
+    "email": "author@example.com"
   },
-  "config": "config/kit.config.template.md",
-  "entrypoint": "CLAUDE.md",
-  "commands": [],
-  "mcp": null,
-  "min_claude_code_version": "1.0.0"
+  "license": "MIT",
+  "keywords": ["domain", "technology", "use-case"],
+  "commands": "./skills/",
+  "mcpServers": {
+    "server-name": {
+      "type": "stdio",
+      "command": "server-binary-name"
+    }
+  }
 }
 ```
 
-### Generate install.sh
+`mcpServers` is optional — omit for kits with no local MCP server.
+OAuth-based MCPs (like Atlassian) are declared in `marketplace.json` via `"requires"`, not here.
 
-```bash
-#!/bin/bash
-# install.sh — Kit Installer for {Kit Name}
-# Usage: bash install.sh [--dry-run]
+### marketplace.json — Repo Root Catalog
 
-set -e
-KIT_DIR="$(cd "$(dirname "$0")" && pwd)"
-CLAUDE_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
-DRY_RUN="${1:-}"
+Update the matching plugin entry in `.claude-plugin/marketplace.json`:
 
-echo "Installing {Kit Name} to $CLAUDE_DIR..."
-
-install_dir() {
-  local src="$1" dest="$2"
-  if [ "$DRY_RUN" = "--dry-run" ]; then
-    echo "[DRY RUN] Would copy: $src → $dest"
-  else
-    mkdir -p "$dest"
-    cp -r "$src/." "$dest/"
-    echo "✓ $dest"
-  fi
+```json
+{
+  "plugins": [
+    {
+      "name": "kit-name",
+      "source": "./kit-name",
+      "description": "One sentence description",
+      "version": "MAJOR.MINOR.PATCH",
+      "author": { "name": "Author Name" },
+      "license": "MIT",
+      "keywords": ["domain", "technology"],
+      "category": "development",
+      "requires": ["atlassian-mcp-oauth"]
+    }
+  ]
 }
-
-# Install rules
-install_dir "$KIT_DIR/rules" "$CLAUDE_DIR/rules/{kit-name}"
-
-# Install skills (flat — skills share namespace)
-for skill_dir in "$KIT_DIR/skills"/*/; do
-  skill_name=$(basename "$skill_dir")
-  install_dir "$skill_dir" "$CLAUDE_DIR/skills/$skill_name"
-done
-
-# Install knowledge
-install_dir "$KIT_DIR/knowledge" "$CLAUDE_DIR/knowledge/{kit-name}"
-
-# Install agents
-install_dir "$KIT_DIR/agents" "$CLAUDE_DIR/agents"
-
-# Install hooks (make executable)
-if [ -d "$KIT_DIR/hooks" ]; then
-  install_dir "$KIT_DIR/hooks" "$CLAUDE_DIR/hooks/{kit-name}"
-  chmod +x "$CLAUDE_DIR/hooks/{kit-name}"/*.sh 2>/dev/null || true
-fi
-
-# Merge CLAUDE.md entry
-ENTRY="@~/.claude/rules/{kit-name}/*.md"
-if ! grep -q "{kit-name}" "$CLAUDE_DIR/CLAUDE.md" 2>/dev/null; then
-  echo "" >> "$CLAUDE_DIR/CLAUDE.md"
-  echo "## {Kit Name} — Installed" >> "$CLAUDE_DIR/CLAUDE.md"
-  echo "" >> "$CLAUDE_DIR/CLAUDE.md"
-  echo "@~/.claude/rules/{kit-name}/*.md" >> "$CLAUDE_DIR/CLAUDE.md"
-fi
-
-echo ""
-echo "✅ {Kit Name} installed successfully!"
-echo "   Run /kit-setup to configure your personal settings."
 ```
 
-### Generate README.md
+`requires` is optional — only for OAuth dependencies like Atlassian.
+`category` values: `development`, `productivity`, `tooling`, `data`, `security`.
 
-```markdown
-# {Kit Name}
-
-> {One sentence description}
-
-## What This Kit Does
-
-{2-3 sentences explaining the problem it solves and who it's for}
-
-## Skills
-
-| Command | Description |
-|---------|-------------|
-{list of user-invocable skills from CLAUDE.md}
-
-## Install
+### Version Bump Flow
 
 ```bash
-git clone {repo-url}
-cd {kit-name}
-bash install.sh
-```
-
-Then restart Claude Code.
-
-## Configure
-
-After installing, run `/kit-setup` to set your personal configuration.
-
-## Requirements
-- Claude Code {min_version}+
-{any other requirements}
-```
-
-### Pre-Commit Version Bump
-
-Run this before every `git commit` on a kit. Check `git diff --stat` first, then apply the bump:
-
-```
-Change includes removed/renamed user-facing skill or config key → MAJOR
-Change includes new skill, rule, knowledge doc, or agent        → MINOR
-Change is a fix, wording update, or trigger keyword addition    → PATCH
-```
-
-**Steps:**
-
-```bash
-# 1. Review scope
+# 1. Review scope of changes
 git diff --stat
 
-# 2. Update version in plugin.json
-#    "version": "0.3.1"  →  "version": "0.4.0"
+# Determine bump level:
+# Removed/renamed user-facing skill or config key → MAJOR
+# New skill, rule, knowledge doc, or agent added   → MINOR
+# Bug fix, wording, trigger keyword added          → PATCH
 
-# 3. Update matching entry in marketplace.json
-#    "version": "0.3.1"  →  "version": "0.4.0"
+# 2. Update plugin.json
+Edit: {kit}/.claude-plugin/plugin.json → bump "version"
 
-# 4. Stage both
-git add .claude-plugin/plugin.json
-git add ../.claude-plugin/marketplace.json   # root marketplace
+# 3. Update marketplace.json (must match)
+Edit: .claude-plugin/marketplace.json → bump matching plugin entry "version"
 
-# 5. Commit together with the kit changes
+# 4. Update root README.md version table
+Edit: README.md → update version column for this kit
+
+# 5. Stage all three together
+git add {kit}/.claude-plugin/plugin.json
+git add .claude-plugin/marketplace.json
+git add README.md
+```
+
+### README.md Install Section
+
+Every kit README must use the plugin install mechanism:
+
+```markdown
+## Install
+
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install kit-name@ginopoitier-plugins
+
+Then run `/kit-setup` in Claude Code.
+```
+
+Never use `bash install.sh` — there is no install.sh.
+
+### Validate Installability
+
+Before publishing, verify the kit structure is clean:
+
+```bash
+# Check plugin.json is valid JSON
+python3 -c "import json; json.load(open('{kit}/.claude-plugin/plugin.json'))" && echo "Valid"
+
+# Check all SKILL.md files have required frontmatter fields
+grep -rL "user-invocable:" {kit}/skills/*/SKILL.md
+
+# Check no hardcoded absolute paths
+grep -r "C:/\|D:/\|/home/" {kit}/skills/ {kit}/rules/ {kit}/CLAUDE.md
+
+# Verify version sync between plugin.json and marketplace.json
+python3 -c "
+import json
+p = json.load(open('{kit}/.claude-plugin/plugin.json'))['version']
+m = next(x['version'] for x in json.load(open('.claude-plugin/marketplace.json'))['plugins'] if x['name'] == '{kit}')
+print('SYNC OK' if p == m else f'MISMATCH: plugin.json={p}, marketplace.json={m}')
+"
 ```
 
 ## Anti-patterns
 
-### Don't Ship Without Running kit-health-check
+### Using install.sh or kit.manifest.json
+
+```
+# BAD — obsolete distribution mechanism
+bash install.sh
+kit.manifest.json with "install": { "rules": "~/.claude/rules/..." }
+
+# GOOD — Claude Code native plugin system
+/plugin install kit-name@ginopoitier-plugins
+plugin.json + marketplace.json
+```
+
+### Version Sync Drift
+
+```
+# BAD — bumped plugin.json but forgot marketplace.json
+plugin.json: "version": "1.2.0"
+marketplace.json: "version": "1.1.0"  ← stale
+
+# GOOD — always update both in the same commit
+# And update README.md version table too
+```
+
+### Shipping Without Health Check
 
 ```
 # BAD — "looks good to me, let's publish"
@@ -202,38 +188,30 @@ Run /kit-health-check → GPA ≥ 3.0 → then package
 Any D/F grades = fix first
 ```
 
-### Don't Hardcode Absolute Paths
+### Hardcoded Absolute Paths
 
-```bash
+```
 # BAD — breaks on any machine except the author's
-cp rules/ /Users/ginop/.claude/rules/
+@~/.claude/rules/kit-name/my-rule.md  ← fine
+C:/Users/ginop/.claude/rules/...      ← hardcoded, breaks everywhere else
 
-# GOOD — use $CLAUDE_DIR
-cp -r rules/ "$CLAUDE_DIR/rules/{kit-name}/"
-```
-
-### Don't Skip the Config Template
-
-```
-# BAD — user installs kit, it references non-existent config
-@~/.claude/kit.config.md  # file doesn't exist → every session errors
-
-# GOOD — ship a template they can fill in
-config/kit.config.template.md → user runs /kit-setup → saves to ~/.claude/kit.config.md
+# GOOD — use the installed path convention
+@~/.claude/rules/kit-name/my-rule.md
 ```
 
 ## Decision Guide
 
 | Scenario | Action |
 |----------|--------|
-| First release | Full package: manifest + install.sh + README |
-| Minor update (new skill) | Update manifest version (patch), update README skills table |
-| Breaking change (renamed skills) | Bump major version, add migration notes to README |
-| Internal team distribution | install.sh + README, no marketplace metadata needed |
-| Public marketplace release | Full package + homepage URL + tags + author field |
-| Kit with MCP server | Add mcp field to manifest with server path and env vars |
+| New skill added | MINOR version bump; update plugin.json + marketplace.json + README |
+| Bug fix / wording | PATCH bump; update both files |
+| Renamed a user-facing skill | MAJOR bump; add migration note to README |
+| MCP server dependency | Add to `mcpServers` in plugin.json |
+| OAuth MCP (Atlassian) | Add `"requires"` to marketplace.json entry |
+| Health check GPA < 3.0 | Fix issues first, don't publish |
+| Version mismatch detected | Fix marketplace.json to match plugin.json |
 
 ## Deep Reference
 
-For full marketplace spec, manifest schema, and distribution guidelines:
+For full marketplace spec, plugin.json schema, and distribution guidelines:
 @~/.claude/knowledge/kit-maker/marketplace-spec.md

@@ -45,6 +45,15 @@ Specialist agents available in dotnet-kit and their routing rules.
 | `self-correction-loop` | On any user correction |
 | `learning-log` | During sessions — captures discoveries |
 
+## GSD Workflow Agents
+
+| Agent | Trigger | Role |
+|-------|---------|------|
+| `gsd-planner` | `/gsd:plan-phase`, planning sessions | Decomposes phases into 2-3 task PLAN.md files with dependency graphs |
+| `gsd-executor` | `/gsd:execute-phase`, plan execution | Executes PLAN.md atomically with per-task commits and SUMMARY.md |
+| `gsd-verifier` | `/gsd:verify-phase`, after execution | Runs 7-phase .NET verification + automated test suite |
+| `gsd-debugger` | Build/test failures | Diagnoses failures using devkit-mcp tools and Seq logs |
+
 ## Conflict Resolution
 
 1. **Domain experts > generalists** — `ef-core-specialist` over `dotnet-architect` for EF queries

@@ -11,8 +11,9 @@ Obsidian personal knowledge base toolkit for Claude Code — create, search, and
 
 ## Install
 
-```bash
-bash install.sh
+```
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install obsidian-kit@ginopoitier-plugins
 ```
 
 Then run `/obsidian-setup` in Claude Code to configure your vault path.

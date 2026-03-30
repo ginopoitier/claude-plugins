@@ -1,6 +1,6 @@
 {
   "name": "kit-maker",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Scaffolding wizards for skills, rules, knowledge docs, agents, and complete kits. Includes quality gates and self-improvement features.",
   "author": {
     "name": "Gino Poitier"

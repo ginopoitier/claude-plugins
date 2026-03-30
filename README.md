@@ -34,15 +34,15 @@ Update all plugins:
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| [`dotnet-kit`](./dotnet-kit/) | 0.1.0 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
-| [`vue-kit`](./vue-kit/) | 0.1.0 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, TailwindCSS, Vite |
-| [`kit-maker`](./kit-maker/) | 1.0.5 | Build and audit Claude Code plugins |
-| [`git-kit`](./git-kit/) | 1.0.2 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
-| [`github-kit`](./github-kit/) | 1.0.1 | GitHub platform — PR creation, releases (home machine) |
-| [`bitbucket-kit`](./bitbucket-kit/) | 1.0.1 | Bitbucket platform — PR creation and review (work machine) |
-| [`jira-kit`](./jira-kit/) | 1.0.1 | Jira sprint work — epics, stories, refinement, standup |
-| [`confluence-kit`](./confluence-kit/) | 1.0.1 | Confluence docs — ADRs, SDRs, SDLC pages |
-| [`obsidian-kit`](./obsidian-kit/) | 1.0.1 | Obsidian personal notes and dev journal |
+| [`dotnet-kit`](./dotnet-kit/) | 0.3.2 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
+| [`vue-kit`](./vue-kit/) | 0.2.0 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, TailwindCSS, Vite |
+| [`kit-maker`](./kit-maker/) | 1.2.0 | Build and audit Claude Code plugins |
+| [`git-kit`](./git-kit/) | 1.0.3 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
+| [`github-kit`](./github-kit/) | 1.1.0 | GitHub platform — PR creation, review, releases (home machine) |
+| [`bitbucket-kit`](./bitbucket-kit/) | 1.2.0 | Bitbucket platform — PR creation, review, and releases (work machine) |
+| [`jira-kit`](./jira-kit/) | 1.2.0 | Jira sprint work — epics, stories, refinement, standup |
+| [`confluence-kit`](./confluence-kit/) | 1.1.0 | Confluence docs — ADRs, SDRs, SDLC pages |
+| [`obsidian-kit`](./obsidian-kit/) | 1.2.0 | Obsidian personal notes and dev journal |
 
 ## Typical install combinations
 
@@ -130,16 +130,16 @@ claude-plugins/
     README.md                 ← this file
     dotnet-kit/
       .claude-plugin/plugin.json
-      skills/                 ← 50 skills (backend + shared meta)
-      agents/                 ← 11 agents
+      skills/                 ← 50+ skills (backend + shared meta)
+      agents/                 ← 15 agents (11 domain + 4 dev workflow)
       rules/                  ← 15 rules
       knowledge/              ← dotnet/, decisions/, tech-lead/, shared/
-      templates/              ← web-api/, worker-service/
+      templates/              ← web-api/, worker-service/, blazor-app/, class-library/, modular-monolith/
       hooks/                  ← auto-format .cs, NuGet restore, bash guard
     vue-kit/
       .claude-plugin/plugin.json
-      skills/                 ← 13 skills (vue + shared meta)
-      agents/                 ← 5 agents
+      skills/                 ← 13+ skills (vue + shared meta)
+      agents/                 ← 9 agents (5 domain + 4 dev workflow)
       rules/                  ← 8 rules
       knowledge/              ← vue/, shared/
       templates/              ← vue-app/

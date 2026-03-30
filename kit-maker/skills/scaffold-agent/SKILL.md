@@ -4,7 +4,9 @@ description: >
   Interactive wizard for creating a new specialized Claude Code agent definition.
   Agents are scoped subprocesses with specific tools, models, and task boundaries.
   Load this skill when: "create an agent", "new agent", "scaffold agent", "add agent",
-  "agent definition", "subagent", "specialist agent", "autonomous agent".
+  "agent definition", "subagent", "specialist agent", "autonomous agent",
+  "XML sections agent", "structured agent", "complex agent", "orchestrator agent",
+  "color field", "tools field".
 user-invocable: true
 argument-hint: "[agent role or domain]"
 allowed-tools: Read, Write, Glob
@@ -29,9 +31,18 @@ allowed-tools: Read, Write, Glob
 name: {agent-name}
 description: >
   One paragraph: what this agent does, when to use it vs. staying in main context.
-  Include trigger phrases so the model knows when to spawn it.
-model: haiku|sonnet|opus
-allowed-tools: [tool list]
+  Spawned by: /command, orchestrator, or user.
+model: haiku|sonnet|opus       # or inherit (default)
+tools: [allowlist]             # or use disallowedTools for denylist
+color: green|yellow|blue|purple|red|orange
+# permissionMode: acceptEdits  # uncomment for executor agents
+# maxTurns: 20                 # uncomment to cap agentic turns
+# skills:                      # uncomment to preload skill content
+#   - skill-name
+# memory: user                 # uncomment for persistent memory (user|project|local)
+# effort: high                 # uncomment to override session effort
+# isolation: worktree          # uncomment to run in isolated git worktree
+# initialPrompt: "..."         # uncomment to auto-submit first turn
 ---
 
 # {Agent Name}
@@ -189,6 +200,69 @@ Maximum: ~1,000 tokens.
 5. Check hooks for executability via `ls -la hooks/`
 6. Produce graded report
 ```
+
+### Pattern B — Structured XML Sections (Complex Agents)
+
+Use for agents over 200 lines, orchestrators, or agents needing strong behavioral guardrails.
+
+```markdown
+---
+name: {agent-name}
+description: >
+  {Role definition}.
+  Spawned by: {trigger}.
+tools: Read, Write, Edit, Bash, Glob, Grep
+color: {green|yellow|blue|purple|red|orange}
+---
+
+<role>
+You are a {role}. You {main responsibility}.
+
+Spawned by:
+- `/{command}` (primary trigger)
+- `/{command} --{flag}` (variant)
+
+Your job: {one-sentence job description}.
+</role>
+
+<project_context>
+Before acting, discover project context:
+
+1. Read `./CLAUDE.md` if it exists — follow all project guidelines
+2. Check `.claude/skills/` for available skills
+3. Do NOT load full AGENTS.md files (100KB+ context cost)
+</project_context>
+
+<philosophy>
+## {Agent Worldview Title}
+
+{2-3 paragraphs defining how this agent makes decisions}
+
+## Quality Rule
+{One key quality constraint — e.g., "Plans complete within 50% context"}
+</philosophy>
+
+<context_fidelity>
+## User Decision Fidelity
+
+Locked decisions in `<user_decisions>` are NON-NEGOTIABLE:
+- If user said "use X" → use X, not an alternative
+
+Self-check before returning:
+- [ ] All locked decisions are implemented
+- [ ] No deferred ideas appear in output
+</context_fidelity>
+```
+
+**When to use Pattern A vs Pattern B:**
+
+| Use Pattern A (prose) | Use Pattern B (XML) |
+|----------------------|---------------------|
+| Single responsibility | Multiple responsibilities |
+| Under 200 lines | Over 200 lines |
+| Simple task execution | Complex decision logic |
+| Utility/helper agents | Orchestrators |
+| Clear, linear workflow | Branching behavior with constraints |
 
 ## Anti-patterns
 

@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for validating Clean Architecture and DDD conventions, including MediatR hygiene, validation coverage, and authorization checks.
+/// </summary>
 [McpServerToolType]
 public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
 {
@@ -16,6 +19,9 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Validates CQRS/MediatR hygiene: finds IMediator usage (should be ISender/IPublisher), " +
         "handlers not marked internal sealed, and handlers not returning Result<T>.")]
+    /// <summary>
+    /// Validates MediatR usage conventions, flagging <c>IMediator</c> injections, non-sealed handlers, and handlers not returning <c>Result&lt;T&gt;</c>.
+    /// </summary>
     public async Task<IReadOnlyList<MediatorViolation>> CheckMediatorPatterns(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -76,6 +82,9 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds IRequest<T> implementations (commands/queries) with no matching AbstractValidator<T>. " +
         "Unvalidated commands let bad input reach your handlers.")]
+    /// <summary>
+    /// Finds command types that implement <c>IRequest</c> but have no matching FluentValidation <c>AbstractValidator</c>.
+    /// </summary>
     public async Task<IReadOnlyList<MissingValidatorItem>> FindMissingValidators(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -143,6 +152,9 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Checks result pattern compliance: finds handlers not returning Result<T>, " +
         "and places where exceptions are thrown for business failures instead of returning errors.")]
+    /// <summary>
+    /// Finds handlers that do not return <c>Result&lt;T&gt;</c> or that throw exceptions for business failures instead of returning error values.
+    /// </summary>
     public async Task<IReadOnlyList<ResultPatternViolation>> CheckResultPatternUsage(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -202,6 +214,9 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Validates DDD conventions: entities with public setters, value objects not using record, " +
         "missing private constructors on aggregates, business logic outside Domain layer.")]
+    /// <summary>
+    /// Validates DDD conventions: entities with public setters, value objects not declared as records, aggregates missing a private constructor, and value objects outside the Domain layer.
+    /// </summary>
     public async Task<IReadOnlyList<DddViolation>> CheckDddPatterns(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -227,64 +242,84 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
 
                     if (isEntity)
                     {
-                        // Entities should not have public setters
-                        foreach (var prop in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
-                        {
-                            var setter = prop.AccessorList?.Accessors
-                                .FirstOrDefault(a => a.IsKind(SyntaxKind.SetAccessorDeclaration));
-                            if (setter is null) continue;
-                            var isPublicSetter = !setter.Modifiers.Any(m =>
-                                m.IsKind(SyntaxKind.PrivateKeyword) || m.IsKind(SyntaxKind.ProtectedKeyword));
-                            if (!isPublicSetter) continue;
-
-                            var line = prop.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-                            results.Add(new DddViolation(
-                                "EntityPublicSetter",
-                                $"Entity property '{prop.Identifier.Text}' has a public setter — use private set or init to protect invariants",
-                                document.FilePath, line, project.Name));
-                        }
-
-                        // Aggregates should have a private/protected constructor for EF Core
-                        var hasPrivateCtor = classDecl.DescendantNodes().OfType<ConstructorDeclarationSyntax>()
-                            .Any(c => c.Modifiers.Any(m => m.IsKind(SyntaxKind.PrivateKeyword) || m.IsKind(SyntaxKind.ProtectedKeyword)));
-                        if (!hasPrivateCtor && classDecl.Members.OfType<ConstructorDeclarationSyntax>().Any())
-                        {
-                            var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-                            results.Add(new DddViolation(
-                                "AggregateMissingPrivateCtor",
-                                $"Aggregate '{classDecl.Identifier.Text}' has no private/protected constructor — add one for EF Core hydration",
-                                document.FilePath, line, project.Name));
-                        }
+                        results.AddRange(CheckEntityPublicSetters(classDecl, document.FilePath, project.Name));
+                        results.AddRange(CheckAggregateMissingPrivateCtor(classDecl, document.FilePath, project.Name));
                     }
 
                     if (isValueObject && !isDomainProject)
-                    {
-                        var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-                        results.Add(new DddViolation(
-                            "ValueObjectOutsideDomain",
-                            $"ValueObject '{classDecl.Identifier.Text}' is defined outside the Domain layer",
-                            document.FilePath, line, project.Name));
-                    }
+                        results.AddRange(CheckValueObjectOutsideDomain(classDecl, document.FilePath, project.Name));
                 }
 
-                // Value objects should be records
-                foreach (var classDecl in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
-                {
-                    var baseList = classDecl.BaseList?.ToString() ?? "";
-                    if (!baseList.Contains("ValueObject")) continue;
-                    if (!isDomainProject) continue;
-
-                    // Flag class-based value objects (should be records)
-                    var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-                    results.Add(new DddViolation(
-                        "ValueObjectNotRecord",
-                        $"ValueObject '{classDecl.Identifier.Text}' should be a record for structural equality",
-                        document.FilePath, line, project.Name));
-                }
+                results.AddRange(CheckValueObjectNotRecord(root, isDomainProject, document.FilePath, project.Name));
             }
         }
 
         return results.OrderBy(r => r.ViolationType).ThenBy(r => r.FilePath).ToList();
+    }
+
+    private static IEnumerable<DddViolation> CheckEntityPublicSetters(
+        ClassDeclarationSyntax classDecl, string filePath, string projectName)
+    {
+        foreach (var prop in classDecl.DescendantNodes().OfType<PropertyDeclarationSyntax>())
+        {
+            var setter = prop.AccessorList?.Accessors
+                .FirstOrDefault(a => a.IsKind(SyntaxKind.SetAccessorDeclaration));
+            if (setter is null) continue;
+            var isPublicSetter = !setter.Modifiers.Any(m =>
+                m.IsKind(SyntaxKind.PrivateKeyword) || m.IsKind(SyntaxKind.ProtectedKeyword));
+            if (!isPublicSetter) continue;
+
+            var line = prop.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+            yield return new DddViolation(
+                "EntityPublicSetter",
+                $"Entity property '{prop.Identifier.Text}' has a public setter — use private set or init to protect invariants",
+                filePath, line, projectName);
+        }
+    }
+
+    private static IEnumerable<DddViolation> CheckAggregateMissingPrivateCtor(
+        ClassDeclarationSyntax classDecl, string filePath, string projectName)
+    {
+        if (!classDecl.Members.OfType<ConstructorDeclarationSyntax>().Any())
+            yield break;
+
+        var hasPrivateCtor = classDecl.DescendantNodes().OfType<ConstructorDeclarationSyntax>()
+            .Any(c => c.Modifiers.Any(m => m.IsKind(SyntaxKind.PrivateKeyword) || m.IsKind(SyntaxKind.ProtectedKeyword)));
+        if (hasPrivateCtor) yield break;
+
+        var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+        yield return new DddViolation(
+            "AggregateMissingPrivateCtor",
+            $"Aggregate '{classDecl.Identifier.Text}' has no private/protected constructor — add one for EF Core hydration",
+            filePath, line, projectName);
+    }
+
+    private static IEnumerable<DddViolation> CheckValueObjectOutsideDomain(
+        ClassDeclarationSyntax classDecl, string filePath, string projectName)
+    {
+        var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+        yield return new DddViolation(
+            "ValueObjectOutsideDomain",
+            $"ValueObject '{classDecl.Identifier.Text}' is defined outside the Domain layer",
+            filePath, line, projectName);
+    }
+
+    private static IEnumerable<DddViolation> CheckValueObjectNotRecord(
+        SyntaxNode root, bool isDomainProject, string filePath, string projectName)
+    {
+        if (!isDomainProject) yield break;
+
+        foreach (var classDecl in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
+        {
+            var baseList = classDecl.BaseList?.ToString() ?? "";
+            if (!baseList.Contains("ValueObject")) continue;
+
+            var line = classDecl.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+            yield return new DddViolation(
+                "ValueObjectNotRecord",
+                $"ValueObject '{classDecl.Identifier.Text}' should be a record for structural equality",
+                filePath, line, projectName);
+        }
     }
 
     // ── FindMissingAuthorization ───────────────────────────────────────────────
@@ -292,6 +327,9 @@ public sealed class ArchitectureTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds Minimal API endpoints missing .RequireAuthorization() or .AllowAnonymous(). " +
         "Flags any endpoint without an explicit authorization decision.")]
+    /// <summary>
+    /// Finds Minimal API endpoints that have neither <c>RequireAuthorization()</c> nor <c>AllowAnonymous()</c> in their method chain.
+    /// </summary>
     public async Task<IReadOnlyList<UnauthorizedEndpoint>> FindMissingAuthorization(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)

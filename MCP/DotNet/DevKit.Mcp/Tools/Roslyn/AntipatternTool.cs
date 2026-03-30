@@ -7,6 +7,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for detecting .NET coding anti-patterns using fast syntax-only and deeper semantic analyzers.
+/// </summary>
 [McpServerToolType]
 public sealed class AntipatternTool(RoslynWorkspaceService workspace, SolutionOptions options)
 {
@@ -35,6 +38,9 @@ public sealed class AntipatternTool(RoslynWorkspaceService workspace, SolutionOp
         "Detects: async void, sync-over-async, new HttpClient(), DateTime.Now/UtcNow, empty catch, " +
         "Thread.Sleep, Console.WriteLine, hardcoded secrets, pragma without restore, " +
         "missing CancellationToken, EF Core missing AsNoTracking, logging string interpolation.")]
+    /// <summary>
+    /// Runs configured anti-pattern detectors across C# source files and returns all matches, ordered by severity.
+    /// </summary>
     public async Task<IReadOnlyList<AntiPatternMatch>> DetectAntipatterns(
         [Description("Root directory to scan. Defaults to solution directory.")] string? rootPath = null,
         [Description("Comma-separated pattern IDs to run. Omit for all. E.g. 'AsyncVoid,SyncOverAsync'")] string? patterns = null,
@@ -106,6 +112,9 @@ public sealed class AntipatternTool(RoslynWorkspaceService workspace, SolutionOp
             .ToList();
     }
 
+    /// <summary>
+    /// Lists all registered anti-pattern detector IDs and their execution mode (Syntax or Semantic).
+    /// </summary>
     [McpServerTool, Description("Lists all available anti-pattern detector IDs and their descriptions.")]
     public IReadOnlyList<object> ListPatterns() =>
         AllDetectors.Select(d => new

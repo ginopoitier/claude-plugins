@@ -10,6 +10,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for measuring coupling metrics, detecting Interface Segregation violations, and finding duplicate code.
+/// </summary>
 [McpServerToolType]
 public sealed class CouplingTool(RoslynWorkspaceService workspace)
 {
@@ -17,6 +20,9 @@ public sealed class CouplingTool(RoslynWorkspaceService workspace)
         "Returns afferent (fan-in) and efferent (fan-out) coupling per class. " +
         "High efferent coupling = class depends on too many others (SRP violation). " +
         "High afferent coupling = class is heavily depended upon (change carefully).")]
+    /// <summary>
+    /// Returns afferent and efferent coupling counts per class, highlighting types that depend on too many others.
+    /// </summary>
     public async Task<IReadOnlyList<CouplingMetric>> GetCouplingMetrics(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Only return types with efferent coupling >= this value. Default 5.")] int threshold = 5,
@@ -87,6 +93,9 @@ public sealed class CouplingTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Detects Interface Segregation Principle violations. " +
         "Finds implementations that use fewer than a threshold percentage of the interface's members.")]
+    /// <summary>
+    /// Detects classes that implement an interface but use only a small fraction of its members, indicating an ISP violation.
+    /// </summary>
     public async Task<IReadOnlyList<InterfaceSegregationViolation>> GetInterfaceSegregation(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Flag implementations using fewer than this % of interface members. Default 60.")] int usageThresholdPercent = 60,
@@ -161,6 +170,9 @@ public sealed class CouplingTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds structurally duplicate methods by hashing normalized method bodies. " +
         "Normalizes whitespace and identifiers — catches copy-paste code even with renamed variables.")]
+    /// <summary>
+    /// Identifies structurally duplicate method bodies by hashing normalized syntax, catching copy-paste code even with renamed identifiers.
+    /// </summary>
     public async Task<IReadOnlyList<DuplicateCodePair>> FindDuplicateLogic(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Minimum method line count to consider. Default 8.")] int minLines = 8,
@@ -222,6 +234,9 @@ public sealed class CouplingTool(RoslynWorkspaceService workspace)
         "Identifies methods that are good extract-method candidates: " +
         "long methods with cohesive statement groups that can be factored out. " +
         "Returns suggested extraction points with line ranges and reasoning.")]
+    /// <summary>
+    /// Identifies long methods that are good candidates for extract-method refactoring, with reasoning for each suggestion.
+    /// </summary>
     public async Task<IReadOnlyList<ExtractionCandidate>> FindExtractionCandidates(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Minimum method line count to consider. Default 25.")] int minLines = 25,

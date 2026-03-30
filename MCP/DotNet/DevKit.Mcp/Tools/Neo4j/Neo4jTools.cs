@@ -6,12 +6,18 @@ using Neo4j.Driver;
 
 namespace DevKit.Mcp.Tools.Neo4j;
 
+/// <summary>
+/// Provides MCP tools for executing Cypher queries, inspecting the Neo4j graph schema, and finding shortest paths.
+/// </summary>
 [McpServerToolType]
 public sealed class Neo4jTools(Neo4jService neo4j)
 {
     [McpServerTool, Description(
         "Runs a Cypher query against Neo4j and returns results as JSON. " +
         "Always use parameterized queries — pass values in the params argument, never interpolate into the query string.")]
+    /// <summary>
+    /// Executes a parameterized Cypher query and returns the results as a JSON string.
+    /// </summary>
     public async Task<string> RunQuery(
         [Description("Cypher query to execute. Use $paramName for parameters.")] string query,
         [Description("JSON object of query parameters, e.g. {\"userId\": \"abc-123\", \"limit\": 10}. Optional.")] string? parameters = null,
@@ -39,6 +45,9 @@ public sealed class Neo4jTools(Neo4jService neo4j)
     [McpServerTool, Description(
         "Returns the Neo4j graph schema — all node labels, relationship types, and their properties. " +
         "Use this before writing Cypher to understand the data model.")]
+    /// <summary>
+    /// Returns the Neo4j graph schema, including all node labels, relationship types, and their associated properties.
+    /// </summary>
     public async Task<string> GetSchema(CancellationToken ct = default)
     {
         if (!neo4j.IsConfigured)
@@ -82,6 +91,9 @@ public sealed class Neo4jTools(Neo4jService neo4j)
     [McpServerTool, Description(
         "Finds the shortest path between two nodes in the graph. " +
         "Returns the path as a sequence of nodes and relationships.")]
+    /// <summary>
+    /// Finds the shortest path between two nodes in the graph and returns it as a JSON sequence of nodes and relationships.
+    /// </summary>
     public async Task<string> FindPath(
         [Description("Label of the start node, e.g. 'User'.")] string fromLabel,
         [Description("Property to match the start node on, e.g. 'id'.")] string fromProperty,

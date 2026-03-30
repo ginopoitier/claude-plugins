@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides an MCP tool for scanning C# source for OWASP-aligned security vulnerabilities via Roslyn syntax analysis.
+/// </summary>
 [McpServerToolType]
 public sealed class SecurityTool(RoslynWorkspaceService workspace, SolutionOptions options)
 {
@@ -15,6 +18,9 @@ public sealed class SecurityTool(RoslynWorkspaceService workspace, SolutionOptio
         "Scans for OWASP-aligned security vulnerabilities: SQL injection via string concatenation, " +
         "hardcoded connection strings/secrets, path traversal, dangerous deserialization, " +
         "and user input passed to sensitive APIs. Returns severity: Critical, High, Medium.")]
+    /// <summary>
+    /// Scans source files for security vulnerabilities including SQL injection, hardcoded secrets, path traversal, and dangerous deserialization.
+    /// </summary>
     public async Task<IReadOnlyList<SecurityVulnerability>> ScanSecurityVulnerabilities(
         [Description("Root directory to scan. Defaults to solution directory.")] string? rootPath = null,
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,

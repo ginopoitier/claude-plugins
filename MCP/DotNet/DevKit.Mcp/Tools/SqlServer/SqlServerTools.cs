@@ -5,12 +5,18 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.SqlServer;
 
+/// <summary>
+/// Provides MCP tools for querying a SQL Server database schema, running read-only SQL, and inspecting performance and migration state.
+/// </summary>
 [McpServerToolType]
 public sealed class SqlServerTools(SqlServerService sql)
 {
     [McpServerTool, Description(
         "Executes a read-only SQL query against the configured SQL Server database. " +
         "Only SELECT statements are allowed. Returns results as a list of row objects.")]
+    /// <summary>
+    /// Executes a read-only SELECT, CTE, or EXEC query and returns the rows as dictionaries.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> RunSqlQuery(
         [Description("SELECT statement to execute. Must be read-only.")] string query,
         CancellationToken ct = default)
@@ -28,6 +34,9 @@ public sealed class SqlServerTools(SqlServerService sql)
 
     [McpServerTool, Description(
         "Returns the database schema — all tables, views, and stored procedures with their columns and row counts.")]
+    /// <summary>
+    /// Returns all tables, views, and stored procedures with column metadata from INFORMATION_SCHEMA.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetDatabaseSchema(
         [Description("Filter to a specific schema name. Omit for all schemas.")] string? schemaName = null,
         CancellationToken ct = default)
@@ -69,6 +78,9 @@ public sealed class SqlServerTools(SqlServerService sql)
 
     [McpServerTool, Description(
         "Returns the detailed structure of a specific table — columns, types, constraints, indexes, and foreign keys.")]
+    /// <summary>
+    /// Returns the column definitions, constraints, indexes, and foreign keys for a specific table.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetTableStructure(
         [Description("Table name to inspect.")] string tableName,
         [Description("Schema name. Defaults to 'dbo'.")] string schemaName = "dbo",
@@ -118,6 +130,9 @@ public sealed class SqlServerTools(SqlServerService sql)
 
     [McpServerTool, Description(
         "Returns all stored procedures and their parameter definitions.")]
+    /// <summary>
+    /// Returns all stored procedures with their parameter definitions from INFORMATION_SCHEMA.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetStoredProcedures(
         [Description("Filter to procedures matching this name pattern (% wildcards). Omit for all.")] string? nameFilter = null,
         CancellationToken ct = default)
@@ -149,6 +164,9 @@ public sealed class SqlServerTools(SqlServerService sql)
     [McpServerTool, Description(
         "Analyzes indexes — shows missing indexes recommended by the query optimizer, " +
         "usage statistics (seeks/scans/lookups), and flags unused indexes.")]
+    /// <summary>
+    /// Returns existing index usage statistics and missing-index recommendations from the query optimizer.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetIndexAnalysis(
         [Description("Filter to a specific table. Omit for all tables.")] string? tableName = null,
         CancellationToken ct = default)
@@ -207,13 +225,16 @@ public sealed class SqlServerTools(SqlServerService sql)
 
     [McpServerTool, Description(
         "Returns EF Core migration status — applied and pending migrations from the __EFMigrationsHistory table.")]
+    /// <summary>
+    /// Returns all applied EF Core migrations from the <c>__EFMigrationsHistory</c> table, or a status message if the table does not exist.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetMigrationStatus(
         [Description("Schema of the migrations table. Defaults to 'dbo'.")] string schema = "dbo",
         CancellationToken ct = default)
     {
         if (!sql.IsConfigured) throw new InvalidOperationException("SQL Server not configured.");
 
-        var safeSchema = schema.Replace("'", "''");
+        var safeSchema = schema.Replace("]", "]]").Replace("'", "''");
 
         // Check if the migrations table exists
         var tableExists = await sql.QueryAsync(
@@ -238,6 +259,9 @@ public sealed class SqlServerTools(SqlServerService sql)
     [McpServerTool, Description(
         "Returns the top slow queries by average duration. " +
         "Requires Query Store to be enabled (ALTER DATABASE ... SET QUERY_STORE = ON).")]
+    /// <summary>
+    /// Returns the slowest queries by average duration, using Query Store when available or DMVs as a fallback.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetSlowQueries(
         [Description("Minimum average duration in milliseconds to report. Default 500.")] int minDurationMs = 500,
         [Description("Maximum number of queries to return. Default 20.")] int topN = 20,
@@ -294,6 +318,9 @@ public sealed class SqlServerTools(SqlServerService sql)
 
     [McpServerTool, Description(
         "Returns the database and table sizes — data, index, and free space for each table.")]
+    /// <summary>
+    /// Returns data, index, and free space in megabytes for each table in the database.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetDatabaseSize(
         CancellationToken ct = default)
     {
@@ -323,6 +350,9 @@ public sealed class SqlServerTools(SqlServerService sql)
     [McpServerTool, Description(
         "Detects currently blocked queries — sessions waiting on locks, " +
         "the blocking session, wait type, and duration. Empty result means no blocking.")]
+    /// <summary>
+    /// Returns sessions currently waiting on locks, including the blocking session and the queries involved.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> DetectBlockingQueries(
         CancellationToken ct = default)
     {
@@ -357,6 +387,9 @@ public sealed class SqlServerTools(SqlServerService sql)
     [McpServerTool, Description(
         "Returns the foreign key relationship map — which tables reference which, " +
         "useful for understanding entity relationships and cascade behavior.")]
+    /// <summary>
+    /// Returns the foreign key relationship map showing which tables reference which, including constraint names and cascade behavior.
+    /// </summary>
     public async Task<IReadOnlyList<IReadOnlyDictionary<string, object?>>> GetForeignKeyMap(
         [Description("Filter to relationships involving this table (as parent or child). Omit for all.")] string? tableName = null,
         CancellationToken ct = default)

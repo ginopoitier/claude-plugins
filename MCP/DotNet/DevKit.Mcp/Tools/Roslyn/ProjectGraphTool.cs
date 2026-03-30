@@ -6,12 +6,18 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for visualizing the project dependency graph and validating Clean Architecture layer boundaries.
+/// </summary>
 [McpServerToolType]
 public sealed class ProjectGraphTool(SolutionOptions options)
 {
     [McpServerTool, Description(
         "Returns the project dependency graph for a .NET solution — which projects reference which. " +
         "Use this to understand solution structure without reading individual files.")]
+    /// <summary>
+    /// Parses the solution file and returns each project with its direct project references.
+    /// </summary>
     public IReadOnlyList<ProjectNode> GetProjectGraph(
         [Description("Path to the .sln file. Defaults to the solution passed at server startup.")] string? solutionPath = null)
     {
@@ -30,6 +36,9 @@ public sealed class ProjectGraphTool(SolutionOptions options)
     [McpServerTool, Description(
         "Checks a .NET solution for Clean Architecture layer violations — " +
         "Application referencing Infrastructure, Domain referencing Application, etc.")]
+    /// <summary>
+    /// Detects Clean Architecture layer violations where inner layers reference outer layers by inspecting project references.
+    /// </summary>
     public IReadOnlyList<LayerViolation> CheckLayerViolations(
         [Description("Path to the .sln file. Defaults to the solution passed at server startup.")] string? solutionPath = null)
     {

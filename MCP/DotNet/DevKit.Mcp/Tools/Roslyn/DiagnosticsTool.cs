@@ -6,12 +6,18 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for retrieving Roslyn compiler diagnostics and managing the workspace lifecycle.
+/// </summary>
 [McpServerToolType]
 public sealed class DiagnosticsTool(RoslynWorkspaceService workspace)
 {
     [McpServerTool, Description(
         "Returns compiler errors and warnings for the solution or a specific project. " +
         "Use this instead of running 'dotnet build' and parsing output — returns structured results directly.")]
+    /// <summary>
+    /// Returns structured compiler errors and warnings for the solution or a specific project.
+    /// </summary>
     public async Task<IReadOnlyList<DiagnosticItem>> GetDiagnostics(
         [Description("Filter to a specific project. Omit to get diagnostics for the whole solution.")] string? projectName = null,
         [Description("Minimum severity to include: Error, Warning, Info. Defaults to Warning.")] string minSeverity = "Warning",
@@ -58,6 +64,9 @@ public sealed class DiagnosticsTool(RoslynWorkspaceService workspace)
             .ToList();
     }
 
+    /// <summary>
+    /// Reloads the Roslyn solution from disk and returns a summary of loaded projects.
+    /// </summary>
     [McpServerTool, Description("Reloads the Roslyn workspace from disk. Call after adding files or changing project references.")]
     public async Task<string> ReloadSolution(CancellationToken ct = default)
     {
@@ -65,6 +74,9 @@ public sealed class DiagnosticsTool(RoslynWorkspaceService workspace)
         return $"Solution reloaded: {solution.Projects.Count()} projects.";
     }
 
+    /// <summary>
+    /// Returns the current Roslyn workspace loading state.
+    /// </summary>
     [McpServerTool, Description("Returns the current workspace state: NotStarted, Loading, Ready, or Failed.")]
     public string GetWorkspaceStatus() =>
         $"State: {workspace.State}";

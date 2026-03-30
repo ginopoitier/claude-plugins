@@ -4,6 +4,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.DotNet;
 
+/// <summary>
+/// Provides an MCP tool for auditing NuGet packages for known vulnerabilities and available updates.
+/// </summary>
 [McpServerToolType]
 public sealed class NuGetAuditTool
 {
@@ -11,6 +14,9 @@ public sealed class NuGetAuditTool
         "Audits NuGet packages for vulnerabilities and outdated versions using 'dotnet list package'. " +
         "Returns structured results grouped by severity. " +
         "Requires .NET SDK and an internet connection for vulnerability data.")]
+    /// <summary>
+    /// Runs <c>dotnet list package</c> to identify vulnerable and outdated NuGet packages, returning results grouped by severity.
+    /// </summary>
     public async Task<IReadOnlyList<PackageAuditResult>> AuditPackages(
         [Description("Path to the solution or project directory. Defaults to current directory.")] string? rootPath = null,
         [Description("Include transitive (indirect) dependencies. Default true.")] bool includeTransitive = true,

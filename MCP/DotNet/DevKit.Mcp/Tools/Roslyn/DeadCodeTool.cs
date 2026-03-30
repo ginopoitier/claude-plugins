@@ -7,6 +7,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides an MCP tool for detecting unused private and internal members via Roslyn reference analysis.
+/// </summary>
 [McpServerToolType]
 public sealed class DeadCodeTool(RoslynWorkspaceService workspace)
 {
@@ -14,6 +17,9 @@ public sealed class DeadCodeTool(RoslynWorkspaceService workspace)
         "Finds unused private and internal types, methods, and properties across the solution. " +
         "Checks reference counts via Roslyn — more accurate than regex-based approaches. " +
         "Excludes: test classes, entry points, serialization types, interface implementations.")]
+    /// <summary>
+    /// Scans the solution for types, methods, and properties that have zero references and are safe-to-delete candidates.
+    /// </summary>
     public async Task<IReadOnlyList<DeadCodeItem>> FindDeadCode(
         [Description("Filter to a specific project. Omit to scan all.")] string? projectName = null,
         [Description("Include private members. Default true.")] bool includePrivate = true,

@@ -59,5 +59,18 @@ Hooks are shell commands configured in `settings.json` that run automatically on
 }
 ```
 
+## Git Hooks (manual installation)
+
+The kit ships two optional git hooks for quality enforcement in your repo's `.git/hooks/`:
+
+| Script | Purpose | Install |
+|--------|---------|---------|
+| `hooks/pre-commit-format.sh` | Blocks commit if `dotnet format` finds formatting issues | `cp hooks/pre-commit-format.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit` |
+| `hooks/pre-commit-antipattern.sh` | Blocks commit if staged .cs files contain `DateTime.Now`, `new HttpClient()`, `async void`, or sync-over-async | Same, or chain with the format hook |
+
+These are git hooks, not Claude Code hooks — they are not registered in `hooks.json`.
+
+`hooks/pre-build-validate.sh` is a standalone project structure validator (checks for `.sln`, `Directory.Build.props`, `global.json`, test projects). Run it manually: `bash hooks/pre-build-validate.sh`.
+
 ## Deep Reference
 Use `/update-config` to configure hooks — Claude cannot modify `settings.json` directly without explicit permission.

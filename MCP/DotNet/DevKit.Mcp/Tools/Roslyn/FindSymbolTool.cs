@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for locating symbols, resolving references, and navigating type hierarchies across a Roslyn solution.
+/// </summary>
 [McpServerToolType]
 public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
 {
@@ -16,6 +19,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds where a type, method, property, or interface is defined. " +
         "Returns file path, line, and signature. ~50 tokens vs 1000+ for file reads.")]
+    /// <summary>
+    /// Searches the solution for a symbol by name, returning its file location and signature.
+    /// </summary>
     public async Task<IReadOnlyList<SymbolLocation>> FindSymbol(
         [Description("Name to search for.")] string name,
         [Description("Filter by kind: Class, Interface, Method, Property, Field, Enum. Omit for all.")] string? kind = null,
@@ -57,6 +63,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds all usages/references of a symbol across the solution. " +
         "Returns each call site with file and line. Use before refactoring.")]
+    /// <summary>
+    /// Finds all usage sites of a named symbol across the solution.
+    /// </summary>
     public async Task<IReadOnlyList<SymbolLocation>> FindReferences(
         [Description("Exact symbol name to find references for.")] string name,
         [Description("Filter to a specific project. Omit to search all.")] string? projectName = null,
@@ -100,6 +109,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds all types that implement an interface or inherit from a base class. " +
         "Use to understand the full type hierarchy before modifying a contract.")]
+    /// <summary>
+    /// Returns all types that implement a given interface or inherit from a base class.
+    /// </summary>
     public async Task<IReadOnlyList<ImplementationInfo>> FindImplementations(
         [Description("Interface or base class name, e.g. 'IOrderRepository', 'BaseHandler'.")] string typeName,
         CancellationToken ct = default)
@@ -127,6 +139,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds all methods that call the specified method. " +
         "Use to understand impact before changing a method signature.")]
+    /// <summary>
+    /// Returns all methods that directly call the specified method, with call-site file and line.
+    /// </summary>
     public async Task<IReadOnlyList<CallerInfo>> FindCallers(
         [Description("Method name to find callers of.")] string methodName,
         [Description("Filter to a specific project. Omit to search all.")] string? projectName = null,
@@ -180,6 +195,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds all overrides of a virtual or abstract method. " +
         "Use before changing base method behavior to see all affected implementations.")]
+    /// <summary>
+    /// Returns all overriding implementations of a virtual or abstract method across the solution.
+    /// </summary>
     public async Task<IReadOnlyList<OverrideInfo>> FindOverrides(
         [Description("Virtual or abstract method name.")] string methodName,
         CancellationToken ct = default)
@@ -219,6 +237,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Returns the full type hierarchy for a class or interface — base types, interfaces, derived types. " +
         "Use to understand inheritance before making structural changes.")]
+    /// <summary>
+    /// Builds the complete type hierarchy for a class or interface, including base types, interfaces, and derived types.
+    /// </summary>
     public async Task<TypeHierarchyResult?> GetTypeHierarchy(
         [Description("Type name to get the hierarchy for.")] string typeName,
         CancellationToken ct = default)
@@ -263,6 +284,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Returns full detail for a symbol: signature, parameters, return type, accessibility, XML docs. " +
         "Cheaper than reading the file — use before working with a method.")]
+    /// <summary>
+    /// Returns the full detail of a symbol — signature, parameters, return type, accessibility, and XML docs.
+    /// </summary>
     public async Task<SymbolDetail?> GetSymbolDetail(
         [Description("Symbol name (type, method, property).")] string name,
         [Description("Filter by kind: Class, Interface, Method, Property. Omit for first match.")] string? kind = null,
@@ -316,6 +340,9 @@ public sealed class FindSymbolTool(RoslynWorkspaceService workspace)
 
     // ── Helpers ────────────────────────────────────────────────────────────────
 
+    /// <summary>
+    /// Searches every project in the solution for declarations matching <paramref name="name"/>.
+    /// </summary>
     internal static async Task<IEnumerable<ISymbol>> FindAcrossSolutionAsync(
         Solution solution, string name, bool ignoreCase, CancellationToken ct)
     {

@@ -33,6 +33,11 @@ When config is missing → the `check-settings` hook will prompt automatically.
 
 ### Notes
 - `/note` — create, search, or open a note in the vault; supports daily dev journal entries
+- `/defuddle` — extract clean markdown from web pages with Defuddle CLI (instead of WebFetch)
+- `/json-canvas` — create/edit `.canvas` files with nodes, edges, groups
+- `/obsidian-bases` — create/edit `.base` files with views, filters, formulas (database-like note views)
+- `/obsidian-cli` — interact with Obsidian vault via CLI (read, create, search, manage notes, plugin dev)
+- `/obsidian-markdown` — Obsidian Flavored Markdown — wikilinks, callouts, embeds, properties
 
 ### Setup
 - `/obsidian-setup` — configure vault path and folder structure

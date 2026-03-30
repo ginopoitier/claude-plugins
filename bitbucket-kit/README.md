@@ -7,12 +7,15 @@ Bitbucket platform toolkit for Claude Code — PR creation, review, and Bitbucke
 | Category | Skills |
 |----------|--------|
 | Pull Requests | `/pr` — create, view, list, and diff PRs using the Bitbucket REST API |
+| Pull Requests | `/review` — tech lead code review with `--mentoring` (coaching) or `--gatekeeper` (strict) modes |
+| Releases | `/release` — create a Bitbucket tag and auto-generate release notes from merged PRs |
 | Setup | `/bitbucket-setup` — configure user-level and project-level settings |
 
 ## Install
 
-```bash
-bash install.sh
+```
+/plugin marketplace add ginopoitier/claude-plugins
+/plugin install bitbucket-kit@ginopoitier-plugins
 ```
 
 Then run `/bitbucket-setup` in Claude Code.

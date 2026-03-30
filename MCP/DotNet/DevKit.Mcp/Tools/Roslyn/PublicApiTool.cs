@@ -6,12 +6,18 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides an MCP tool for enumerating the public API surface of a named type without reading its source file directly.
+/// </summary>
 [McpServerToolType]
 public sealed class PublicApiTool(RoslynWorkspaceService workspace)
 {
     [McpServerTool, Description(
         "Returns all public members of a type — methods, properties, constructors. " +
         "Much cheaper than reading the full file. Use to understand a type's contract before working with it.")]
+    /// <summary>
+    /// Returns all public members of a type — methods, properties, and constructors — with their signatures and XML docs.
+    /// </summary>
     public async Task<PublicApiResult?> GetPublicApi(
         [Description("Type name to inspect, e.g. 'OrderHandler', 'IOrderRepository'.")] string typeName,
         [Description("Filter to a specific project. Omit to search all.")] string? projectName = null,
@@ -27,12 +33,21 @@ public sealed class PublicApiTool(RoslynWorkspaceService workspace)
             declarations.AddRange(decls);
         }
 
-        var typeSymbol = declarations
-            .OfType<INamedTypeSymbol>()
-            .FirstOrDefault(s =>
-                projectName is null ||
-                solution.Projects.Any(p => p.Name == projectName &&
-                    p.GetCompilationAsync(ct).Result?.GetTypeByMetadataName(s.MetadataName) is not null));
+        INamedTypeSymbol? typeSymbol;
+        if (projectName is null)
+        {
+            typeSymbol = declarations.OfType<INamedTypeSymbol>().FirstOrDefault();
+        }
+        else
+        {
+            var targetProject = solution.Projects.FirstOrDefault(p => p.Name == projectName);
+            var compilation = targetProject is not null
+                ? await targetProject.GetCompilationAsync(ct)
+                : null;
+            typeSymbol = declarations
+                .OfType<INamedTypeSymbol>()
+                .FirstOrDefault(s => compilation?.GetTypeByMetadataName(s.MetadataName) is not null);
+        }
 
         if (typeSymbol is null) return null;
 

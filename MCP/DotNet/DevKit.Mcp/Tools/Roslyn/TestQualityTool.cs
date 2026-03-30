@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for identifying test coverage gaps and detecting test code anti-patterns.
+/// </summary>
 [McpServerToolType]
 public sealed class TestQualityTool(RoslynWorkspaceService workspace)
 {
@@ -15,6 +18,9 @@ public sealed class TestQualityTool(RoslynWorkspaceService workspace)
         "Cross-references handler files with test files by naming convention. " +
         "Reports handlers with no matching test class. " +
         "Looks for *Handler.cs and expects *Tests.cs or *HandlerTests.cs alongside.")]
+    /// <summary>
+    /// Reports handler files that have no matching test class based on naming convention.
+    /// </summary>
     public async Task<IReadOnlyList<TestGapItem>> GetTestGapReport(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -90,6 +96,9 @@ public sealed class TestQualityTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds test anti-patterns: Thread.Sleep in tests, mocked DbContext (should use real DB), " +
         "tests with no assertions, Assert.True(x == y) instead of Assert.Equal, and tests missing error-path coverage.")]
+    /// <summary>
+    /// Scans test projects for common anti-patterns: Thread.Sleep, mocked DbContext, missing assertions, and weak equality assertions.
+    /// </summary>
     public async Task<IReadOnlyList<TestSmellItem>> FindTestSmells(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -116,48 +125,72 @@ public sealed class TestQualityTool(RoslynWorkspaceService workspace)
                         .Any(a => a.Name.ToString() is "Fact" or "Theory" or "Test");
                     if (!isTest) continue;
 
-                    var methodText = method.Body?.ToString() ?? "";
-                    var line = method.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
-
-                    // Thread.Sleep in tests
-                    if (methodText.Contains("Thread.Sleep"))
-                        results.Add(new TestSmellItem("ThreadSleep",
-                            "Thread.Sleep in test — use FakeTimeProvider or await Task.Delay with very short duration",
-                            document.FilePath, line, project.Name));
-
-                    // Mocked DbContext
-                    if (methodText.Contains("Mock<") && (methodText.Contains("DbContext") || methodText.Contains("AppDbContext")))
-                        results.Add(new TestSmellItem("MockedDbContext",
-                            "Mocked DbContext detected — use a real test database via Testcontainers for accurate integration tests",
-                            document.FilePath, line, project.Name));
-
-                    // No assertions
-                    var hasAssertion = methodText.Contains(".Should()") ||
-                                       methodText.Contains("Assert.") ||
-                                       methodText.Contains("Verify(") ||
-                                       methodText.Contains("response.Status");
-                    if (!hasAssertion)
-                        results.Add(new TestSmellItem("NoAssertions",
-                            $"Test '{method.Identifier.Text}' has no assertions — it will always pass and provides no value",
-                            document.FilePath, line, project.Name));
-
-                    // Assert.True(x == y) instead of Assert.Equal
-                    foreach (var invocation in method.DescendantNodes().OfType<InvocationExpressionSyntax>())
-                    {
-                        if (invocation.Expression.ToString() is not "Assert.True" and not "Assert.False") continue;
-                        var argText = invocation.ArgumentList.Arguments.FirstOrDefault()?.ToString() ?? "";
-                        if (!argText.Contains("==") && !argText.Contains("!=")) continue;
-
-                        results.Add(new TestSmellItem("WeakAssertion",
-                            $"Assert.True/False with equality check — use Assert.Equal/NotEqual for better failure messages",
-                            document.FilePath,
-                            invocation.GetLocation().GetLineSpan().StartLinePosition.Line + 1,
-                            project.Name));
-                    }
+                    results.AddRange(DetectThreadSleep(method, document.FilePath, project.Name));
+                    results.AddRange(DetectMockedDbContext(method, document.FilePath, project.Name));
+                    results.AddRange(DetectNoAssertions(method, document.FilePath, project.Name));
+                    results.AddRange(DetectWeakAssertions(method, document.FilePath, project.Name));
                 }
             }
         }
 
         return results.OrderBy(r => r.SmellType).ThenBy(r => r.FilePath).ToList();
+    }
+
+    private static IEnumerable<TestSmellItem> DetectThreadSleep(
+        MethodDeclarationSyntax method, string filePath, string projectName)
+    {
+        var methodText = method.Body?.ToString() ?? "";
+        if (!methodText.Contains("Thread.Sleep")) yield break;
+
+        var line = method.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+        yield return new TestSmellItem("ThreadSleep",
+            "Thread.Sleep in test — use FakeTimeProvider or await Task.Delay with very short duration",
+            filePath, line, projectName);
+    }
+
+    private static IEnumerable<TestSmellItem> DetectMockedDbContext(
+        MethodDeclarationSyntax method, string filePath, string projectName)
+    {
+        var methodText = method.Body?.ToString() ?? "";
+        if (!methodText.Contains("Mock<") || (!methodText.Contains("DbContext") && !methodText.Contains("AppDbContext")))
+            yield break;
+
+        var line = method.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+        yield return new TestSmellItem("MockedDbContext",
+            "Mocked DbContext detected — use a real test database via Testcontainers for accurate integration tests",
+            filePath, line, projectName);
+    }
+
+    private static IEnumerable<TestSmellItem> DetectNoAssertions(
+        MethodDeclarationSyntax method, string filePath, string projectName)
+    {
+        var methodText = method.Body?.ToString() ?? "";
+        var hasAssertion = methodText.Contains(".Should()") ||
+                           methodText.Contains("Assert.") ||
+                           methodText.Contains("Verify(") ||
+                           methodText.Contains("response.Status");
+        if (hasAssertion) yield break;
+
+        var line = method.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+        yield return new TestSmellItem("NoAssertions",
+            $"Test '{method.Identifier.Text}' has no assertions — it will always pass and provides no value",
+            filePath, line, projectName);
+    }
+
+    private static IEnumerable<TestSmellItem> DetectWeakAssertions(
+        MethodDeclarationSyntax method, string filePath, string projectName)
+    {
+        foreach (var invocation in method.DescendantNodes().OfType<InvocationExpressionSyntax>())
+        {
+            if (invocation.Expression.ToString() is not "Assert.True" and not "Assert.False") continue;
+            var argText = invocation.ArgumentList.Arguments.FirstOrDefault()?.ToString() ?? "";
+            if (!argText.Contains("==") && !argText.Contains("!=")) continue;
+
+            yield return new TestSmellItem("WeakAssertion",
+                $"Assert.True/False with equality check — use Assert.Equal/NotEqual for better failure messages",
+                filePath,
+                invocation.GetLocation().GetLineSpan().StartLinePosition.Line + 1,
+                projectName);
+        }
     }
 }

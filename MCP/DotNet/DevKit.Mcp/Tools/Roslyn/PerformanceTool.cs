@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for detecting EF Core performance anti-patterns such as N+1 queries and missing AsNoTracking calls.
+/// </summary>
 [McpServerToolType]
 public sealed class PerformanceTool(RoslynWorkspaceService workspace)
 {
@@ -15,6 +18,9 @@ public sealed class PerformanceTool(RoslynWorkspaceService workspace)
         "Detects potential N+1 query patterns: EF Core calls inside loops, " +
         ".Include() inside foreach, navigation property access inside Select lambdas, " +
         "and FirstOrDefault/Find called repeatedly in loop bodies.")]
+    /// <summary>
+    /// Finds potential N+1 query patterns by detecting EF Core calls made inside iteration loops or LINQ lambdas.
+    /// </summary>
     public async Task<IReadOnlyList<N1PatternItem>> FindN1Patterns(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)
@@ -96,6 +102,9 @@ public sealed class PerformanceTool(RoslynWorkspaceService workspace)
         "Finds EF Core queries in read (query) handlers missing .AsNoTracking(). " +
         "Targets files in Queries/ folders or named *Query*Handler. " +
         "AsNoTracking() can improve performance by 20-40% for read-only queries.")]
+    /// <summary>
+    /// Finds EF Core database queries in query handlers that are missing an <c>AsNoTracking()</c> call.
+    /// </summary>
     public async Task<IReadOnlyList<MissingNoTrackingItem>> FindMissingAsNoTracking(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         CancellationToken ct = default)

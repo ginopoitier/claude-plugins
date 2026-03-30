@@ -1,6 +1,6 @@
 {
   "name": "bitbucket-kit",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Bitbucket platform toolkit — PR creation, review, releases, analytics, and Bitbucket-specific workflows.",
   "author": {
     "name": "Gino Poitier",

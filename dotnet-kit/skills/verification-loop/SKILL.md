@@ -14,6 +14,13 @@ allowed-tools: []
 
 Run this before marking any implementation task as complete. Never hand off code that hasn't cleared Phase 1 and Phase 4 at minimum.
 
+## Core Principles
+
+1. **Phases 1 and 4 are hard stops** — A failing build or failing tests means nothing else matters. Fix and restart from Phase 1.
+2. **All other failures are warnings, not blockers** — Log them, continue, report at the end. Don't stop for a nullable warning.
+3. **Run the full pipeline every time** — Partial verification creates blind spots. Skipping Phase 3 because "I didn't touch SQL" is how security regressions ship.
+4. **The diff is the final check** — Phase 7 catches debug artifacts, unrelated changes, and accidental commits that code review misses.
+
 ## The 7 Phases
 
 | # | Phase | Tool | Critical? |
@@ -74,6 +81,58 @@ Phase 7 Diff         ✅ PASS
 Verdict: READY FOR REVIEW
 Warnings to address: [list]
 ```
+
+## Anti-patterns
+
+### Skipping Phases When Confident
+
+```
+# BAD — selective verification based on gut feel
+"I only changed the handler, so I'll skip the build and just run tests."
+→ Roslyn errors in unrelated files still block CI. Phase 1 takes 10 seconds.
+
+# GOOD — always start at Phase 1
+→ dotnet build → dotnet test → proceed
+→ The pipeline is fast enough that skipping gains nothing
+```
+
+### Treating Warnings as Blockers
+
+```
+# BAD — halting on Phase 3 antipattern finding
+"Found a DateTime.Now usage — stopping until this is fixed."
+→ Blocks delivery for a low-severity finding unrelated to the current task
+
+# GOOD — log and continue
+→ WARN: DateTime.Now at CacheService.cs:42 (not in current change set)
+→ Continue to Phase 4, surface at end of report
+```
+
+### Declaring "Done" Before Phase 7
+
+```
+# BAD — skipping diff review after tests pass
+"Tests are green, shipping it."
+→ Console.WriteLine left in OrderHandler.cs makes it to production
+
+# GOOD — diff is always the last check
+→ git diff HEAD | review for debug artifacts, commented code, unrelated files
+→ Verdict only after Phase 7 completes
+```
+
+## Decision Guide
+
+| Scenario | Action |
+|----------|--------|
+| Phase 1 fails | Stop immediately, fix build, restart from Phase 1 |
+| Phase 4 fails | Stop, fix tests, restart from Phase 1 |
+| Phase 2 warnings found | Log as WARN, continue |
+| Phase 3 antipattern in changed code | Fix it, rerun Phase 1 |
+| Phase 3 antipattern in unchanged code | Log as WARN, file a task |
+| Phase 5 security finding in changed code | Fix it, rerun from Phase 1 |
+| Phase 6 format violations | Run `dotnet format`, rerun Phase 6 |
+| Phase 7 debug artifact found | Remove it, rerun Phase 7 |
+| All phases pass | Verdict: READY FOR REVIEW |
 
 ## Execution
 

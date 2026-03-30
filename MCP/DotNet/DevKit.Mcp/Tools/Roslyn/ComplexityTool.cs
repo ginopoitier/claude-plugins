@@ -8,6 +8,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for measuring cyclomatic complexity and identifying overly long methods.
+/// </summary>
 [McpServerToolType]
 public sealed class ComplexityTool(RoslynWorkspaceService workspace)
 {
@@ -15,6 +18,9 @@ public sealed class ComplexityTool(RoslynWorkspaceService workspace)
         "Returns cyclomatic complexity per method across the solution or a project. " +
         "Counts branches: if, else if, case, catch, for/foreach/while, &&, ||, ?:, ??. " +
         "Flag threshold defaults to 10 — methods above this are good refactor candidates.")]
+    /// <summary>
+    /// Returns cyclomatic complexity per method, filtered to those at or above the specified threshold.
+    /// </summary>
     public async Task<IReadOnlyList<ComplexityItem>> GetComplexityReport(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Only return methods at or above this complexity. Default 10.")] int threshold = 10,
@@ -63,6 +69,9 @@ public sealed class ComplexityTool(RoslynWorkspaceService workspace)
     [McpServerTool, Description(
         "Finds methods exceeding a line count or parameter count threshold. " +
         "Long methods are prime extract-method candidates.")]
+    /// <summary>
+    /// Finds methods that exceed a line count or parameter count threshold and are candidates for extraction.
+    /// </summary>
     public async Task<IReadOnlyList<LongMethodItem>> FindLongMethods(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Flag methods with at least this many lines. Default 30.")] int lineThreshold = 30,

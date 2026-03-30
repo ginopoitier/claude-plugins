@@ -3,8 +3,8 @@ name: scaffold
 description: >
   Generate a complete vertical slice feature for a Clean Architecture .NET project —
   command/query, handler, validator, endpoint, errors, and xUnit test.
-  Load this skill when: "scaffold", "vertical slice", "generate feature", "create feature",
-  "new command", "new query", "new endpoint", "boilerplate", "scaffold feature",
+  Load this skill when: "scaffold", "generate feature", "create feature",
+  "new command", "new query", "new endpoint", "boilerplate",
   "create handler", "generate slice", "add feature".
 user-invocable: true
 argument-hint: "[FeatureName]"

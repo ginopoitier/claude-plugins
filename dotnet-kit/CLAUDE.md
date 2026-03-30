@@ -9,21 +9,21 @@
 
 ## Always-Active Rules
 
-@~/.claude/rules/csharp.md
-@~/.claude/rules/clean-architecture.md
-@~/.claude/rules/cqrs.md
-@~/.claude/rules/result-pattern.md
-@~/.claude/rules/ef-core.md
-@~/.claude/rules/logging.md
-@~/.claude/rules/api-design.md
-@~/.claude/rules/testing.md
-@~/.claude/rules/packages.md
-@~/.claude/rules/security.md
-@~/.claude/rules/performance.md
-@~/.claude/rules/agents.md
-@~/.claude/rules/hooks.md
-@~/.claude/rules/sdlc.md
-@~/.claude/rules/git-workflow.md
+@~/.claude/rules/dotnet-kit/csharp.md
+@~/.claude/rules/dotnet-kit/clean-architecture.md
+@~/.claude/rules/dotnet-kit/cqrs.md
+@~/.claude/rules/dotnet-kit/result-pattern.md
+@~/.claude/rules/dotnet-kit/ef-core.md
+@~/.claude/rules/dotnet-kit/logging.md
+@~/.claude/rules/dotnet-kit/api-design.md
+@~/.claude/rules/dotnet-kit/testing.md
+@~/.claude/rules/dotnet-kit/packages.md
+@~/.claude/rules/dotnet-kit/security.md
+@~/.claude/rules/dotnet-kit/performance.md
+@~/.claude/rules/dotnet-kit/agents.md
+@~/.claude/rules/dotnet-kit/hooks.md
+@~/.claude/rules/dotnet-kit/sdlc.md
+@~/.claude/rules/dotnet-kit/git-workflow.md
 
 ## Meta — Always Apply
 
@@ -63,8 +63,8 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/dotnet-health-check` — full project audit
 - `/health-check` — 8-dimension health report with letter grades (A-F) and GPA
 - `/80-20-review` — blast-radius-scored code review
+- `/code-review-workflow` — structured PR review with MCP tools (detect_antipatterns, blast radius, architecture compliance)
 - `/de-sloppify` — find/fix quality issues, dead code, TODOs
-- `/convention-learner` — detect and enforce project-specific coding conventions
 - `/security-scan` — comprehensive security audit
 - `/dependency-audit` — vulnerable/outdated NuGet packages
 - `/domain-event-map` — visualize event flows
@@ -78,10 +78,14 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/messaging` — Wolverine/MassTransit, outbox pattern, sagas
 - `/resilience` — Polly v8 retry, circuit breaker, timeout, hedging
 - `/httpclient-factory` — named/keyed HTTP clients, DelegatingHandlers
+- `/logging` — Serilog structured logging, health checks, correlation IDs
+- `/serilog` — two-stage bootstrap, appsettings.json config, enrichers, sinks, Serilog.Expressions
 - `/opentelemetry` — traces, metrics, logs with OTLP export
 - `/aspire` — .NET Aspire orchestration, service discovery, dashboard
 
 ### API Design
+- `/api-versioning` — URL/header/query string versioning with Asp.Versioning library
+- `/minimal-api` — endpoint groups with IEndpointGroup auto-discovery, TypedResults, OpenAPI
 - `/openapi` — built-in OpenAPI, document transformers, TypedResults (no Swashbuckle)
 - `/scalar` — modern API docs UI (Swagger UI replacement)
 - `/error-handling` — Result pattern, ProblemDetails RFC 9457, global exception handler
@@ -90,6 +94,7 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/modern-csharp` — C# 14 features: field keyword, extension members, collection expressions
 
 ### Database
+- `/ef-core` — DbContext config, migrations, compiled queries, interceptors, value converters, bulk ops
 - `/sqlserver` — SQL Server diagnostics (query, schema, indexes, blocking, migrations)
 - `/migration-workflow` — EF Core migration management
 
@@ -106,6 +111,8 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/seq-dig` — Seq log investigation
 
 ### Project Setup
+- `/clean-architecture` — 4-project layout (Domain/Application/Infrastructure/Api), dependency inversion, use cases
+- `/split-memory` — modular CLAUDE.md strategy, splitting by concern/module/team
 - `/dotnet-init` — scaffold new Clean Architecture solution
 - `/project-setup` — interactive project init, health check, CLAUDE.md generation
 - `/project-structure` — .slnx format, Directory.Build.props, central package management

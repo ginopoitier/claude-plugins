@@ -115,6 +115,41 @@ frontmatter (name, description with keywords, user-invocable, allowed-tools)
 - Match exact phrases users say ("socket exhaustion" not "resource leak")
 - Cover the problem ("can't connect"), the tool ("AddHttpClient"), and the concept ("typed client")
 
+## Commands
+
+Lightweight orchestrators that invoke skills and agents. Commands contain routing logic, not implementation.
+
+```
+{kit-name}/
+  commands/
+    {namespace}/        # optional grouping (e.g., gsd/ for /gsd:command-name)
+      {command-name}.md
+```
+
+### When to use commands vs skills
+
+| Need | Use |
+|------|-----|
+| Shortcut to a single skill | Command (thin wrapper) |
+| Route to different skills based on input | Command (routing logic) |
+| Multi-step workflow | Command (orchestrator) |
+| Implementation logic / domain knowledge | Skill |
+
+### Command frontmatter
+
+```yaml
+---
+description: >
+  One-line description shown in the /command picker.
+---
+```
+
+### Max size
+
+Commands should be ≤ 200 lines. If longer, the logic belongs in a skill.
+
+See `knowledge/command-format.md` for the full command specification.
+
 ## Knowledge — On-Demand Deep Reference
 
 Knowledge docs are loaded by skills when full detail is needed. They're too long to be always-loaded but too valuable to leave out.

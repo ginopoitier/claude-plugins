@@ -153,6 +153,44 @@ src/
 | Monolith | Modular Monolith | Teams stepping on each other | Split into modules with own DbContexts |
 | Modular Monolith | Microservices | Independent scaling needs | Extract modules into separate services |
 
+## Anti-patterns
+
+### Over-engineering from the Start
+
+```
+# BAD — reaching for DDD on a simple CRUD app
+"We're building a blog — let's use aggregates, domain events, and value objects."
+→ Result: 6 projects, 40 files, and 3 weeks to build a post list
+
+# GOOD — match architecture to actual complexity
+→ Run the questionnaire: 5 entities, 2 devs, 18-month lifetime, no compliance
+→ Recommendation: VSA — one file per feature, done in days
+```
+
+### Skipping the Questionnaire
+
+```
+# BAD — prescribing architecture without context
+"Always use Clean Architecture for .NET — it's best practice."
+→ Ignores domain complexity, team size, lifetime, and existing codebase
+
+# GOOD — gather signals first
+→ Ask all 6 categories before recommending
+→ If two architectures score similarly, default to simpler one
+```
+
+### Treating Architecture as Permanent
+
+```
+# BAD — paralysis over the "right" choice
+"We need to get the architecture perfect before writing a line of code."
+
+# GOOD — choose and document the evolution path
+→ Start with VSA
+→ Document: "Evolve to Clean Architecture when domain logic exceeds handler complexity"
+→ The evolution path is part of the decision
+```
+
 ## Decision Guide
 
 | Scenario | Recommendation |

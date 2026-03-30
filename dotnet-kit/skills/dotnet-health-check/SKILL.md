@@ -3,9 +3,9 @@ name: dotnet-health-check
 description: >
   Audit a .NET Clean Architecture project and produce a graded report out of 100 —
   covering architecture layers, CQRS, Result pattern, EF Core, logging, minimal APIs, and code quality.
-  Load this skill when: "health check", "dotnet health check", "audit project", "project audit",
-  "grade project", "code quality report", "architecture audit", "project health",
-  "review project quality", "assess codebase".
+  Load this skill when: "dotnet health check", "architecture audit", "architecture score",
+  "clean architecture check", "cqrs audit", "pattern compliance", "dotnet audit",
+  "audit project", "project audit", "review project quality", "architecture grade".
 user-invocable: true
 argument-hint: "[optional: path to solution root]"
 allowed-tools: Read, Glob, Grep, Bash

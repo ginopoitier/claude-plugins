@@ -107,7 +107,13 @@ If a Jira ticket key is found in the branch name (e.g. `feature/ORD-456-order-st
 ```bash
 curl -s \
   -H "Authorization: Bearer ${TOKEN}" \
-  "${REPO_API}/pullrequests/{id}" | jq '{id, title, state, author: .author.display_name, url: .links.html.href}'
+  "${REPO_API}/pullrequests/{id}" | python3 -c "
+import json, sys
+d = json.load(sys.stdin)
+print(f'#{d[\"id\"]} {d[\"title\"]} [{d[\"state\"]}]')
+print(f'Author: {d[\"author\"][\"display_name\"]}')
+print(f'URL: {d[\"links\"][\"html\"][\"href\"]}')
+"
 ```
 
 ### List PRs
@@ -115,7 +121,11 @@ curl -s \
 ```bash
 curl -s \
   -H "Authorization: Bearer ${TOKEN}" \
-  "${REPO_API}/pullrequests?state=OPEN" | jq '.values[] | {id, title, author: .author.display_name, branch: .source.branch.name}'
+  "${REPO_API}/pullrequests?state=OPEN" | python3 -c "
+import json, sys
+for p in json.load(sys.stdin)['values']:
+    print(f'#{p[\"id\"]} {p[\"title\"]} | {p[\"author\"][\"display_name\"]} | {p[\"source\"][\"branch\"][\"name\"]}')
+"
 ```
 
 ### Diff PR (for review tasks)

@@ -7,6 +7,9 @@ using ModelContextProtocol.Server;
 
 namespace DevKit.Mcp.Tools.Roslyn;
 
+/// <summary>
+/// Provides MCP tools for reporting XML documentation coverage and generating Mermaid architecture diagrams.
+/// </summary>
 [McpServerToolType]
 public sealed class DocumentationTool(RoslynWorkspaceService workspace)
 {
@@ -14,6 +17,9 @@ public sealed class DocumentationTool(RoslynWorkspaceService workspace)
         "Reports public APIs missing XML documentation. " +
         "Returns coverage percentage per project and a list of gaps (missing summary, params, returns). " +
         "Filters to public members only — internal/private members are excluded.")]
+    /// <summary>
+    /// Reports documentation coverage for public APIs and lists members missing an XML summary.
+    /// </summary>
     public async Task<object> GetDocumentationCoverage(
         [Description("Filter to a specific project. Omit for whole solution.")] string? projectName = null,
         [Description("Only return members missing docs (omit to see all). Default true.")] bool gapsOnly = true,
@@ -104,6 +110,9 @@ public sealed class DocumentationTool(RoslynWorkspaceService workspace)
         "Generates a Mermaid graph diagram of project dependencies. " +
         "Color-codes by Clean Architecture layer: Domain (green), Application (blue), Infrastructure (orange), Api (red). " +
         "Paste directly into GitHub markdown, Obsidian, or Confluence.")]
+    /// <summary>
+    /// Generates a Mermaid diagram showing either project dependencies or a type's class hierarchy.
+    /// </summary>
     public async Task<string> GenerateMermaidDiagram(
         [Description("'dependencies' for project graph, 'hierarchy' for type hierarchy of a specific type.")] string diagramType = "dependencies",
         [Description("For hierarchy diagrams: the type name to visualize.")] string? typeName = null,

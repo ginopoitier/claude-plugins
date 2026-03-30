@@ -121,20 +121,28 @@ public sealed class RoslynWorkspaceService : IAsyncDisposable
         _workspace.WorkspaceFailed += (_, e) =>
             _logger.LogWarning("Workspace warning: {Diagnostic}", e.Diagnostic.Message);
 
-        var solution = await _workspace.OpenSolutionAsync(solutionPath, cancellationToken: ct);
+        try
+        {
+            var solution = await _workspace.OpenSolutionAsync(solutionPath, cancellationToken: ct);
 
-        _lastRefresh = DateTime.UtcNow;
-        State = WorkspaceState.Ready;
+            _lastRefresh = DateTime.UtcNow;
+            State = WorkspaceState.Ready;
 
-        var projectCount = solution.Projects.Count();
-        _logger.LogInformation("Solution loaded: {Count} projects", projectCount);
+            var projectCount = solution.Projects.Count();
+            _logger.LogInformation("Solution loaded: {Count} projects", projectCount);
 
-        if (projectCount <= LargeProjectThreshold)
-            await PreWarmAsync(solution, ct);
-        else
-            _logger.LogInformation("Large solution ({Count} projects) — compilations will load on demand", projectCount);
+            if (projectCount <= LargeProjectThreshold)
+                await PreWarmAsync(solution, ct);
+            else
+                _logger.LogInformation("Large solution ({Count} projects) — compilations will load on demand", projectCount);
 
-        return solution;
+            return solution;
+        }
+        catch
+        {
+            State = WorkspaceState.Failed;
+            throw;
+        }
     }
 
     private async Task PreWarmAsync(Solution solution, CancellationToken ct)
