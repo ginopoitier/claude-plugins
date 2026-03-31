@@ -1,0 +1,35 @@
+<script setup lang="ts">
+// Page layout template — replace imports with your actual design system components
+// import DsContainer from '@ds/components/layout/DsContainer.vue'
+</script>
+
+<template>
+  <div class="min-h-screen bg-[var(--color-semantic-surface)] text-[var(--color-semantic-on-surface)]">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-[var(--color-semantic-border)] bg-[var(--color-semantic-surface)]/80 backdrop-blur">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <slot name="header-left" />
+          <nav class="hidden md:flex items-center gap-6">
+            <slot name="header-nav" />
+          </nav>
+          <slot name="header-right" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <slot />
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--color-semantic-border)] mt-auto">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+        <slot name="footer" />
+      </div>
+    </footer>
+  </div>
+</template>

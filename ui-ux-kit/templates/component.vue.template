@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { cva, type VariantProps } from 'class-variance-authority'
+
+// ─── Variants ──────────────────────────────────────────────────────────────
+const variants = cva(
+  // Base classes — always applied
+  '',
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
+      size: {
+        md: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+    },
+  }
+)
+
+// ─── Props ─────────────────────────────────────────────────────────────────
+interface Props extends VariantProps<typeof variants> {
+  // Add additional props here
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'default',
+  size: 'md',
+})
+
+// ─── Emits ─────────────────────────────────────────────────────────────────
+const emit = defineEmits<{
+  // Define events here: eventName: [argType]
+}>()
+
+// ─── Computed ──────────────────────────────────────────────────────────────
+const classes = computed(() => variants({ variant: props.variant, size: props.size }))
+</script>
+
+<template>
+  <!-- Replace with semantic element: button, a, article, section, etc. -->
+  <div v-bind="$attrs" :class="classes">
+    <slot />
+  </div>
+</template>

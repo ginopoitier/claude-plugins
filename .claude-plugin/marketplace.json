@@ -107,6 +107,20 @@
       "category": "productivity"
     },
     {
+      "name": "ui-ux-kit",
+      "source": "./ui-ux-kit",
+      "description": "UI/UX design system toolkit. Figma-to-code workflows, design token extraction (W3C format), Vue 3 + Tailwind v4 component generation, living style guides, and full design system scaffolding. Powered by Figma MCP and ux-ui-mcp.",
+      "version": "1.0.0",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": [
+        "ui", "ux", "design-system", "figma", "vue", "tailwindcss",
+        "design-tokens", "style-guide", "accessibility", "components"
+      ],
+      "category": "design",
+      "requires": ["figma-mcp", "ux-ui-mcp"]
+    },
+    {
       "name": "memory-kit",
       "source": "./memory-kit",
       "description": "Intelligent memory management meta-kit for Claude Code. Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, provides semantic retrieval, deduplication, and lifecycle management via the memory-mcp server.",
