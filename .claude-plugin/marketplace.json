@@ -105,6 +105,17 @@
       "license": "MIT",
       "keywords": ["obsidian", "notes", "personal-knowledge", "markdown", "journal"],
       "category": "productivity"
+    },
+    {
+      "name": "memory-kit",
+      "source": "./memory-kit",
+      "description": "Intelligent memory management meta-kit for Claude Code. Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, provides semantic retrieval, deduplication, and lifecycle management via the memory-mcp server.",
+      "version": "1.0.0",
+      "author": { "name": "Gino Poitier" },
+      "license": "MIT",
+      "keywords": ["memory", "meta", "auto-capture", "hooks", "knowledge-management", "persistence"],
+      "category": "tooling",
+      "requires": ["memory-mcp"]
     }
   ]
 }

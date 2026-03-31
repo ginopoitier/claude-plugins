@@ -1,0 +1,44 @@
+name: Memory MCP — CI
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'MCP/Memory/memory-mcp/**'
+  pull_request:
+    paths:
+      - 'MCP/Memory/memory-mcp/**'
+
+defaults:
+  run:
+    working-directory: MCP/Memory/memory-mcp
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Type-check & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: MCP/Memory/memory-mcp/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true   # advisory — doesn't block CI until lint config is finalised

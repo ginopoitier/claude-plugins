@@ -1,0 +1,56 @@
+{
+  "name": "@ginopoitier/memory-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for memory-kit — intelligent memory management for Claude Code with semantic search, deduplication, and health monitoring.",
+  "author": "Gino Poitier",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "memory-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.js.map",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins.git",
+    "directory": "MCP/Memory/memory-mcp"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "gray-matter": "^4.0.3",
+    "yargs": "^17.7.2",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/yargs": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^10.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "memory",
+    "claude-code"
+  ]
+}

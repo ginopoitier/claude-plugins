@@ -1,0 +1,69 @@
+name: Memory MCP — Publish to npm
+permissions:
+  id-token: write
+on:
+  release:
+    types: [published]       # trigger: create a GitHub Release tagged vX.Y.Z
+  workflow_dispatch:         # manual publish for hotfixes or dry-runs
+    inputs:
+      dry_run:
+        description: 'Dry run (build + pack, skip npm publish)'
+        type: boolean
+        default: false
+
+defaults:
+  run:
+    working-directory: MCP/Memory/memory-mcp
+
+jobs:
+  publish:
+    name: Build & Publish
+    runs-on: ubuntu-latest
+    environment: npm-publish    # must match the environment set in npmjs.com → Trusted Publishers
+
+    permissions:
+      contents: read
+      id-token: write           # OIDC token — npm exchanges this for a short-lived publish token
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+          cache-dependency-path: MCP/Memory/memory-mcp/package-lock.json
+
+      - name: Install npm latest globally (for npm pack --dry-run)
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Verify the release tag version matches package.json version.
+      # Prevents publishing v1.2.3 when package.json still says 1.2.2.
+      - name: Verify version matches release tag
+        if: github.event_name == 'release'
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"   # strips leading 'v' from the tag name
+          if [[ "$PKG_VERSION" != "$TAG_VERSION" ]]; then
+            echo "ERROR: package.json version ($PKG_VERSION) does not match release tag ($TAG_VERSION)"
+            exit 1
+          fi
+          echo "Version check passed: $PKG_VERSION"
+
+      - name: Pack (dry run — inspect tarball contents)
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: npm publish --provenance --access public
+        # No NPM_TOKEN needed — npm CLI exchanges the OIDC token automatically

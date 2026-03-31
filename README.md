@@ -22,6 +22,7 @@ Install a plugin:
 /plugin install jira-kit@ginopoitier-plugins
 /plugin install confluence-kit@ginopoitier-plugins
 /plugin install obsidian-kit@ginopoitier-plugins
+/plugin install memory-kit@ginopoitier-plugins
 ```
 
 Update all plugins:
@@ -43,6 +44,7 @@ Update all plugins:
 | [`jira-kit`](./jira-kit/) | 1.2.0 | Jira sprint work — epics, stories, refinement, standup |
 | [`confluence-kit`](./confluence-kit/) | 1.1.0 | Confluence docs — ADRs, SDRs, SDLC pages |
 | [`obsidian-kit`](./obsidian-kit/) | 1.2.0 | Obsidian personal notes and dev journal |
+| [`memory-kit`](./memory-kit/) | 1.0.0 | Intelligent memory management — semantic search, auto-capture, deduplication, session injection |
 
 ## Typical install combinations
 
@@ -107,12 +109,17 @@ vue-kit + git-kit + github-kit (or bitbucket-kit)
 ### kit-maker
 1. Run `/kit-setup` — configure author name and kit defaults
 
+### memory-kit
+1. Install the MCP server: `npm install -g @ginopoitier/memory-mcp`
+2. Restart Claude Code
+
 ## MCP Servers
 
 | MCP | Language | Powers | Source |
 |-----|----------|--------|--------|
 | `devkit-mcp` | .NET 9 | dotnet-kit — Roslyn analysis, SQL Server, Neo4j | `G:/Claude/Kits/MCP/DotNet/` |
 | `vue-mcp` | Node.js / TypeScript | vue-kit — Vue SFC analysis, Pinia, type checking | `G:/Claude/Kits/MCP/Vue/` |
+| `memory-mcp` | Node.js / TypeScript | memory-kit — semantic search, deduplication, health monitoring | `G:/Claude/Kits/MCP/Memory/` |
 
 ## Repository structure
 
