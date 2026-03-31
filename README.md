@@ -23,6 +23,7 @@ Install a plugin:
 /plugin install confluence-kit@ginopoitier-plugins
 /plugin install obsidian-kit@ginopoitier-plugins
 /plugin install memory-kit@ginopoitier-plugins
+/plugin install ui-ux-kit@ginopoitier-plugins
 ```
 
 Update all plugins:
@@ -45,6 +46,7 @@ Update all plugins:
 | [`confluence-kit`](./confluence-kit/) | 1.1.0 | Confluence docs — ADRs, SDRs, SDLC pages |
 | [`obsidian-kit`](./obsidian-kit/) | 1.2.0 | Obsidian personal notes and dev journal |
 | [`memory-kit`](./memory-kit/) | 1.0.0 | Intelligent memory management — semantic search, auto-capture, deduplication, session injection |
+| [`ui-ux-kit`](./ui-ux-kit/) | 1.0.0 | UI/UX design system toolkit — Figma connector, design tokens, Vue 3 + Tailwind components, style guides, a11y audits |
 
 ## Typical install combinations
 
@@ -66,6 +68,11 @@ dotnet-kit + git-kit + github-kit (or bitbucket-kit)
 **Frontend only:**
 ```
 vue-kit + git-kit + github-kit (or bitbucket-kit)
+```
+
+**Frontend + Design System:**
+```
+vue-kit + ui-ux-kit + git-kit + github-kit (or bitbucket-kit)
 ```
 
 ## Post-install setup
@@ -113,6 +120,16 @@ vue-kit + git-kit + github-kit (or bitbucket-kit)
 1. Install the MCP server: `npm install -g @ginopoitier/memory-mcp`
 2. Restart Claude Code
 
+### ui-ux-kit
+1. Run `/ui-ux-setup` — configure design system path and component prefix
+2. Enable the **Figma connector** in Claude.ai Settings → Integrations → Figma (optional — all skills work without it)
+3. Build the companion MCP server when ready:
+   ```bash
+   cd G:/Claude/Kits/MCP/ux-ui-mcp
+   npm install && npm run build
+   ```
+4. Restart Claude Code
+
 ## MCP Servers
 
 | MCP | Language | Powers | Source |
@@ -120,6 +137,7 @@ vue-kit + git-kit + github-kit (or bitbucket-kit)
 | `devkit-mcp` | .NET 9 | dotnet-kit — Roslyn analysis, SQL Server, Neo4j | `G:/Claude/Kits/MCP/DotNet/` |
 | `vue-mcp` | Node.js / TypeScript | vue-kit — Vue SFC analysis, Pinia, type checking | `G:/Claude/Kits/MCP/Vue/` |
 | `memory-mcp` | Node.js / TypeScript | memory-kit — semantic search, deduplication, health monitoring | `G:/Claude/Kits/MCP/Memory/` |
+| `ux-ui-mcp` | Node.js / TypeScript | ui-ux-kit — token transformation, component scaffolding, a11y audit, design drift detection | `G:/Claude/Kits/MCP/ux-ui-mcp/` (spec only, build pending) |
 
 ## Repository structure
 
