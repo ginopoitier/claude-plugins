@@ -1,6 +1,6 @@
 {
   "name": "obsidian-kit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes, canvases, bases, and markdown in your local vault. Includes defuddle web extraction, JSON Canvas, Obsidian Bases, CLI vault interaction, and Obsidian Flavored Markdown skills.",
   "author": {
     "name": "Gino Poitier",

@@ -11,8 +11,8 @@
   "mcpServers": {
     "vue-mcp": {
       "type": "stdio",
-      "command": "node",
-      "args": ["G:/Claude/Kits/MCP/Vue/vue-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@ginopoitier/vue-mcp"]
     }
   }
 }

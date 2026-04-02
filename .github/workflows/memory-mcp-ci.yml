@@ -4,14 +4,14 @@ on:
   push:
     branches: [master]
     paths:
-      - 'MCP/Memory/memory-mcp/**'
+      - 'MCP/Memory/**'
   pull_request:
     paths:
-      - 'MCP/Memory/memory-mcp/**'
+      - 'MCP/Memory/**'
 
 defaults:
   run:
-    working-directory: MCP/Memory/memory-mcp
+    working-directory: MCP/Memory
 
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
-          cache-dependency-path: MCP/Memory/memory-mcp/package-lock.json
+          cache-dependency-path: MCP/Memory/package-lock.json
 
       - name: Install dependencies
         run: npm ci
