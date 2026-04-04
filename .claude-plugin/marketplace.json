@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, and Obsidian personal notes.",
-    "version": "2.0.0"
+    "version": "2.0.1"
   },
   "plugins": [
     {
