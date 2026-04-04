@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, and Obsidian personal notes.",
-    "version": "2.0.2"
+    "version": "2.0.3"
   },
   "plugins": [
     {
@@ -110,7 +110,7 @@
       "name": "memory-kit",
       "source": "./memory-kit",
       "description": "Intelligent memory management meta-kit for Claude Code. Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, provides semantic retrieval, deduplication, and lifecycle management via the memory-mcp server.",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["memory", "meta", "auto-capture", "hooks", "knowledge-management", "persistence"],
