@@ -1,6 +1,6 @@
 {
   "name": "memory-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Intelligent memory management meta-kit for Claude Code. Auto-capture corrections via hooks, semantic retrieval, deduplication, and memory lifecycle management powered by the memory-mcp server.",
   "author": {
     "name": "Gino Poitier"
@@ -13,7 +13,8 @@
       "command": "npx",
       "args": ["-y", "@ginopoitier/memory-mcp"],
       "env": {
-        "MEMORY_BASE_PATH": "~/.claude/projects"
+        "HOME": "~",
+        "MEMORY_BASE_PATH": "${HOME}/.claude/projects"
       }
     }
   }
