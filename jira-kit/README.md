@@ -32,7 +32,7 @@ jira-kit uses the **Atlassian MCP** via OAuth — no API tokens stored in config
 /mcp authenticate atlassian
 ```
 
-Authenticate once. All `mcp__atlassian__jira_*` tools work automatically. This is the same OAuth session as confluence-kit — authenticate once for both.
+Authenticate once. All `mcp__atlassian__jira_*` tools work automatically.
 
 ## Configuration
 

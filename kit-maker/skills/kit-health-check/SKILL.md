@@ -17,7 +17,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 1. **Structure before content** — A kit with perfect skills but missing `plugin.json` is uninstallable. Check structure first.
 2. **Coverage over depth** — A kit missing a critical domain skill is worse than a kit with imperfect skills. Map coverage gaps first.
-3. **Meta-skills are non-negotiable** — Any kit missing context-discipline, model-selection, and instinct-system gets an automatic grade cap of C.
+3. **Quality over quantity** — A kit with 5 excellent skills is better than one with 20 mediocre ones. Focus on high-value, frequently-used patterns.
 4. **Installability is the final gate** — The kit must be installable by someone who has never seen it before. Test the manifest and install paths.
 
 ## Patterns
@@ -61,19 +61,7 @@ ls kit-name/config/kit.config.template.md
 | D | Skills index missing or heavily incomplete |
 | F | CLAUDE.md is a stub |
 
-**Dimension 3: Meta-skill Coverage**
-
-Required: context-discipline, model-selection, verification-loop, instinct-system, self-correction-loop
-
-| Grade | Criteria |
-|-------|----------|
-| A | All 5 meta-skills present |
-| B | 4/5 present |
-| C | 3/5 present |
-| D | Only 1–2 present |
-| F | No meta-skills |
-
-**Dimension 4: Domain Skill Coverage**
+**Dimension 3: Domain Skill Coverage**
 
 Assess against the kit's stated domain: are the top 5–8 use cases covered by skills?
 
@@ -85,7 +73,7 @@ Assess against the kit's stated domain: are the top 5–8 use cases covered by s
 | D | 25–49% coverage |
 | F | < 25% coverage |
 
-**Dimension 5: Skill Quality (average of all skills)**
+**Dimension 4: Skill Quality (average of all skills)**
 
 Run `/skill-auditor` on each skill, average the GPA.
 
@@ -97,7 +85,7 @@ Run `/skill-auditor` on each skill, average the GPA.
 | D | 2.0–2.4 |
 | F | < 2.0 |
 
-**Dimension 6: Knowledge Coverage**
+**Dimension 5: Knowledge Coverage**
 
 | Grade | Criteria |
 |-------|----------|
@@ -107,7 +95,7 @@ Run `/skill-auditor` on each skill, average the GPA.
 | D | No knowledge docs |
 | F | n/a (too small to need them) |
 
-**Dimension 7: Installability**
+**Dimension 6: Installability**
 
 | Grade | Criteria |
 |-------|----------|
@@ -117,7 +105,7 @@ Run `/skill-auditor` on each skill, average the GPA.
 | D | Manifest has syntax errors |
 | F | No manifest |
 
-**Dimension 8: Hooks & Automation**
+**Dimension 7: Hooks & Automation**
 
 | Grade | Criteria |
 |-------|----------|
@@ -150,9 +138,10 @@ grep "@~/.claude/" kit-name/CLAUDE.md | while read ref; do
   [ -f "$HOME/$path" ] || echo "MISSING: $path"
 done
 
-# 6. Meta-skills present?
-for skill in context-discipline model-selection verification-loop instinct-system self-correction-loop; do
-  [ -d "kit-name/skills/$skill" ] && echo "✓ $skill" || echo "✗ MISSING: $skill"
+# 6. All CLAUDE.md @references resolve?
+grep "@~/.claude/" kit-name/CLAUDE.md | while read ref; do
+  path="${ref#@}"
+  [ -f "$HOME/$path" ] || echo "MISSING: $path"
 done
 ```
 
@@ -173,8 +162,7 @@ Map the kit's domain to expected skills, then diff against what exists:
    - /kit-health-check ✓  (Audit quality)
    - /kit-packager ✓   (Package)
    - /kit-setup ✓     (Configure)
-   - /instinct-system ✓  (Learn patterns)
-   Coverage: 6/6 = A
+   Coverage: 5/5 = A
 
 4. Grade gaps:
    - Missing 0 → A
@@ -192,7 +180,7 @@ Map the kit's domain to expected skills, then diff against what exists:
 |-----------|-------|-------------|
 | Structure | A | All required + recommended dirs present |
 | CLAUDE.md | B | 2 referenced rule files missing |
-| Meta-skills | A | All 5 meta-skills present |
+| Optional support | A | Separate integration/hooks integrated where needed |
 | Domain Coverage | C | Missing skills for: deployment, testing, debugging |
 | Skill Quality | B | Avg GPA 3.1 across 8 skills |
 | Knowledge Docs | B | 4/6 skills have knowledge doc backing |
@@ -237,20 +225,16 @@ Map the kit's domain to expected skills, then diff against what exists:
 Evidence: "Skill Quality B — 2/12 missing Decision Guide section"
 ```
 
-### Ignoring Meta-skill Gaps
+### Optional Support Assessment
 
 ```
-# BAD — auditing only domain skills, missing the meta layer
-Kit has 8 excellent domain skills. Grade: A-
+# INFO — optional support is available
+Optional support check:
+○ separate integration support (optional)
+○ token optimization support (optional)
+○ hook-based memory/correction capture (optional)
 
-# GOOD — meta-skills are a hard cap
-Missing: context-discipline, model-selection
-→ Automatic grade cap: C on Meta-skill dimension
-→ Overall GPA cannot exceed B regardless of other dimensions
-→ Priority Fix #1: Add context-discipline and model-selection before publishing
-
-Why: Without meta-skills, Claude uses this kit inefficiently —
-expensive models for simple tasks, fills context with unnecessary reads.
+Note: Shared behavior is provided by separate kits and hooks, not by bundling these capabilities into every kit.
 ```
 
 ## Decision Guide
@@ -258,7 +242,7 @@ expensive models for simple tasks, fills context with unnecessary reads.
 | Scenario | Action |
 |----------|--------|
 | Pre-release check | Full 8-dimension audit, fix all D/F grades |
-| Quick mid-build check | Structure + Meta-skills + Installability only |
+| Quick mid-build check | Structure + Installability only |
 | Adding skills to existing kit | Skill Quality + Domain Coverage only |
 | After major refactor | Full audit + re-check CLAUDE.md index |
 | GPA < 2.5 | Do not publish — return for rework |

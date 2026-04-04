@@ -93,7 +93,6 @@ Bump version in **both** `plugin.json` AND the matching entry in the root `marke
 | New skill, rule, knowledge doc, or agent added | **MINOR** | Adding `/new-skill` |
 | Existing skill extended with new patterns | **MINOR** | New `## Pattern` section |
 | Bug fix, wording, trigger keyword added | **PATCH** | Fixing broken example |
-| Meta-skill sync from another kit | **PATCH** | Syncing context-discipline |
 
 **Bump before staging the commit — not after.**
 

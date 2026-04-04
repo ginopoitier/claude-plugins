@@ -16,7 +16,6 @@ Git CLI toolkit for Claude Code — smarter commits, branching, rebase, conflict
 | **Repo Health** | `/repo-health` |
 | **Hooks & Automation** | `/hooks-setup` |
 | **Setup** | `/git-setup` |
-| **Meta (auto-active)** | `instinct-system`, `self-correction-loop`, `autonomous-loops`, `learning-log`, `context-discipline`, `model-selection`, `verification-loop` |
 
 ### Agents (2)
 

@@ -12,7 +12,6 @@ tools: Read, Glob, Grep, Bash
 Audit an entire kit directory and produce a structured health report covering:
 - Directory structure completeness
 - CLAUDE.md quality and accuracy
-- Meta-skill presence
 - Domain skill coverage gaps
 - Individual skill quality (sample audit of weakest skills)
 - Manifest validity

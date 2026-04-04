@@ -34,9 +34,7 @@ kits/{kit-name}/
 
 1. `# Kit Name` — one-line description of what the kit does
 2. `## Always-Active Rules` — `@~/.claude/rules/{kit-name}/...` references
-3. `## Meta — Always Apply` — context-discipline, model-selection, verification-loop
-4. `## Self-Improvement — Auto-Active` — instinct-system, self-correction-loop (if included)
-5. `## Skills Available` — grouped by category, one line per skill with description
+3. `## Skills Available` — grouped by category, one line per skill with description
 
 ## Install Convention
 
@@ -51,8 +49,6 @@ Claude Code's native `/plugin install` command reads `.claude-plugin/plugin.json
 No `install.sh` is needed. Claude Code's `/plugin install` handles installation natively from `plugin.json`.
 
 ## DO
-- Always include at least one **meta skill**: context-discipline + model-selection
-- Always include **self-improvement skills**: instinct-system + self-correction-loop
 - Keep rules **always-loaded** (≤8, high value) — everything else is lazy
 - Include a `config/kit.config.template.md` if the kit needs user-specific values
 - Every kit ships with a `/kit-health-check` equivalent for its domain

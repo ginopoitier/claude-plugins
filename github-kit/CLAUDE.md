@@ -5,7 +5,7 @@
 ## Scope
 - **Platform:** GitHub — pull requests, releases, org/repo context
 - **Covers:** PR creation · PR review diff · Releases · GitHub-specific workflows
-- **Does NOT cover:** Local git operations (commits, branches, rebase) — those are git-kit
+- **Does NOT cover:** Local git operations (commits, branches, rebase).
 
 ## Always-Active Rules
 

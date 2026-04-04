@@ -96,7 +96,6 @@ Add `"requires": ["prerequisite"]` only if an external OAuth session or tool is 
 | New skill, rule, knowledge doc, or agent added | MINOR |
 | Existing skill extended with new patterns | MINOR |
 | Bug fix, wording, trigger keyword added | PATCH |
-| Meta-skill sync from another kit | PATCH |
 
 ## Version Sync Validation
 

@@ -14,7 +14,7 @@ allowed-tools: Bash, Read, Write
 
 ## Core Principles
 
-1. **Auth is MCP OAuth** — same session as jira-kit. After writing config, show `/mcp authenticate atlassian` if not already done.
+1. **Auth is MCP OAuth** — use the same Atlassian OAuth session for Confluence tools. After writing config, show `/mcp authenticate atlassian` if not already done.
 2. **Two levels** — user (`~/.claude/confluence-kit.config.md`) is per-machine; project (`.claude/confluence.config.md`) is per-repo and committed.
 3. **SDLC config is user-level** — SDLC lives in one company space, not per-project.
 4. **Decision record parents are project-level** — each project has its own ADR/SDR page hierarchy.

@@ -32,7 +32,7 @@ kits/{kit-name}/
 CLAUDE.md is the first thing loaded in every session. It must:
 
 1. Load all rules via `@` references
-2. Load meta-skills always
+2. Reference optional shared integrations or hooks when used
 3. List all available skills with one-line descriptions
 
 ```markdown
@@ -44,17 +44,6 @@ CLAUDE.md is the first thing loaded in every session. It must:
 
 @~/.claude/rules/kit-name/rule1.md
 @~/.claude/rules/kit-name/rule2.md
-
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-@~/.claude/skills/verification-loop/SKILL.md
-
-## Self-Improvement — Auto-Active
-
-@~/.claude/skills/instinct-system/SKILL.md
-@~/.claude/skills/self-correction-loop/SKILL.md
 
 ## Integrations
 

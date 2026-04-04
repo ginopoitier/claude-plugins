@@ -145,9 +145,9 @@ SEQ_API_KEY=${SEQ_API_KEY}
 |----------|--------|
 | First-time setup | Run all 4 sections in order |
 | Reconfigure one section | `/kit-setup ci-cd` → jump to that section only |
-| VCS / git identity needed | Run `/github-setup` (home) or `/bitbucket-setup` (work) + `/git-setup` |
-| Jira / Confluence needed | Run `/jira-setup` and `/confluence-setup` |
-| Obsidian notes needed | Run `/obsidian-setup` |
+| VCS / git identity needed | Configure your version control platform separately and use `/git-setup` for local identity |
+| Jira / Confluence needed | Configure your issue tracker and documentation systems separately |
+| Obsidian notes needed | Configure your note storage separately |
 | TeamCity chosen | Ask for base URL (used in Kotlin DSL generation) |
 | Secrets present | Show env var setup commands for current OS |
 
@@ -169,7 +169,7 @@ Go **section by section**. Ask the questions, wait for answers, confirm the sect
 
 Show a preview at the end. On confirmation, write to `~/.claude/kit.config.md`.
 
-> **VCS and git identity** are configured separately — run `/github-setup` (home) or `/bitbucket-setup` (work) for platform config, and `/git-setup` for local git identity.
+> **VCS and git identity** are configured separately — configure your version control platform separately and use `/git-setup` for local git identity.
 
 ---
 

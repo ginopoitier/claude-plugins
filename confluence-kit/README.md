@@ -31,7 +31,7 @@ confluence-kit uses the **Atlassian MCP** via OAuth — no API tokens stored in 
 /mcp authenticate atlassian
 ```
 
-Authenticate once. This is the same OAuth session as jira-kit — authenticate once for both.
+Authenticate once. All `mcp__atlassian__confluence_*` tools then work automatically.
 
 ## Configuration
 

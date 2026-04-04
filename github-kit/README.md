@@ -1,6 +1,6 @@
 # github-kit
 
-GitHub platform toolkit for Claude Code — PR creation, management, releases, and GitHub-specific workflows. Pairs with git-kit for local repository operations.
+GitHub platform toolkit for Claude Code — PR creation, management, releases, and GitHub-specific workflows. Local repository operations are outside this kit's scope.
 
 ## What's Included
 
@@ -30,7 +30,7 @@ Then run `/github-setup` in Claude Code.
 
 - Claude Code 1.0.0+
 - `gh` CLI installed and authenticated (`gh auth login`)
-- git-kit recommended for local repository operations
+- Local repository operations are outside this kit's scope
 
 ## License
 

@@ -21,7 +21,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 2. **Three captures every time** — Every session ending captures exactly three things: what was DONE, what is PENDING, and what was LEARNED. No exceptions. Skipping any of these creates gaps for the next session.
 3. **Handoff notes are written for a stranger** — Write the handoff as if the next person has zero context. Include file paths, decision rationale, and specific next steps. "Continue the refactor" is useless. "Refactor `src/Orders/CreateOrder.cs` to use the Result pattern — see the Catalog module for the established pattern" is actionable.
 4. **Consistent location, always overwritten** — The handoff file lives at `.claude/handoff.md`. Each session overwrites the previous one — there's only ever one active handoff. Old handoffs are not valuable; current state is.
-5. **Learnings flow to permanent memory** — The "learned" section of a wrap-up is a trigger for the `self-correction-loop` skill. Any correction or discovery worth remembering should be captured in `MEMORY.md` as a permanent rule, not just in the ephemeral handoff.
+4. **Learnings flow to permanent memory** — The "learned" section of a wrap-up should be captured in `MEMORY.md` as a permanent rule or note, not just in the ephemeral handoff.
 
 ## Patterns
 
@@ -97,7 +97,7 @@ Before writing the handoff, review the session for learnings:
 
 ```
 LEARNING EXTRACTION CHECKLIST:
-1. Did the user correct anything? → Capture in MEMORY.md (via self-correction-loop)
+1. Did the user correct anything? → Capture in MEMORY.md as a permanent learning or correction note.
 2. Did we discover something non-obvious? → Add to "Learned" section
 3. Did we make a decision with rationale? → Document the "why" in handoff
 4. Did a tool/approach not work? → Note it so the next session doesn't retry
@@ -217,7 +217,7 @@ Claude: "Before we wrap up, let me write a handoff note to .claude/handoff.md
 You are executing the /wrap-up-ritual command. Write a structured session handoff.
 
 1. Review the session: what was completed, what is pending, what was learned
-2. Check for user corrections → capture in MEMORY.md via self-correction-loop
+2. Check for user corrections → capture in MEMORY.md as a permanent learning or correction note.
 3. Ensure `.claude/` directory exists
 4. Write `.claude/handoff.md` using the Session Summary Template above
 5. **Obsidian (optional):** If `~/.claude/obsidian-kit.config.md` exists:

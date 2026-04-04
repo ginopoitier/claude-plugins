@@ -16,7 +16,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 ## Core Principles
 
 1. **Domain-first** — Before creating any files, deeply understand the domain. A dev kit looks nothing like a data-science kit or a security kit. Don't reuse structure blindly.
-2. **Meta-skills in every kit** — Every kit ships with context-discipline, model-selection, instinct-system, and self-correction-loop. These make the kit self-improving.
+2. **Optional shared integration** — Shared memory, token optimization, and self-improvement behavior should be provided by separate support kits and hooks, not copied directly into every kit.
 3. **Install-ready from day one** — The `plugin.json` must be correct from the start, and `hooks/check-settings.sh` + `hooks/hooks.json` must exist. An uninstallable or silently-misconfigured kit is a broken kit.
 4. **Quality-gated release** — Run `/kit-health-check` before considering the kit ready for distribution.
 
@@ -51,13 +51,6 @@ kit-name/
     quality-standards.md
     {tool-specific}.md
   skills/                     # 8–15 skills
-    # Meta (always include)
-    context-discipline/
-    model-selection/
-    verification-loop/        # adapted for this domain
-    instinct-system/
-    self-correction-loop/
-    learning-log/
     # Domain-specific
     {domain}-setup/           # always include — runs on first use
     scaffold-{primary-artifact}/
@@ -90,15 +83,12 @@ Generate in this order (each can be parallel):
 8. Agent definitions
 9. Config template
 
-**Phase 4: Meta-skill Wiring**
-Copy meta-skills from the reference kit or write them fresh:
+**Phase 4: Optional shared integration**
+Shared behavior is provided by separate kits and hook-driven automation. Use dedicated documentation for integrating shared memory, token optimization, and self-improvement features.
 
 ```bash
-# Copy shared meta-skills
-for skill in context-discipline model-selection verification-loop \
-             instinct-system self-correction-loop autonomous-loops learning-log; do
-  cp -r ~/.claude/skills/$skill kit-name/skills/
-done
+# Optional: integrate with separate support kits via hooks
+# See the dedicated integration documentation for installation and hook registration.
 ```
 
 **Phase 5: Quality Gate**
@@ -157,23 +147,20 @@ User: "Create a data-science kit"
 → Generate a kit tailored to actual needs
 ```
 
-### Don't Skip Meta-Skills
+### Don't Skip Optional Shared Support
 
 ```
-# BAD — kit without self-improvement
+# BAD — kit without optional hook-based improvements
 skills/
   scaffold-model/
   data-health-check/
-  # No instinct-system, no self-correction-loop
+  # No hook automation or shared integration
 
-# GOOD — every kit has meta backbone
+# GOOD — kit with optional external shared-support
 skills/
-  context-discipline/     # cost optimization
-  model-selection/        # right model per task
-  instinct-system/        # learns from usage
-  self-correction-loop/   # improves from corrections
   scaffold-model/
   data-health-check/
+  # Optional separate support handles memory, token optimization, and session discovery
 ```
 
 ### Don't Hardcode Paths in CLAUDE.md

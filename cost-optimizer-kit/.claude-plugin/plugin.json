@@ -1,0 +1,11 @@
+{
+  "name": "cost-optimizer-kit",
+  "version": "0.1.0",
+  "description": "Generates an optimized CLAUDE.md file in your repository to make Claude use kits more effectively.",
+  "author": {
+    "name": "Gino Poitier"
+  },
+  "license": "MIT",
+  "keywords": ["cost-optimization", "claude-md", "kit-selection", "efficiency"],
+  "commands": "./skills/"
+}

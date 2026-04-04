@@ -5,7 +5,7 @@
 ## Scope
 - **Platform:** Jira — sprint work, epics, stories, refinement, standup
 - **Covers:** Epic creation · Story writing · Technical refinement · Daily standup prep · Sprint health
-- **Does NOT cover:** Confluence documentation — that is confluence-kit
+- **Does NOT cover:** Confluence documentation — this kit focuses only on Jira sprint work.
 
 ## Authentication
 

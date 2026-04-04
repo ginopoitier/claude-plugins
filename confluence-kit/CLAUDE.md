@@ -5,7 +5,7 @@
 ## Scope
 - **Platform:** Confluence — SDLC documentation, ADRs, SDRs, work documentation
 - **Covers:** Architecture Decision Records · Software Decision Records · SDLC pages · General work docs
-- **Does NOT cover:** Jira sprint work — that is jira-kit
+- **Does NOT cover:** Jira sprint work — this kit focuses only on Confluence documentation.
 
 ## Authentication
 
@@ -15,7 +15,7 @@ Confluence uses the **Atlassian MCP** via OAuth — no API tokens stored in conf
 /mcp authenticate atlassian
 ```
 
-Authenticate once. All `mcp__atlassian__confluence_*` tools then work automatically. This is the same OAuth session as jira-kit — authenticate once for both.
+Authenticate once. All `mcp__atlassian__confluence_*` tools then work automatically.
 
 ## Always-Active Rules
 

@@ -1,6 +1,6 @@
 # Kit Maker
 
-> **Meta-kit for building Claude Code kits.** Produces installable, marketplace-ready kits with skills, rules, knowledge, agents, hooks, templates, and optional MCP servers.
+> **Kit Maker for building Claude Code kits.** Produces installable, marketplace-ready kits with skills, rules, knowledge, agents, hooks, templates, and optional MCP servers.
 
 ## Always-Active Rules
 
@@ -10,12 +10,6 @@
 @~/.claude/rules/kit-maker/naming-conventions.md
 @~/.claude/rules/kit-maker/versioning.md
 
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-@~/.claude/skills/verification-loop/SKILL.md
-
 ## Integrations
 
 All paths come from kit config (`~/.claude/kit.config.md`) — never hardcode:
@@ -23,16 +17,7 @@ All paths come from kit config (`~/.claude/kit.config.md`) — never hardcode:
 
 When a skill needs config values and `~/.claude/kit.config.md` is missing → tell user to run `/kit-setup`.
 
-## Self-Improvement — Auto-Active
 
-@~/.claude/skills/instinct-system/SKILL.md
-@~/.claude/skills/self-correction-loop/SKILL.md
-@~/.claude/skills/autonomous-loops/SKILL.md
-@~/.claude/skills/learning-log/SKILL.md
-@~/.claude/skills/convention-learner/SKILL.md
-@~/.claude/skills/mem-search/SKILL.md
-@~/.claude/skills/smart-explore/SKILL.md
-@~/.claude/skills/timeline-report/SKILL.md
 
 ## Skills Available
 
@@ -63,13 +48,7 @@ When a skill needs config values and `~/.claude/kit.config.md` is missing → te
 - `rule-writer` — writes DO/DON'T rule files ≤60 lines
 - `template-writer` — writes scaffolding templates with consistent placeholder conventions
 
-### Evolution & Maintenance
-- `/self-evolution` — analyze kit-building patterns across sessions and propose template/rule improvements
+### Maintenance
 - `/kit-packager` — version-bump, validate, and publish a kit: syncs `plugin.json` + `marketplace.json` + `README.md`, checks installability, and runs pre-release health gate
 
-### Meta (auto-active)
-- `instinct-system` — learns kit-building patterns from each session (confidence-scored hypotheses)
-- `self-correction-loop` — captures every correction into permanent MEMORY.md rules
-- `autonomous-loops` — bounded scaffold/fix/improve iteration loops
-- `learning-log` — captures discoveries, gotchas, and decisions each session
-- `convention-learner` — detects and enforces this kit's own conventions
+

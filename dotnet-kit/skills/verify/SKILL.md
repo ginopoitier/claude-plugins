@@ -163,8 +163,6 @@ Phase 1 Build   ✅ PASS  (re-verified after format)
 
 Run the full verification pipeline on the current .NET project.
 
-Load: @~/.claude/skills/verification-loop/SKILL.md
-
 ### Execute all 7 phases
 
 Run phases in order. Halt on Phase 1 or Phase 4 failure — don't continue to later phases on broken code.

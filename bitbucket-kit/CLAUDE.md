@@ -5,7 +5,7 @@
 ## Scope
 - **Platform:** Bitbucket — pull requests, workspace/repo context, Bitbucket API
 - **Covers:** PR creation · PR review · PR comments · tags/releases · Bitbucket-specific workflows
-- **Does NOT cover:** Local git operations (commits, branches, rebase) — those are git-kit
+- **Does NOT cover:** Local git operations (commits, branches, rebase).
 - **Does NOT cover:** Bitbucket Pipelines — CI/CD is handled by dev-kit `/ci-cd`
 
 ## Always-Active Rules

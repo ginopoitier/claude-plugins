@@ -1,6 +1,6 @@
 # bitbucket-kit
 
-Bitbucket platform toolkit for Claude Code — PR creation, review, and Bitbucket-specific workflows. Pairs with git-kit for local repository operations.
+Bitbucket platform toolkit for Claude Code — PR creation, review, and Bitbucket-specific workflows. Local repository operations are outside this kit's scope.
 
 ## What's Included
 
@@ -45,4 +45,4 @@ Get your token: Bitbucket → Personal settings → Personal access tokens
 
 - Claude Code 1.0.0+
 - Bitbucket Personal Access Token set as `BITBUCKET_API_TOKEN`
-- git-kit recommended for local repository operations
+- Local repository operations are outside this kit's scope

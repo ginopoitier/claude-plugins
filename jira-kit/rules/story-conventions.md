@@ -3,7 +3,7 @@
 ## DO
 - Always read `JIRA_PROJECT_KEY` from `.claude/jira.config.md` before creating issues — never hardcode it
 - Read `JIRA_BASE_URL` from `~/.claude/jira-kit.config.md` to build ticket URLs in output
-- Read the SDLC story format from Confluence (`SDLC_CONFLUENCE_SPACE` in confluence-kit config) before writing stories — never invent a format
+- Read the SDLC story format from your team's documentation config before writing stories — never invent a format
 - Use Fibonacci story points: 1, 2, 3, 5, 8 (never 4, 6, 7, or anything over 8)
 - Stories > 8 points must be split — they are too large for one sprint
 - Include acceptance criteria in every story (Given/When/Then or bullet list per SDLC format)
@@ -25,6 +25,7 @@ SPRINT_DAYS=${SPRINT_DAYS:-14}
 
 # Project config
 JIRA_PROJECT_KEY=$(grep "^JIRA_PROJECT_KEY=" .claude/jira.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+# Documentation settings are read from your project's documentation configuration file
 ```
 
 ## JQL Patterns

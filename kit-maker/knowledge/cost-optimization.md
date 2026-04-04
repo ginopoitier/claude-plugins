@@ -10,7 +10,6 @@ Claude Code sessions have a 200k token context window. Every file loaded costs t
 Always loaded (every session):
   CLAUDE.md                    ~200 tokens
   Rules (3–8 files × 500t)    ~1,500–4,000 tokens
-  Meta skills (3 × 500t)      ~1,500 tokens
   ─────────────────────────────────────────
   Total baseline:              ~3,000–6,000 tokens
 
@@ -111,7 +110,7 @@ Sonnet 4.6: Mid-tier — implementation, code generation, pattern following
 Opus 4.6:   Expensive — architecture, complex debugging, ambiguous requirements
 ```
 
-A kit that uses Opus for everything costs 5–10x more than one that routes appropriately. The model-selection meta-skill handles this automatically.
+A kit that uses Opus for everything costs 5–10x more than one that routes appropriately. Use dedicated routing and model-selection support from separate integration kits or hook-driven agents.
 
 ## Token Budget by Task Type
 

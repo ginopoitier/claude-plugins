@@ -19,11 +19,6 @@
 @~/.claude/rules/sdlc.md
 @~/.claude/rules/git-workflow.md
 
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-
 ## Config System
 
 ### User / Device Level — `~/.claude/kit.config.md`
@@ -48,7 +43,7 @@ The `vue-mcp` server exposes these tools:
 ## Skills Available
 
 ### Code Generation
-- `/signalr-hub` — strongly-typed hub interface + Vue composable with cleanup pattern
+- `/signalr-hub` — .NET-hosted SignalR client integration via Vue composables and Vite proxy
 
 ### Session & Workflow
 - `/session-management` — start/end/resume development sessions
@@ -58,13 +53,6 @@ The `vue-mcp` server exposes these tools:
 
 ### Setup
 - `/kit-setup` — configure kit settings
-
-### Meta (auto-active, not user-invoked)
-- `instinct-system` — project-specific pattern learning with confidence scores
-- `self-correction-loop` — captures user corrections → permanent MEMORY.md rules
-- `autonomous-loops` — bounded iteration loops
-- `learning-log` — organic discoveries, gotchas, architecture decisions per session
-- `convention-learner` — detects and enforces project-specific coding conventions
 
 ## Key Patterns
 

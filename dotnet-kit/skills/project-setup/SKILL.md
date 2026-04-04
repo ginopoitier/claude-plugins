@@ -75,12 +75,12 @@ This project uses [Selected Architecture].
 [List of relevant skills to load based on choices]
 ```
 
-**Step 5: Obsidian Project Note (optional)**
-If `~/.claude/obsidian-kit.config.md` exists, create a project overview note in the vault:
+**Step 5: Optional Project Note**
+If a local note vault is configured, create a project overview note in the vault:
 
 ```bash
-VAULT=$(grep "^OBSIDIAN_VAULT_PATH=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
-PROJECTS_FOLDER=$(grep "^OBSIDIAN_PROJECTS_FOLDER=" ~/.claude/obsidian-kit.config.md | cut -d= -f2- | tr -d '[:space:]')
+VAULT=$(grep "^OBSIDIAN_VAULT_PATH=" ~/.claude/obsidian.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+PROJECTS_FOLDER=$(grep "^OBSIDIAN_PROJECTS_FOLDER=" ~/.claude/obsidian.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
 PROJECT_NOTE="${VAULT}/${PROJECTS_FOLDER:-Projects}/{kebab-project-name}/overview.md"
 ```
 
@@ -103,8 +103,8 @@ repos: [{repo-path}]
 - `{repo-path}` — {description}
 
 ## Links
-- Jira: {JIRA_BASE_URL}/projects/{JIRA_PROJECT_KEY} *(if jira-kit configured)*
-- Confluence: {CONFLUENCE_BASE_URL}/wiki/spaces/{CONFLUENCE_SPACE_KEY} *(if confluence-kit configured)*
+- Issue tracker: {ISSUE_TRACKER_URL}/projects/{PROJECT_KEY}
+- Documentation: {DOCUMENTATION_URL}/spaces/{SPACE_KEY}
 
 ## Sessions
 See [[sessions]] for session history.

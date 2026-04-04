@@ -1,23 +1,23 @@
 ---
 name: signalr-hub
 description: >
-  Scaffold a complete SignalR real-time feature — strongly-typed hub interface, hub class,
-  domain event notifier handlers, and a Vue composable with cleanup.
+  Scaffold a complete .NET SignalR backend feature — strongly-typed hub interface,
+  hub class, domain event notifier handlers, and DTOs for transport.
   Load this skill when: "signalr", "signalr hub", "real-time", "hub", "/signalr-hub",
-  "websocket", "push notification", "IHubContext", "hub composable".
+  "websocket", "push notification", "IHubContext", "hub transport".
 user-invocable: true
 argument-hint: "<HubName> [event1 event2 ...]"
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# SignalR Hub — Real-Time Feature Scaffold
+# SignalR Hub — .NET Backend Scaffold
 
 ## Core Principles
 
 1. **Always use strongly-typed hubs** — `Hub<IClientInterface>` prevents typos in method names and gives compile-time safety. Never use `Hub` with string-based `Clients.All.SendAsync("MethodName")`.
-2. **The interface lives in Application, the hub in Infrastructure** — The `IOrderHubClient` interface is a contract defined in the Application layer. The hub implementation belongs in Infrastructure (it depends on SignalR, an external concern).
-3. **Domain event handlers publish to the hub** — Don't call `IHubContext` from inside aggregates or command handlers. Create a dedicated `{Event}HubNotifier` handler (implements `INotificationHandler<TEvent>`) that bridges domain events to SignalR.
-4. **Vue composables must clean up on unmount** — Every `conn.on("EventName", handler)` in `onMounted` must have a matching `conn.off("EventName")` in `onUnmounted`. Forgotten listeners cause memory leaks and duplicate event handling.
+2. **The interface belongs in Application, the hub in Infrastructure** — The `IOrderHubClient` interface is a contract defined in the Application layer. The hub implementation belongs in Infrastructure because it depends on transport concerns.
+3. **Domain event handlers publish to the hub** — Don't call `IHubContext` from inside aggregates or command handlers. Create dedicated `{Event}HubNotifier` handlers (implements `INotificationHandler<TEvent>`) that bridge domain events to SignalR.
+4. **Transport concerns stay in the backend** — The backend skill scaffolds the SignalR hub and notifier plumbing only. Frontend client integration belongs in the frontend client layer.
 5. **Group-based targeting over broadcast** — Prefer sending notifications to SignalR groups (e.g., a user's group, a tenant group) rather than broadcasting to all connections. `IHubContext.Clients.Group(userId)` is almost always better than `Clients.All`.
 
 ## Patterns
@@ -99,50 +99,6 @@ internal sealed class OrderStatusChangedNotifier(
 }
 ```
 
-### Vue Composable with Cleanup
-
-```typescript
-// features/orders/composables/useOrderHub.ts
-// GOOD — registers and deregisters handlers; won't leak on component unmount
-import { onMounted, onUnmounted } from 'vue'
-import { useSignalRStore } from '@/stores/signalrStore'
-import { useOrderStore } from '../stores/orderStore'
-import type { OrderStatusChangedDto, OrderSummaryDto } from '../types'
-
-const HUB_URL = `${import.meta.env.VITE_API_URL}/hubs/orders`
-
-export function useOrderHub() {
-  const signalRStore = useSignalRStore()
-  const orderStore = useOrderStore()
-
-  onMounted(async () => {
-    const conn = await signalRStore.connect(HUB_URL)
-
-    conn.on('OrderStatusChanged', (dto: OrderStatusChangedDto) => {
-      orderStore.updateStatus(dto.orderId, dto.newStatus)
-    })
-
-    conn.on('OrderCreated', (dto: OrderSummaryDto) => {
-      orderStore.orders.push(dto)
-    })
-  })
-
-  // CRITICAL — deregister every handler registered in onMounted
-  onUnmounted(() => {
-    const conn = signalRStore.getOrCreate(HUB_URL)
-    conn.off('OrderStatusChanged')
-    conn.off('OrderCreated')
-  })
-}
-
-// BAD — no cleanup; duplicate handlers accumulate when component remounts
-onMounted(async () => {
-  const conn = await signalRStore.connect(HUB_URL)
-  conn.on('OrderStatusChanged', handler)
-  // no onUnmounted → handler registered again on remount → called twice
-})
-```
-
 ## Anti-patterns
 
 ### Using IHubContext Inside a Command Handler
@@ -189,7 +145,7 @@ app.MapAllEndpoints();
 // GOOD — map hub routes alongside API routes
 var app = builder.Build();
 app.MapAllEndpoints();
-app.MapHub<OrderHub>("/hubs/orders");  // must match VITE_API_URL + /hubs/orders in Vue
+app.MapHub<OrderHub>("/hubs/orders");  // must match the client-side hub URL
 ```
 
 ## Decision Guide
@@ -197,11 +153,11 @@ app.MapHub<OrderHub>("/hubs/orders");  // must match VITE_API_URL + /hubs/orders
 | Scenario | Recommendation |
 |----------|----------------|
 | New real-time feature needed | `/signalr-hub <Name> <Event1> <Event2>` |
-| Existing hub needs a new event | Add to `IClientInterface`, implement in notifier, add to composable |
+| Existing hub needs a new event | Add to `IClientInterface`, implement in notifier, update the client integration |
 | Send to one user only | `Clients.Group($"user:{userId}")` |
 | Send to all viewers of an entity | `Clients.Group($"order:{orderId}")` with client join/leave |
 | Broadcast to everyone | `Clients.All` — only for truly global notifications |
-| Vue component loses connection on remount | Check `onUnmounted` — missing `conn.off()` calls |
+| Client loses connection on remount | Check client cleanup and reconnection logic |
 | Hub returns 401 | Verify `[Authorize]` + `AddSignalR()` + `UseAuthentication()` order in Program.cs |
 | Messages delivered but wrong component updates | Check DTO property names match TypeScript interface exactly |
 
@@ -217,8 +173,8 @@ Generates:
 2. **Hub Class** (`Infrastructure/Hubs/{Name}Hub.cs`) — extends `Hub<IClientInterface>`, `[Authorize]`, group join/leave in `OnConnectedAsync`/`OnDisconnectedAsync`
 3. **DTO Records** (`Application/Hubs/Dtos/`) — one record per event, minimal fields
 4. **Domain Event Notifier(s)** (`Application/Hubs/Notifiers/`) — `INotificationHandler<TDomainEvent>` stubs that call `IHubContext`
-5. **Vue Composable** (`features/{name}/composables/use{Name}Hub.ts`) — `onMounted` connect + register, `onUnmounted` deregister, TypeScript types
-6. **Registration reminder** — show where to add `MapHub<{Name}Hub>("/hubs/{name}")` in `Program.cs` and confirm `AddSignalR()` is present
+5. **Registration reminder** — show where to add `MapHub<{Name}Hub>("/hubs/{name}")` in `Program.cs` and confirm `AddSignalR()` is present
+6. **Frontend integration note** — mention that frontend client integration should connect to the same backend hub endpoint.
 
 ### After Generation
 Run `/verify` to ensure the solution builds cleanly.

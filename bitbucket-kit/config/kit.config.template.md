@@ -3,7 +3,7 @@
   This file lives at ~/.claude/bitbucket-kit.config.md
   Run /bitbucket-setup to configure interactively.
 
-  This is the WORK MACHINE config. Home machine uses github-kit instead.
+  This config is per-machine and can differ across devices.
 
   SECRETS — never store your API token here.
   Set it once as a system environment variable:

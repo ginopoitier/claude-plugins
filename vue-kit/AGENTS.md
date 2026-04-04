@@ -25,12 +25,3 @@ Specialist agents available in vue-kit and their routing rules.
 | "Security audit before release" | `security-auditor` |
 | "Check for CVEs in npm packages" | `security-auditor` |
 
-## Meta Skill Routing
-
-| Skill | When It Activates |
-|-------|------------------|
-| `context-discipline` | Always — controls token budget and subagent delegation |
-| `model-selection` | Always — routes tasks to Haiku/Sonnet/Opus appropriately |
-| `instinct-system` | Automatically learns project-specific patterns |
-| `self-correction-loop` | On any user correction |
-| `learning-log` | During sessions — captures discoveries |

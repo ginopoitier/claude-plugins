@@ -1,115 +1,69 @@
 ---
 name: signalr-hub
 description: >
-  Scaffold a complete SignalR real-time feature — strongly-typed hub interface, hub class,
-  domain event notifier handlers, and a Vue composable with cleanup.
+  Scaffold Vue.js TypeScript integration for consuming a .NET-hosted SignalR hub.
+  Creates a strongly-typed composable with proper cleanup patterns for real-time features.
   Load this skill when: "signalr", "signalr hub", "real-time", "hub", "/signalr-hub",
-  "websocket", "push notification", "IHubContext", "hub composable".
+  "websocket", "push notification", "hub composable", "vue signalr".
 user-invocable: true
 argument-hint: "<HubName> [event1 event2 ...]"
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-# SignalR Hub — Real-Time Feature Scaffold
+# SignalR Hub — Vue.js Integration Scaffold
 
 ## Core Principles
 
-1. **Always use strongly-typed hubs** — `Hub<IClientInterface>` prevents typos in method names and gives compile-time safety. Never use `Hub` with string-based `Clients.All.SendAsync("MethodName")`.
-2. **The interface lives in Application, the hub in Infrastructure** — The `IOrderHubClient` interface is a contract defined in the Application layer. The hub implementation belongs in Infrastructure (it depends on SignalR, an external concern).
-3. **Domain event handlers publish to the hub** — Don't call `IHubContext` from inside aggregates or command handlers. Create a dedicated `{Event}HubNotifier` handler (implements `INotificationHandler<TEvent>`) that bridges domain events to SignalR.
-4. **Vue composables must clean up on unmount** — Every `conn.on("EventName", handler)` in `onMounted` must have a matching `conn.off("EventName")` in `onUnmounted`. Forgotten listeners cause memory leaks and duplicate event handling.
-5. **Group-based targeting over broadcast** — Prefer sending notifications to SignalR groups (e.g., a user's group, a tenant group) rather than broadcasting to all connections. `IHubContext.Clients.Group(userId)` is almost always better than `Clients.All`.
+1. **Strongly-typed client interfaces** — Define TypeScript interfaces that match the .NET hub's `IClientInterface` for compile-time safety.
+2. **Vue composables must clean up on unmount** — Every `conn.on("EventName", handler)` in `onMounted` must have a matching `conn.off("EventName")` in `onUnmounted`. Forgotten listeners cause memory leaks and duplicate event handling.
+3. **Group-based targeting over broadcast** — Prefer joining SignalR groups (user groups, tenant groups) rather than relying on broadcasts.
+4. **Connection management** — Use a centralized SignalR store for connection lifecycle and error handling.
+5. **Type safety** — DTOs and event payloads should be strongly typed to match the .NET backend.
 
 ## Patterns
 
-### Strongly-Typed Hub Interface (Application Layer)
+### TypeScript Client Interface
 
-```csharp
-// Application/Hubs/IOrderHubClient.cs
-// GOOD — strongly typed interface; hub and composable must match this contract
-public interface IOrderHubClient
-{
-    Task OrderStatusChanged(OrderStatusChangedDto notification);
-    Task OrderCreated(OrderSummaryDto order);
-    Task OrderShipped(OrderShippedDto notification);
+```typescript
+// types/signalr.ts
+// Match the .NET IOrderHubClient interface exactly
+export interface IOrderHubClient {
+  orderStatusChanged(notification: OrderStatusChangedDto): void
+  orderCreated(order: OrderSummaryDto): void
+  orderShipped(notification: OrderShippedDto): void
 }
 
-// BAD — untyped hub; typos only fail at runtime
-public class OrderHub : Hub
-{
-    // caller: Clients.All.SendAsync("OrderStatusChangd", dto)  // typo, no compile error
+export interface OrderStatusChangedDto {
+  orderId: string
+  newStatus: string
 }
-```
 
-### Hub Class (Infrastructure Layer)
-
-```csharp
-// Infrastructure/Hubs/OrderHub.cs
-[Authorize]
-public sealed class OrderHub(ILogger<OrderHub> logger) : Hub<IOrderHubClient>
-{
-    public override async Task OnConnectedAsync()
-    {
-        // Auto-join the authenticated user to their personal group
-        var userId = Context.UserIdentifier!;
-        await Groups.AddToGroupAsync(Context.ConnectionId, $"user:{userId}");
-        logger.LogDebug("User {UserId} connected to OrderHub", userId);
-        await base.OnConnectedAsync();
-    }
-
-    public override async Task OnDisconnectedAsync(Exception? exception)
-    {
-        var userId = Context.UserIdentifier!;
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"user:{userId}");
-        await base.OnDisconnectedAsync(exception);
-    }
-
-    // Optional: client can join/leave specific order groups
-    public async Task JoinOrderGroup(string orderId) =>
-        await Groups.AddToGroupAsync(Context.ConnectionId, $"order:{orderId}");
-
-    public async Task LeaveOrderGroup(string orderId) =>
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"order:{orderId}");
+export interface OrderSummaryDto {
+  id: string
+  customerName: string
+  total: number
+  status: string
 }
-```
 
-### Domain Event Notifier (Application Layer)
-
-```csharp
-// Application/Hubs/Notifiers/OrderStatusChangedNotifier.cs
-// GOOD — dedicated handler bridges domain event to SignalR; command handler stays clean
-internal sealed class OrderStatusChangedNotifier(
-    IHubContext<OrderHub, IOrderHubClient> hubContext,
-    ILogger<OrderStatusChangedNotifier> logger)
-    : INotificationHandler<OrderStatusChangedDomainEvent>
-{
-    public async Task Handle(OrderStatusChangedDomainEvent notification, CancellationToken ct)
-    {
-        var dto = new OrderStatusChangedDto(
-            notification.OrderId.Value,
-            notification.NewStatus.ToString());
-
-        // Target only the specific user — not broadcast to all
-        await hubContext.Clients
-            .Group($"user:{notification.UserId.Value}")
-            .OrderStatusChanged(dto);
-
-        logger.LogDebug("Sent OrderStatusChanged to user {UserId}", notification.UserId.Value);
-    }
+export interface OrderShippedDto {
+  orderId: string
+  trackingNumber: string
+  estimatedDelivery: string
 }
 ```
 
 ### Vue Composable with Cleanup
 
 ```typescript
-// features/orders/composables/useOrderHub.ts
-// GOOD — registers and deregisters handlers; won't leak on component unmount
+// composables/useOrderHub.ts
 import { onMounted, onUnmounted } from 'vue'
 import { useSignalRStore } from '@/stores/signalrStore'
-import { useOrderStore } from '../stores/orderStore'
-import type { OrderStatusChangedDto, OrderSummaryDto } from '../types'
+import { useOrderStore } from '@/stores/orderStore'
+import type { IOrderHubClient, OrderStatusChangedDto, OrderSummaryDto, OrderShippedDto } from '@/types/signalr'
 
-const HUB_URL = `${import.meta.env.VITE_API_URL}/hubs/orders`
+// Use a relative path so Vite can proxy `/hubs` to the .NET backend in development
+// and the same path works when the SPA is hosted by the .NET BFF in production.
+const HUB_URL = '/hubs/orders'
 
 export function useOrderHub() {
   const signalRStore = useSignalRStore()
@@ -118,78 +72,231 @@ export function useOrderHub() {
   onMounted(async () => {
     const conn = await signalRStore.connect(HUB_URL)
 
+    // Register event handlers that match the .NET hub interface
     conn.on('OrderStatusChanged', (dto: OrderStatusChangedDto) => {
-      orderStore.updateStatus(dto.orderId, dto.newStatus)
+      orderStore.updateOrderStatus(dto.orderId, dto.newStatus)
     })
 
     conn.on('OrderCreated', (dto: OrderSummaryDto) => {
-      orderStore.orders.push(dto)
+      orderStore.addOrder(dto)
     })
+
+    conn.on('OrderShipped', (dto: OrderShippedDto) => {
+      orderStore.updateShippingInfo(dto.orderId, dto.trackingNumber, dto.estimatedDelivery)
+    })
+
+    // Join user-specific group for targeted notifications
+    const userId = orderStore.currentUserId
+    if (userId) {
+      await conn.invoke('JoinUserGroup', userId)
+    }
   })
 
   // CRITICAL — deregister every handler registered in onMounted
-  onUnmounted(() => {
-    const conn = signalRStore.getOrCreate(HUB_URL)
-    conn.off('OrderStatusChanged')
-    conn.off('OrderCreated')
+  onUnmounted(async () => {
+    const conn = signalRStore.getConnection(HUB_URL)
+    if (conn) {
+      conn.off('OrderStatusChanged')
+      conn.off('OrderCreated')
+      conn.off('OrderShipped')
+
+      // Leave user group
+      const userId = orderStore.currentUserId
+      if (userId) {
+        await conn.invoke('LeaveUserGroup', userId)
+      }
+    }
   })
+
+  return {
+    // Expose methods to join/leave specific groups
+    async joinOrderGroup(orderId: string) {
+      const conn = signalRStore.getConnection(HUB_URL)
+      if (conn) {
+        await conn.invoke('JoinOrderGroup', orderId)
+      }
+    },
+
+    async leaveOrderGroup(orderId: string) {
+      const conn = signalRStore.getConnection(HUB_URL)
+      if (conn) {
+        await conn.invoke('LeaveOrderGroup', orderId)
+      }
+    }
+  }
+}
+```
+
+### SignalR Store for Connection Management
+
+> Prefer a relative hub endpoint so Vite can proxy `/hubs` to your .NET backend during development.
+>
+> Example `vite.config.ts` proxy config for a .NET BFF:
+>
+> ```ts
+> server: {
+>   proxy: {
+>     '/api': 'http://localhost:5000',
+>     '/hubs': { target: 'http://localhost:5000', ws: true }
+>   }
+> }
+> ```
+>
+```typescript
+// stores/signalrStore.ts
+import { defineStore } from 'pinia'
+import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr'
+
+interface SignalRState {
+  connections: Record<string, HubConnection>
 }
 
-// BAD — no cleanup; duplicate handlers accumulate when component remounts
-onMounted(async () => {
-  const conn = await signalRStore.connect(HUB_URL)
-  conn.on('OrderStatusChanged', handler)
-  // no onUnmounted → handler registered again on remount → called twice
+export const useSignalRStore = defineStore('signalr', {
+  state: (): SignalRState => ({
+    connections: {}
+  }),
+
+  actions: {
+    async connect(hubUrl: string): Promise<HubConnection> {
+      if (this.connections[hubUrl]) {
+        return this.connections[hubUrl]
+      }
+
+      const connection = new HubConnectionBuilder()
+        .withUrl(hubUrl, {
+          accessTokenFactory: () => localStorage.getItem('authToken') || ''
+        })
+        .withAutomaticReconnect()
+        .configureLogging(LogLevel.Information)
+        .build()
+
+      await connection.start()
+      this.connections[hubUrl] = connection
+
+      return connection
+    },
+
+    getConnection(hubUrl: string): HubConnection | null {
+      return this.connections[hubUrl] || null
+    },
+
+    async disconnect(hubUrl: string) {
+      const connection = this.connections[hubUrl]
+      if (connection) {
+        await connection.stop()
+        delete this.connections[hubUrl]
+      }
+    }
+  }
 })
 ```
 
 ## Anti-patterns
 
-### Using IHubContext Inside a Command Handler
+### No Cleanup on Component Unmount
 
-```csharp
-// BAD — command handler directly pushes to hub; couples use case to transport
-internal sealed class CancelOrderHandler(
-    AppDbContext db,
-    IHubContext<OrderHub, IOrderHubClient> hubContext)  // wrong dependency
-    : IRequestHandler<CancelOrderCommand, Result>
-{
-    public async Task<Result> Handle(CancelOrderCommand request, CancellationToken ct)
-    {
-        var result = order.Cancel();
-        await hubContext.Clients.All.OrderStatusChanged(...);  // transport in use case layer
-        await db.SaveChangesAsync(ct);
-        return result;
-    }
-}
-
-// GOOD — handler raises domain event; notifier handles hub push
-// CancelOrderHandler: just calls order.Cancel() and saves
-// OrderCancelledNotifier: INotificationHandler<OrderCancelledDomainEvent> → pushes to hub
+```typescript
+// BAD — handlers accumulate on remount
+onMounted(async () => {
+  const conn = await signalRStore.connect(HUB_URL)
+  conn.on('OrderStatusChanged', handler)
+  // No onUnmounted — handler registered again on remount → called multiple times
+})
 ```
 
-### Broadcasting to All Connections
+### Broadcasting Instead of Groups
 
-```csharp
-// BAD — sends order updates to all connected users
-await hubContext.Clients.All.OrderStatusChanged(dto);
-
-// GOOD — target only the user who owns this order
-await hubContext.Clients.Group($"user:{order.OwnerId}").OrderStatusChanged(dto);
+```typescript
+// BAD — sends to all connected clients
+conn.on('OrderStatusChanged', (dto) => {
+  // This assumes the backend broadcasts to all clients
+  // Instead, backend should target specific user groups
+})
 ```
 
-### Missing Hub Registration in Program.cs
+### Weakly-Typed Event Handlers
 
-```csharp
-// BAD — hub class exists but is never mapped; client gets 404
-var app = builder.Build();
-app.MapAllEndpoints();
-// hub not mapped → SignalR connections fail silently
+```typescript
+// BAD — no type safety
+conn.on('OrderStatusChanged', (dto: any) => {
+  orderStore.updateStatus(dto.orderId, dto.newStatus) // Runtime errors possible
+})
+```
 
-// GOOD — map hub routes alongside API routes
-var app = builder.Build();
-app.MapAllEndpoints();
-app.MapHub<OrderHub>("/hubs/orders");  // must match VITE_API_URL + /hubs/orders in Vue
+## Usage Examples
+
+### Basic Real-Time Order Tracking
+
+```typescript
+// pages/OrderDetails.vue
+<script setup lang="ts">
+import { useOrderHub } from '@/composables/useOrderHub'
+
+const { joinOrderGroup, leaveOrderGroup } = useOrderHub()
+const route = useRoute()
+
+onMounted(async () => {
+  // Join the specific order group for targeted updates
+  await joinOrderGroup(route.params.orderId)
+})
+
+onUnmounted(async () => {
+  // Clean up group membership
+  await leaveOrderGroup(route.params.orderId)
+})
+</script>
+```
+
+### Dashboard with Multiple Hub Connections
+
+```typescript
+// pages/Dashboard.vue
+<script setup lang="ts">
+import { useOrderHub } from '@/composables/useOrderHub'
+import { useNotificationHub } from '@/composables/useNotificationHub'
+
+// Use multiple hub composables for different real-time features
+useOrderHub()
+useNotificationHub()
+</script>
+```
+
+## Command Reference
+
+### `/signalr-hub <HubName> [event1 event2 ...]`
+
+Creates a Vue.js SignalR integration for the specified hub:
+
+1. **TypeScript interfaces** — Strongly-typed DTOs matching the .NET hub's client interface
+2. **Vue composable** — `use${HubName}Hub.ts` with proper cleanup patterns
+3. **Store integration** — Updates relevant Pinia stores when events are received
+4. **Group management** — Methods to join/leave SignalR groups for targeted notifications
+
+**Example:**
+```
+/signalr-hub Order StatusChanged Created Shipped
+```
+
+Creates:
+- `types/orderSignalr.ts` — TypeScript interfaces
+- `composables/useOrderHub.ts` — Vue composable with cleanup
+- Integration with existing order store
+
+**Assumptions:**
+- .NET SignalR hub is already hosted and accessible via the BFF
+- Vite dev server proxies `/hubs` to the .NET backend and production serves the SPA from the same host
+- Hub follows strongly-typed pattern with `I${HubName}HubClient` interface
+- Authentication token available in localStorage as 'authToken'
+- Pinia stores exist for domain objects (orders, notifications, etc.)
+
+| Scenario | Command |
+|----------|---------|
+| Order tracking | `/signalr-hub Order StatusChanged Created Shipped` |
+| Chat system | `/signalr-hub Chat MessageReceived UserJoined UserLeft` |
+| Notifications | `/signalr-hub Notification NewAlert AlertRead` |
+| Live dashboard | `/signalr-hub Dashboard MetricUpdated UserActivity` |
+
+Backend note: map the hub endpoint at `/hubs/{name}` on the .NET side to match the Vue client route.
 ```
 
 ## Decision Guide

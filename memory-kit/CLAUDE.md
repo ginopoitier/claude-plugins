@@ -1,24 +1,12 @@
 # Memory Kit
 
-> **Intelligent memory management meta-kit for Claude Code.** Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, and provides semantic retrieval, deduplication, and lifecycle management via the `memory-mcp` MCP server.
+> **Intelligent memory management kit for Claude Code.** Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, and provides semantic retrieval, deduplication, and lifecycle management via the `memory-mcp` MCP server.
 
 ## Always-Active Rules
 
 @~/.claude/rules/memory-kit/memory-conventions.md
 @~/.claude/rules/memory-kit/memory-lifecycle.md
 @~/.claude/rules/memory-kit/auto-capture-triggers.md
-
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-
-## Self-Improvement — Auto-Active
-
-@~/.claude/skills/instinct-system/SKILL.md
-@~/.claude/skills/self-correction-loop/SKILL.md
-@~/.claude/skills/learning-log/SKILL.md
-@~/.claude/skills/autonomous-loops/SKILL.md
 
 ## MCP Integration
 
@@ -57,15 +45,6 @@ When config is missing → tell user to run `/memory-setup`.
 - `/memory-health` — audit memory store: stale entries, missing fields, duplicates, index drift, coverage gaps; produce health score
 - `/memory-consolidate` — deduplicate and merge similar memories, resolve conflicts, rewrite for clarity and precision
 - `/memory-forget` — deprecate or permanently delete memories; bulk-remove stale project entries
-
-### Meta (auto-active)
-
-- `context-discipline` — token budget management, lazy loading patterns
-- `model-selection` — route tasks to Haiku/Sonnet/Opus by complexity
-- `instinct-system` — confidence-scored pattern learning, observe→confirm→promote cycle
-- `self-correction-loop` — captures every user correction into MEMORY.md as a permanent rule
-- `learning-log` — session discovery capture (bugs, gotchas, architectural decisions)
-- `autonomous-loops` — bounded iteration for bulk memory operations
 
 ## Knowledge (on demand)
 

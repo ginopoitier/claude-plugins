@@ -22,10 +22,6 @@ When a user request matches an intent below, route to the listed skill or agent.
 | "Add a rule" / "Always enforce X" | `/scaffold-rule` + `rule-writer` agent | DO/DON'T, ≤60 lines |
 | "Create a template" / "Scaffold boilerplate" | `template-writer` agent | Placeholder-convention templates |
 | "Improve the kit" / "Self-improve" | `/self-evolution` | Analyzes patterns → proposes improvements |
-| "What did I learn?" / "Session summary" | `learning-log` skill | Organic discoveries log |
-| "Remember this" / "Don't do that again" | `self-correction-loop` skill | Permanent memory capture |
-| "Which model should I use?" | `model-selection` skill | Cost-optimal model routing |
-| "Context is filling up" | `context-discipline` skill | Subagent delegation guidance |
 
 ## Specialist Agents (kit-maker)
 

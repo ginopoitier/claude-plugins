@@ -17,7 +17,7 @@ allowed-tools: Read, mcp__atlassian__jira_create_issue, mcp__atlassian__jira_get
 ## Core Principles
 
 1. **Business vs technical — pick the right shape** — Business stories follow "As a {role}, I can {action} so that {value}". Technical stories (infrastructure, refactors, spike) use "As a developer, I need to {task} so that {outcome}". Never force a business shape onto a technical case.
-2. **SDLC format is authoritative** — Read the story template from Confluence before writing acceptance criteria. Never invent a format.
+2. **SDLC format is authoritative** — Read the story template from your team's documentation system before writing acceptance criteria. Never invent a format.
 3. **One story, one slice** — A story covers one deliverable, shippable unit. If the user's description contains multiple independent deliverables, split and confirm before creating.
 4. **Stories > 8 points must be split** — Any estimate above 8 means the scope is too large for a single sprint story.
 5. **Epic link is always resolved** — If the user names an epic, look it up via `mcp__atlassian__jira_search` to get the key before creating the story. Never accept an epic key from the user without verifying it exists.
@@ -29,8 +29,8 @@ allowed-tools: Read, mcp__atlassian__jira_create_issue, mcp__atlassian__jira_get
 ```bash
 JIRA_BASE_URL=$(grep "^JIRA_BASE_URL=" ~/.claude/jira-kit.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
 JIRA_PROJECT_KEY=$(grep "^JIRA_PROJECT_KEY=" .claude/jira.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
-SDLC_SPACE=$(grep "^SDLC_CONFLUENCE_SPACE=" ~/.claude/confluence-kit.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
-SDLC_PAGE=$(grep "^SDLC_PARENT_PAGE=" ~/.claude/confluence-kit.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+SDLC_SPACE=$(grep "^SDLC_CONFLUENCE_SPACE=" ~/.claude/documentation.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
+SDLC_PAGE=$(grep "^SDLC_PARENT_PAGE=" ~/.claude/documentation.config.md 2>/dev/null | cut -d= -f2- | tr -d '[:space:]')
 ```
 
 ### Step 1 — Classify the Story Type

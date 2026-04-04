@@ -13,12 +13,6 @@
 @~/.claude/rules/git-kit/safety.md
 @~/.claude/rules/git-kit/workflow.md
 
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-@~/.claude/skills/verification-loop/SKILL.md
-
 ## Two-Level Config System
 
 Config is split into two levels — **never hardcode values**:
@@ -36,12 +30,7 @@ Run `/git-setup` to configure. Project config **overrides** user config where va
 When a skill needs config and `~/.claude/git-kit.config.md` is missing → tell user to run `/git-setup`.
 When a skill needs project config and `.claude/git.config.md` is missing → tell user to run `/git-setup --project`.
 
-## Self-Improvement — Auto-Active
 
-@~/.claude/skills/instinct-system/SKILL.md
-@~/.claude/skills/self-correction-loop/SKILL.md
-@~/.claude/skills/autonomous-loops/SKILL.md
-@~/.claude/skills/learning-log/SKILL.md
 
 ## Skills Available
 
@@ -80,9 +69,3 @@ When a skill needs project config and `.claude/git.config.md` is missing → tel
 - `stash-patterns.md` — stash internals, named stash workflow, recovery patterns
 - `hooks-reference.md` — hook execution order, installation methods, common patterns
 - `repo-health-guide.md` — health indicators, branch hygiene, GC, integrity check
-
-### Meta (auto-active, not user-invoked)
-- `instinct-system` — learns project-specific git conventions (branch prefixes, commit style)
-- `self-correction-loop` — captures corrections → permanent rules
-- `autonomous-loops` — bounded retry loops for git operations
-- `learning-log` — captures git discoveries and decisions per session

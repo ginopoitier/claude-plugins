@@ -23,13 +23,6 @@
 @~/.claude/rules/dotnet-kit/agents.md
 @~/.claude/rules/dotnet-kit/hooks.md
 @~/.claude/rules/dotnet-kit/sdlc.md
-@~/.claude/rules/dotnet-kit/git-workflow.md
-
-## Meta — Always Apply
-
-@~/.claude/skills/context-discipline/SKILL.md
-@~/.claude/skills/model-selection/SKILL.md
-@~/.claude/skills/verification-loop/SKILL.md
 
 ## Two-Level Config System
 
@@ -56,7 +49,7 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/scaffold` — full vertical slice (command/query + handler + endpoint + test)
 - `/ddd` — DDD building blocks (aggregate, value objects, events, errors)
 - `/vertical-slice` — same as scaffold, feature-first naming
-- `/signalr-hub` — strongly-typed hub + domain event handler + Vue composable
+- `/signalr-hub` — strongly-typed backend SignalR hub + domain event notifier
 
 ### Analysis & Quality
 - `/verify` — 7-phase verification (build → diagnostics → antipatterns → tests → security → format → diff)
@@ -123,10 +116,3 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/session-management` — start/end/resume development sessions
 - `/workflow-mastery` — plan and track multi-session epics
 - `/wrap-up-ritual` — structured session ending with handoff note
-
-### Meta (auto-active, not user-invoked)
-- `instinct-system` — project-specific pattern learning with confidence scores
-- `self-correction-loop` — captures user corrections → permanent MEMORY.md rules
-- `autonomous-loops` — bounded build-fix/test-fix/refactor/scaffold iteration loops
-- `learning-log` — organic discoveries, gotchas, architecture decisions per session
-- `convention-learner` — detects and enforces project-specific coding conventions

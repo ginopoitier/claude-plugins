@@ -3,7 +3,7 @@
   This file lives at ~/.claude/github-kit.config.md
   Run /github-setup to configure interactively.
 
-  This is the HOME MACHINE config. Work machine uses bitbucket-kit instead.
+  This config is per-machine and can differ across devices.
 
   Non-sensitive values (URLs, org names) can be plain text.
   Secrets are never stored here — use system env vars if needed.

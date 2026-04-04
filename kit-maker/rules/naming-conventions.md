@@ -10,7 +10,6 @@
 - `name` in frontmatter: same as directory
 - Slash command: `/` + directory name (e.g., `/scaffold-skill`)
 - User-invocable skills use imperative verbs: `scaffold`, `audit`, `check`, `package`
-- Auto-active skills use noun or noun-phrase: `instinct-system`, `learning-log`
 
 ## Rule Naming
 - File: `kebab-case` describing the domain (e.g., `skill-format.md`, `kit-structure.md`)
@@ -51,7 +50,7 @@ agents/skill-writer.md          # kebab-case noun role
 - Prefer shorter names that read naturally as slash commands
 - Use the same name consistently across: directory, frontmatter `name`, slash command
 - Verb-first for user-invocable skills (`scaffold-`, `audit-`, `check-`)
-- Noun-first for auto-active meta skills (`instinct-`, `learning-`, `self-`)
+- Noun-first for auto-active support skills (`instinct-`, `learning-`, `self-`)
 
 ## DON'T
 - Don't use underscores — always hyphens

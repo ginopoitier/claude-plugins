@@ -1,8 +1,8 @@
 # Kit Maker
 
-> Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code kits.
+> Kit Maker for creating, auditing, and publishing marketplace-ready Claude Code kits.
 
-Build any Claude Code kit — dev kits, data science kits, security kits — with proper structure, self-improving meta-skills, hooks, templates, and a one-command installer.
+Build any Claude Code kit — dev kits, data science kits, security kits — with proper structure, optional shared behavior via separate support kits and hooks, templates, and a one-command installer.
 
 ## What This Kit Does
 
@@ -50,13 +50,6 @@ KIT_AUTHOR=your-name
 KIT_DEFAULT_LICENSE=MIT
 ```
 
-## Self-Improving
-
-Kit Maker includes:
-- `instinct-system` — learns kit-building patterns across sessions
-- `self-correction-loop` — captures every correction into permanent memory
-- `self-evolution` — after building kits, improves its own templates
-- `learning-log` — documents discoveries and decisions per session
 
 ## Requirements
 

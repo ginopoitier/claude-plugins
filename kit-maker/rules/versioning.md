@@ -13,7 +13,6 @@ Kits use semantic versioning: `MAJOR.MINOR.PATCH`. Version is declared in
 | New skill, rule, knowledge doc, or agent added | **MINOR** | Adding `/new-skill`, new rule file, new knowledge doc |
 | Existing skill extended with new patterns/sections | **MINOR** | Adding a new ## Pattern to an existing skill |
 | Bug fix, wording correction, trigger keyword added | **PATCH** | Fixing a broken example, adding a trigger phrase |
-| Meta-skill updates (copied from another kit) | **PATCH** | Syncing context-discipline from kit-maker |
 | Version or dependency bumps in plugin.json only | **PATCH** | Updating mcpServers URL |
 
 ## DO
