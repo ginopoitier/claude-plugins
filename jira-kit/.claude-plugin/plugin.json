@@ -7,27 +7,13 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/jira-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
   "keywords": ["jira", "sprint", "agile", "stories", "atlassian"],
-  "tags": ["jira", "sprint", "agile", "stories", "epics", "standup", "atlassian"],
-  "category": "productivity",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/",
   "mcpServers": {
     "atlassian-mcp": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-atlassian"],
-      "description": "Atlassian OAuth MCP — covers Jira and Confluence with a single auth session",
-      "optional": false
+      "args": ["-y", "@anthropic-ai/mcp-server-atlassian"]
     }
   }
 }

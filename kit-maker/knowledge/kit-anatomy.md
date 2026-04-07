@@ -218,13 +218,13 @@ Claude Code's native plugin system reads this file when you run `/plugin install
     "name": "Author Name",
     "email": "author@example.com"
   },
+  "repository": "https://github.com/author/repo",
   "license": "MIT",
-  "keywords": ["domain", "technology", "use-case"],
-  "commands": "./skills/"
+  "keywords": ["domain", "technology", "use-case"]
 }
 ```
 
-`mcpServers` is optional — add it only if the kit requires an MCP server. See `marketplace-spec.md` for the full `plugin.json` reference.
+`mcpServers` is optional — add it only if the kit requires an MCP server. `skills/` at the root is auto-discovered; no `commands` or `skills` field needed unless using a non-default path. See `marketplace-spec.md` for the full `plugin.json` reference.
 
 ## Install Conventions
 

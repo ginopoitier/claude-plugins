@@ -7,28 +7,13 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/vue-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
   "keywords": ["vue", "typescript", "pinia", "vite", "tailwindcss", "signalr"],
-  "tags": ["vue", "typescript", "pinia", "vite", "vitest", "tailwindcss", "signalr", "composition-api"],
-  "category": "development",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/",
   "mcpServers": {
     "vue-mcp": {
-      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@ginopoitier/vue-mcp"],
-      "description": "Vue SFC analysis, Pinia store inspection, component dependency graph, type checking",
-      "optional": false
+      "args": ["-y", "@ginopoitier/vue-mcp"]
     }
   }
 }

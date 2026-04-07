@@ -7,19 +7,7 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/github-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
-  "keywords": ["github", "pull-requests", "releases", "platform"],
-  "tags": ["github", "pr", "pull-requests", "releases", "gh-cli", "code-review"],
-  "category": "development",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/"
+  "keywords": ["github", "pull-requests", "releases", "platform"]
 }

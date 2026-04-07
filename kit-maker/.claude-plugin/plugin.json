@@ -7,19 +7,7 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/kit-maker",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
-  "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
-  "tags": ["meta", "scaffolding", "kit-creation", "quality", "auditing"],
-  "category": "tooling",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/"
+  "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"]
 }

@@ -7,27 +7,12 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/dotnet-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
   "keywords": ["dotnet", "clean-architecture", "cqrs", "ef-core", "csharp"],
-  "tags": ["dotnet", "csharp", "clean-architecture", "cqrs", "ef-core", "minimal-api", "mediatr", "serilog"],
-  "category": "development",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/",
   "mcpServers": {
     "devkit-mcp": {
-      "type": "stdio",
-      "command": "devkit-mcp",
-      "description": "Roslyn analysis, SQL Server schema inspection, Neo4j graph queries for .NET projects",
-      "optional": false
+      "command": "devkit-mcp"
     }
   }
 }

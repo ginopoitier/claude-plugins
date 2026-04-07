@@ -7,19 +7,7 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/obsidian-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
-  "keywords": ["obsidian", "notes", "personal-knowledge", "markdown"],
-  "tags": ["obsidian", "notes", "knowledge-base", "markdown", "json-canvas", "vault"],
-  "category": "productivity",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/"
+  "keywords": ["obsidian", "notes", "personal-knowledge", "markdown"]
 }

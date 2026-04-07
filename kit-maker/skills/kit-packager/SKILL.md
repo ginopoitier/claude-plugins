@@ -50,18 +50,17 @@ Before bumping a version, verify:
   },
   "license": "MIT",
   "keywords": ["domain", "technology", "use-case"],
-  "commands": "./skills/",
   "mcpServers": {
     "server-name": {
-      "type": "stdio",
-      "command": "server-binary-name"
+      "command": "server-binary-name",
+      "args": ["--arg"]
     }
   }
 }
 ```
 
-`mcpServers` is optional — omit for kits with no local MCP server.
-OAuth-based MCPs (like Atlassian) are declared in `marketplace.json` via `"requires"`, not here.
+`mcpServers` is optional — omit for kits with no local MCP server. The `skills/` directory is auto-discovered; do NOT add `"commands": "./skills/"`.
+Invalid fields (fail validation): `tags`, `category`, `engines`, `bugs`, `requirements`. Do not include these.
 
 ### marketplace.json — Repo Root Catalog
 

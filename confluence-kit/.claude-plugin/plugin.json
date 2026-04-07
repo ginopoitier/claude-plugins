@@ -7,27 +7,13 @@
     "email": "gino.poitier@gmail.com"
   },
   "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/confluence-kit",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ginopoitier/claude-plugins"
-  },
-  "bugs": {
-    "url": "https://github.com/ginopoitier/claude-plugins/issues"
-  },
+  "repository": "https://github.com/ginopoitier/claude-plugins",
   "license": "MIT",
   "keywords": ["confluence", "documentation", "adr", "sdr", "atlassian"],
-  "tags": ["confluence", "documentation", "adr", "sdr", "sdlc", "atlassian"],
-  "category": "productivity",
-  "engines": {
-    "claudeCode": ">=1.0.0"
-  },
-  "commands": "./skills/",
   "mcpServers": {
     "atlassian-mcp": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-atlassian"],
-      "description": "Atlassian OAuth MCP — covers Jira and Confluence with a single auth session",
-      "optional": false
+      "args": ["-y", "@anthropic-ai/mcp-server-atlassian"]
     }
   }
 }

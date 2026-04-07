@@ -33,19 +33,23 @@ Claude Code reads this to install a kit. One per kit.
     "name": "Author Name",
     "email": "email@example.com"
   },
+  "repository": "https://github.com/author/repo",
   "license": "MIT",
   "keywords": ["tag1", "tag2"],
-  "commands": "./skills/",
   "mcpServers": {
     "server-name": {
-      "type": "stdio",
-      "command": "server-command"
+      "command": "server-command",
+      "args": ["--arg"]
     }
   }
 }
 ```
 
-`mcpServers` is optional — omit if the kit has no MCP dependency.
+**Valid fields:** `name` (required), `version`, `description`, `author` (object: name/email/url), `homepage`, `repository` (string URL), `license`, `keywords`, `commands`, `agents`, `skills`, `hooks`, `mcpServers`, `outputStyles`, `lspServers`, `userConfig`, `channels`.
+
+**Invalid fields** (fail validation): `tags`, `category`, `engines`, `bugs`, `requirements`. Do not include these.
+
+`mcpServers` is optional — omit if the kit has no MCP dependency. The `skills/` directory is auto-discovered; no `commands` or `skills` field needed unless using a non-default path.
 
 ## marketplace.json — Repo Root Catalog
 

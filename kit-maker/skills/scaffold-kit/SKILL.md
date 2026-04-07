@@ -123,8 +123,7 @@ kit-name/
     "email": "author@example.com"
   },
   "license": "MIT",
-  "keywords": ["domain", "technology", "use-case"],
-  "commands": "./skills/"
+  "keywords": ["domain", "technology", "use-case"]
 }
 ```
 
