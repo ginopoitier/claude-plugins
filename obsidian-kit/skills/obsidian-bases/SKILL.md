@@ -495,3 +495,16 @@ formulas:
 - [Views](https://help.obsidian.md/bases/views)
 - [Formulas](https://help.obsidian.md/formulas)
 - [Complete Functions Reference](references/FUNCTIONS_REFERENCE.md)
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: create new base, add view, add formula, edit filter, troubleshoot
+2. Read vault path from `~/.claude/obsidian-kit.config.md` to resolve `.base` file location
+3. For **new base**: determine scope (tag/folder/property filter), define formulas, configure at least one view with `order`
+4. For **add view**: read existing `.base` file, append view with type, name, order, optional filters/groupBy/summaries
+5. For **add formula**: add entry to `formulas` section; use single quotes for expressions containing double quotes
+6. Apply YAML quoting rules: single quotes for formulas with double quotes, double quotes for simple strings
+7. Validate: all `formula.X` in `order` are defined in `formulas`, no Duration math without field access, null guards with `if()`
+8. Write the file; if the user can test in Obsidian, suggest opening to confirm render
+
+$ARGUMENTS

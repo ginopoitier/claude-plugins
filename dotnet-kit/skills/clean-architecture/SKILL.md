@@ -375,3 +375,16 @@ public interface ICustomerRepository { Task<Customer?> GetByIdAsync(Guid id); }
 | Mediator vs raw handlers in CA | Mediator for pipeline behaviors (validation, logging); raw handlers for simplicity |
 | When to add Domain events | When side effects (notifications, audit) should be decoupled from the main flow |
 | Evolving from VSA to CA | When handlers start needing shared domain logic that does not belong in Common/ |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: scaffold new project, add use case, add domain entity, review existing structure
+2. For **new project**: create the 4-project layout (Domain, Application, Infrastructure, Api) with correct project references
+3. Write `IAppDbContext` interface in Application; implement in Infrastructure's `AppDbContext`
+4. Scaffold use case folder: Command/Query record + Handler + Validator in `Application/{Feature}/{Commands|Queries}/{UseCaseName}/`
+5. Write domain entity with private setters, factory method, and behavior methods (no public setters)
+6. Write thin `IEndpointGroup` implementation in Api; wire via `app.MapEndpoints()`
+7. Write `DependencyInjection.cs` extension in Infrastructure for service registration
+8. Verify: no EF Core references in Domain, no HTTP references in Application or Domain, no business logic in endpoints
+
+$ARGUMENTS

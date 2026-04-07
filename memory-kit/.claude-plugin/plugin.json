@@ -1,17 +1,33 @@
 {
   "name": "memory-kit",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Intelligent memory management meta-kit for Claude Code. Auto-capture corrections via hooks, semantic retrieval, deduplication, and memory lifecycle management powered by the memory-mcp server.",
   "author": {
-    "name": "Gino Poitier"
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/memory-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
   },
   "license": "MIT",
   "keywords": ["memory", "meta", "auto-capture", "hooks", "knowledge-management", "persistence"],
+  "tags": ["memory", "persistence", "auto-capture", "semantic-search", "deduplication", "meta"],
+  "category": "tooling",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/",
   "mcpServers": {
     "memory-mcp": {
       "command": "npx",
       "args": ["-y", "@ginopoitier/memory-mcp"],
+      "description": "Semantic memory search, deduplication, health monitoring, and lifecycle management",
+      "optional": false,
       "env": {
         "MEMORY_BASE_PATH": "~/.claude/projects"
       }

@@ -194,3 +194,16 @@ Reviewed in [[Meeting Notes 2024-01-10#Decisions]].
 - [Embed files](https://help.obsidian.md/embeds)
 - [Callouts](https://help.obsidian.md/callouts)
 - [Properties](https://help.obsidian.md/properties)
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: create note, add callout, add wikilink, add embed, add frontmatter, etc.
+2. Read vault path from `~/.claude/obsidian-kit.config.md` to resolve target file
+3. For **new note**: add frontmatter (title, date, tags) at top, then write content using OFM syntax
+4. Use `[[wikilinks]]` for internal vault links (not Markdown links); use `[text](url)` for external URLs only
+5. Embed with `![[...]]` for notes/images/PDFs; reference heading with `#` or block with `^block-id`
+6. Apply callouts with `> [!type]` syntax; use `> [!type]-` for collapsed, `> [!type]+` for expanded
+7. Use Obsidian properties (`%%`) for hidden comments, `==text==` for highlights
+8. Verify all wikilinks resolve to real vault notes (no broken links)
+
+$ARGUMENTS

@@ -1,18 +1,34 @@
 {
   "name": "vue-kit",
-  "version": "0.2.1",
-  "description": "Vue 3 + TypeScript developer toolkit. Covers Composition API, Pinia stores, SignalR integration, TailwindCSS, Vite config, and typed API client patterns.",
+  "version": "0.3.1",
+  "description": "Vue 3 + TypeScript developer toolkit. Covers Composition API, Pinia stores, SignalR integration, TailwindCSS, Vite config, typed API clients, Vitest testing, Vue Router patterns, error handling, performance, and component scaffolding.",
   "author": {
-    "name": "Gino Poitier"
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/vue-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
   },
   "license": "MIT",
   "keywords": ["vue", "typescript", "pinia", "vite", "tailwindcss", "signalr"],
+  "tags": ["vue", "typescript", "pinia", "vite", "vitest", "tailwindcss", "signalr", "composition-api"],
+  "category": "development",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/",
   "mcpServers": {
     "vue-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@ginopoitier/vue-mcp"]
+      "args": ["-y", "@ginopoitier/vue-mcp"],
+      "description": "Vue SFC analysis, Pinia store inspection, component dependency graph, type checking",
+      "optional": false
     }
   }
 }

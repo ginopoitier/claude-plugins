@@ -156,3 +156,16 @@ GET /api/v2/orders
 | Breaking response shape change | New version |
 | Adding new optional fields | Same version (backwards compatible) |
 | Deprecating a version | Mark deprecated, set sunset date, document migration path |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: add versioning, add new version, deprecate version, change strategy
+2. Check `Program.cs` for existing `AddApiVersioning` setup
+3. If no versioning: add `Asp.Versioning` NuGet package and full setup block to `Program.cs`
+4. For new API version: create a new endpoint class (e.g. `OrderEndpointsV2`), add version set entry, wire into the group
+5. For deprecation: add `.HasDeprecatedApiVersion()` to the version set; document sunset date in a code comment
+6. For strategy change: update `ApiVersionReader` in `AddApiVersioning` options
+7. Confirm `GroupNameFormat` and `SubstituteApiVersionInUrl` are set for OpenAPI compatibility
+8. Report: versions registered, deprecated versions, strategy in use
+
+$ARGUMENTS

@@ -29,6 +29,10 @@ Run `/obsidian-setup` to configure.
 
 When config is missing → the `check-settings` hook will prompt automatically.
 
+## Knowledge
+
+- `knowledge/obsidian-flavored-markdown.md` — complete OFM reference: wikilinks, callouts, properties, embeds, Mermaid, Dataview
+
 ## Skills Available
 
 ### Notes
@@ -41,3 +45,7 @@ When config is missing → the `check-settings` hook will prompt automatically.
 
 ### Setup
 - `/obsidian-setup` — configure vault path and folder structure
+
+## Specialist Agents
+
+- `vault-curator` — vault health audit: orphaned notes, broken wikilinks, tag consistency, folder structure recommendations, health report with letter grades

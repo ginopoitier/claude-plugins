@@ -1,12 +1,25 @@
 {
   "name": "obsidian-kit",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes, canvases, bases, and markdown in your local vault. Includes defuddle web extraction, JSON Canvas, Obsidian Bases, CLI vault interaction, and Obsidian Flavored Markdown skills.",
   "author": {
     "name": "Gino Poitier",
     "email": "gino.poitier@gmail.com"
   },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/obsidian-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
+  },
   "license": "MIT",
   "keywords": ["obsidian", "notes", "personal-knowledge", "markdown"],
+  "tags": ["obsidian", "notes", "knowledge-base", "markdown", "json-canvas", "vault"],
+  "category": "productivity",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/"
 }

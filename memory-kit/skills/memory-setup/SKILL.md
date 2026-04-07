@@ -173,3 +173,18 @@ Read settings.json → merge memory-kit hooks into existing structure → write
 | settings.json exists with other hooks | Merge, never overwrite |
 | Project already has memory directory | Skip mkdir, show existing memory count |
 | MCP=false selected | Skip mcpServers in plugin.json, use grep fallback only |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect `--project <id>` override
+2. Check if `~/.claude/memory-kit.config.md` exists — if yes, ask to reconfigure; if no, proceed
+3. Run interactive wizard: ask memory base path, project ID strategy, auto-inject, auto-capture, MCP enabled
+4. Detect project ID using configured strategy (git-remote slug or cwd name); show result, ask to confirm
+5. Write `~/.claude/memory-kit.config.md` from wizard answers
+6. Create `{MEMORY_BASE_PATH}/{project-id}/memory/` directory if missing
+7. Initialize `{MEMORY_BASE_PATH}/{project-id}/MEMORY.md` if missing
+8. Read `~/.claude/settings.json`, merge memory-kit hooks (SessionStart, UserPromptSubmit, Stop) — never overwrite
+9. Write updated `settings.json`
+10. Report: config path, memory store path, index path, hooks registered
+
+$ARGUMENTS

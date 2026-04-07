@@ -308,3 +308,16 @@ public async Task Handle(CreateOrder.Command command, CancellationToken ct)
 | Soft deletes | Global query filter + interceptor |
 | Strongly-typed IDs | Value converter |
 | Production migration | Idempotent SQL script, never auto-migrate |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: configure DbContext, add migration, fix N+1, add interceptor, bulk operation
+2. For **DbContext setup**: write `AppDbContext` with `ApplyConfigurationsFromAssembly`, register in DI
+3. For **entity config**: create `IEntityTypeConfiguration<T>` class with keys, indexes, relationships, value converters
+4. For **migration**: run `dotnet ef migrations add <Name>`, review generated file, then `dotnet ef database update`
+5. For **N+1 / query fix**: replace `.Include()` chains with `.Select()` projections; use `AsNoTracking()` for read-only queries
+6. For **bulk update/delete**: use `ExecuteUpdateAsync` / `ExecuteDeleteAsync` instead of loading + modifying entities
+7. For **interceptor**: implement `SaveChangesInterceptor`, register via `AddInterceptors()` in DI
+8. For **production**: generate idempotent SQL script with `dotnet ef migrations script --idempotent`
+
+$ARGUMENTS

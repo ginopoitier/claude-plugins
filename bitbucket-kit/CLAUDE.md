@@ -15,8 +15,8 @@
 
 ## Knowledge
 
-@~/.claude/knowledge/bitbucket-kit/bitbucket-api.md
-@~/.claude/knowledge/bitbucket-kit/bitbucket-concepts.md
+- `knowledge/bitbucket-api.md` — full API patterns including pagination, error handling, and Cloud vs Server differences
+- `knowledge/bitbucket-concepts.md` — Bitbucket workspace, repo, and PR concepts
 
 ## Agents
 

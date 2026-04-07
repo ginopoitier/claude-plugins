@@ -154,3 +154,17 @@ done
 | Missing description fields | Update via memory_store, can't be left blank |
 | No memories found at all | Offer /memory-setup to initialize |
 | Health score drops below 50 | Escalate to: consolidate → forget → rebuild index |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect project override (`--project <id>`)
+2. Call `memory_health` (fall back to manual file scan if MCP unavailable)
+3. Calculate health score using the 4-metric weighted formula
+4. Present full report: summary, errors, warnings, info, coverage gaps
+5. For index drift: ask "Fix index drift automatically? [Y/n]" — if yes, call `memory_sync_index`
+6. For duplicates: offer `/memory-consolidate` to review
+7. For stale entries: offer `/memory-forget --stale` to clean up
+8. For coverage gaps: offer `/memory-capture` to add missing memory types
+9. If score < 50: escalate with clear priority order (consolidate → forget → rebuild index)
+
+$ARGUMENTS

@@ -55,8 +55,6 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/verify` — 7-phase verification (build → diagnostics → antipatterns → tests → security → format → diff)
 - `/dotnet-health-check` — full project audit
 - `/health-check` — 8-dimension health report with letter grades (A-F) and GPA
-- `/80-20-review` — blast-radius-scored code review
-- `/code-review-workflow` — structured PR review with MCP tools (detect_antipatterns, blast radius, architecture compliance)
 - `/de-sloppify` — find/fix quality issues, dead code, TODOs
 - `/security-scan` — comprehensive security audit
 - `/dependency-audit` — vulnerable/outdated NuGet packages
@@ -92,7 +90,6 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/migration-workflow` — EF Core migration management
 
 ### Tech Lead Workflow
-- `/sdlc-check` — validate work against company SDLC
 - `/pr-prep` — prepare a PR description from the diff + Jira ticket ACs
 
 ### DevOps & Environment
@@ -105,7 +102,6 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 
 ### Project Setup
 - `/clean-architecture` — 4-project layout (Domain/Application/Infrastructure/Api), dependency inversion, use cases
-- `/split-memory` — modular CLAUDE.md strategy, splitting by concern/module/team
 - `/dotnet-init` — scaffold new Clean Architecture solution
 - `/project-setup` — interactive project init, health check, CLAUDE.md generation
 - `/project-structure` — .slnx format, Directory.Build.props, central package management
@@ -113,6 +109,4 @@ When a skill needs project config and `.claude/project.config.md` is missing →
 - `/kit-setup` — configure kit settings
 
 ### Session & Workflow
-- `/session-management` — start/end/resume development sessions
 - `/workflow-mastery` — plan and track multi-session epics
-- `/wrap-up-ritual` — structured session ending with handoff note

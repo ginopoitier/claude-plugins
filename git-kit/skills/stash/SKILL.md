@@ -136,3 +136,17 @@ git add -p && git commit -m "WIP: big feature in progress"
 | Long-term shelved work | `git stash branch <branch-name>` |
 | Accidentally dropped a stash | `git fsck --lost-found` to recover |
 | Clear all stashes | `git stash clear` (confirm first — irreversible) |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect operation: `save <message>`, `list`, `show`, `pop`, `apply`, `drop`, `branch <name>`
+2. **save** → `git stash push -m "<message>"` (if no message in args, ask for one); add `--include-untracked` if working tree has new files
+3. **list** → `git stash list` with readable output
+4. **show** → `git stash show -p stash@{N}` (prompt for index if not given)
+5. **apply** → check working tree is clean first, then `git stash apply stash@{N}`
+6. **pop** → warn it's destructive, suggest `apply` if unsure; then `git stash pop stash@{N}`
+7. **drop** → confirm before `git stash drop stash@{N}`; warn about `git stash clear`
+8. **branch `<name>`** → `git stash branch <name> stash@{N}` to convert stash to branch
+9. If recovery requested: use `git fsck --lost-found` to find dangling commits
+
+$ARGUMENTS

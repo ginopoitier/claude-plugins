@@ -10,14 +10,13 @@
 
 ## Always-Active Rules
 
-@~/.claude/rules/vue.md
-@~/.claude/rules/typescript.md
-@~/.claude/rules/security.md
-@~/.claude/rules/performance.md
-@~/.claude/rules/agents.md
-@~/.claude/rules/hooks.md
-@~/.claude/rules/sdlc.md
-@~/.claude/rules/git-workflow.md
+@~/.claude/rules/vue-kit/vue.md
+@~/.claude/rules/vue-kit/typescript.md
+@~/.claude/rules/vue-kit/security.md
+@~/.claude/rules/vue-kit/performance.md
+@~/.claude/rules/vue-kit/agents.md
+@~/.claude/rules/vue-kit/hooks.md
+@~/.claude/rules/vue-kit/git-workflow.md
 
 ## Config System
 
@@ -40,16 +39,29 @@ The `vue-mcp` server exposes these tools:
 | `get_vue_project_structure` | Vite config, router routes, proxy paths, file counts |
 | `find_missing_api_types` | Find `api.ts` files with `Promise<any>` or no typed interfaces |
 
+## Knowledge
+
+- `knowledge/vue/vue-patterns.md` — deep reference: component patterns, composable design, Pinia patterns, typing guide
+
 ## Skills Available
 
-### Code Generation
+### Code Generation / Scaffolding
+- `/component` — scaffold a Vue 3 SFC (`<script setup lang="ts">`, typed props/emits, TailwindCSS)
+- `/composable` — scaffold a `useXxx` composable with cleanup and TypeScript types
+- `/pinia-store` — scaffold a Pinia Composition API store with typed state, getters, and async actions
+- `/api-client` — scaffold a typed `features/{name}/api.ts` API client module
 - `/signalr-hub` — .NET-hosted SignalR client integration via Vue composables and Vite proxy
 
+### Quality & Testing
+- `/testing` — Vitest + @vue/test-utils: component tests, store tests, composable tests, API mocking
+- `/error-handling` — global error handler, error boundary pattern, typed API error responses
+- `/performance` — lazy routes, defineAsyncComponent, v-memo, shallowRef, bundle analysis
+
+### Architecture
+- `/routing` — Vue Router 4: typed routes, lazy loading, navigation guards, route meta typing
+
 ### Session & Workflow
-- `/session-management` — start/end/resume development sessions
-- `/workflow-mastery` — plan and track multi-session epics
 - `/wrap-up-ritual` — structured session ending with handoff note
-- `/sdlc-check` — validate work against company SDLC
 
 ### Setup
 - `/kit-setup` — configure kit settings

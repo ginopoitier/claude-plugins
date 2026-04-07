@@ -122,3 +122,16 @@ git add .claude/git.config.md
 | Changing commit style for a project | Edit `.claude/git.config.md` → `COMMIT_CONVENTION=conventional` |
 | Changing personal preferences | Edit `~/.claude/git-kit.config.md` |
 | Config missing, skill fails | Run `/git-setup` — it detects which level is missing |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect scope: `--user`, `--project`, `--both` (default: both)
+2. **--user**: check `~/.claude/git-kit.config.md` — create or update with identity + preferences
+3. **--project**: check `.claude/git.config.md` in cwd — detect from repo, prompt for values, write file
+4. For user setup: confirm `git config --global user.name` and `user.email` are set
+5. For project setup: detect `BRANCH_STRATEGY` from existing branches (main/develop/release pattern)
+6. Apply recommended global git settings (pull.rebase, push.default, merge.conflictstyle)
+7. If project config is new: `git add .claude/git.config.md` and suggest committing it
+8. Confirm setup is complete by echoing final config values
+
+$ARGUMENTS

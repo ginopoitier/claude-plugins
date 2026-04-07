@@ -1,12 +1,25 @@
 {
   "name": "git-kit",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, undo, and repo health for developers.",
   "author": {
     "name": "Gino Poitier",
     "email": "gino.poitier@gmail.com"
   },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/git-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
+  },
   "license": "MIT",
   "keywords": ["git", "version-control", "commits", "branching", "rebase", "cli"],
+  "tags": ["git", "commits", "branches", "rebase", "stash", "history", "conflicts"],
+  "category": "development",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/"
 }

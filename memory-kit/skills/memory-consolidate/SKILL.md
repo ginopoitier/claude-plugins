@@ -162,3 +162,17 @@ MERGED: "Use structured logger. **Why:** Unstructured console.log leaks to produ
 | More than 10 duplicate groups | Prioritize by similarity score, handle highest first |
 | User wants to bulk-merge all | Confirm first — bulk merge destroys nuance |
 | Memory store exceeds 200 entries | Consolidate is mandatory before adding more |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect threshold override (e.g. `--threshold 0.7`)
+2. Call `memory_deduplicate` (or `memory_health` for broader scan); collect duplicate groups sorted by similarity score
+3. Report: "Found {N} duplicate groups"
+4. For each group (highest similarity first): show both memories side-by-side with name, description, and body excerpt
+5. Ask: "Action? [M]erge / [K]eep both / [D]elete one / [S]kip"
+6. For **Merge**: synthesize merged body (richer than either source), pick the better name, call `memory_store` to update primary, call `memory_delete` to remove secondary
+7. For **conflict** (contradicting memories): present both, ask user which is correct or if both apply in different contexts
+8. After all groups processed: call `memory_sync_index` to rebuild MEMORY.md
+9. Report summary: merges performed, duplicates removed, index updated
+
+$ARGUMENTS

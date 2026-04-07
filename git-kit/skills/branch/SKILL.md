@@ -130,3 +130,17 @@ git log main..feature/risky   # see what would be lost
 | Clean up stale remote refs | `git fetch --prune` |
 | See merged/unmerged branches | `git branch --merged main` / `--no-merged` |
 | Check if branch is behind main | `git log feature..main --oneline` |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect operation: `create`, `switch`, `cleanup`, `list`, `rename`
+2. If no argument: run `git branch -v` to show current branches and ask user what they want
+3. **create `<name>`** → fetch --prune, switch main, pull, switch -c `<name>`
+4. **switch `<name>`** → `git switch <name>` (warn if working tree is dirty first)
+5. **cleanup** → show merged branches (`git branch --merged main`), confirm, then delete
+6. **list** → `git branch -a -v` with last-commit info
+7. **rename `<old>` `<new>`** → rename local, delete old remote ref, push new
+8. Read `BRANCH_STRATEGY` from `.claude/git.config.md` if present — apply naming rules
+9. Report result and current branch state
+
+$ARGUMENTS

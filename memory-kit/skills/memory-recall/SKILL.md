@@ -130,3 +130,16 @@ Claude: *writes test using real database per the captured rule*
 | Recalled memory appears outdated | Flag it, offer to update or remove |
 | Too many results (>8) | Show top 5 by score, offer to refine query |
 | Multiple types returned | Group by type: feedback → user → project → reference |
+
+## Execution
+
+1. Parse `$ARGUMENTS` as the search query; if empty, ask "What would you like to recall memories about?"
+2. Call `memory_search(query, limit=8, min_score=0.2)`
+3. Filter out results below 0.3 relevance score
+4. Check `updated` frontmatter on results: flag project memories >30 days old, reference memories >90 days old
+5. Display results grouped by type (feedback → user → project → reference) using compact format
+6. For stale hits: append "(may be stale — last updated {date})" and offer `/memory-forget` or `/memory-capture` to update
+7. If no results: "No memories found for '{query}'. Use /memory-capture to start building memory for this area."
+8. Apply recalled memories to inform the current task without reciting full body content
+
+$ARGUMENTS

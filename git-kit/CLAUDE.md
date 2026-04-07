@@ -55,7 +55,7 @@ When a skill needs project config and `.claude/git.config.md` is missing → tel
 - `/repo-health` — prune stale branches, find large objects, gc, fsck, integrity check
 
 ### Hooks & Automation
-- `/hooks-setup` — install pre-commit, commit-msg, pre-push hooks with common patterns
+- `verification-loop` *(auto)* — pre-commit and pre-push verification checklist; triggers automatically before git operations
 
 ### Setup
 - `/git-setup` — configure user-level and project-level git-kit settings

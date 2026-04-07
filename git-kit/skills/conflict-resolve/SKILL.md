@@ -153,3 +153,19 @@ git merge --continue
 | Too complex — want to restart | `git merge --abort` or `git rebase --abort` |
 | Conflict in binary file | `git checkout --ours <file>` or `--theirs` (can't merge manually) |
 | All conflicts resolved | `git merge --continue` or `git rebase --continue` |
+
+## Execution
+
+1. Run `git status` to list conflicted files
+2. Parse `$ARGUMENTS` — detect strategy flag: `--ours`, `--theirs`, `--manual`, `--abort`
+3. **--abort** → run `git merge --abort` or `git rebase --abort` immediately
+4. **--ours / --theirs** → apply strategy to all conflicts, stage, continue
+5. **--manual (default)** → for each conflicted file:
+   - Read the file and identify each conflict block
+   - Show both sides with context, explain the difference
+   - Apply the resolution, remove all conflict markers
+   - Stage with `git add <file>`
+6. After all files resolved: run `git diff --check` to confirm no stray markers
+7. Prompt user to run tests before `git merge --continue` / `git rebase --continue`
+
+$ARGUMENTS

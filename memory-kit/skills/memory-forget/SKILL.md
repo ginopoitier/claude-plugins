@@ -145,3 +145,17 @@ Archived files are excluded from `memory_search` but kept for reference.
 | Stale reference URL | Update, don't delete (keep the location pointer, update URL) |
 | Memory was captured by mistake | Delete immediately, no archive needed |
 | User unsure | Default to archive rather than delete |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect mode: plain query, `--stale`, `--type <type>`, `--all-project`
+2. **plain query**: call `memory_search(query, limit=5)`, show matches, ask which to delete, confirm per item
+3. **--stale**: call `memory_health` to get stale entries, group by type, confirm before bulk delete
+4. **--type `<type>`**: call `memory_list(type=<type>)`, show all entries with dates, confirm bulk delete
+5. **--all-project**: show total count, require user to type the project ID to confirm, then delete all + clear MEMORY.md
+6. Before deleting `feedback` or `user` memories: offer archive option (move to `memory/archive/`)
+7. For `feedback` type: pause and ask "Is this rule still valid? [Delete] [Update] [Cancel]"
+8. After all deletes: call `memory_sync_index` to rebuild MEMORY.md
+9. Report each deletion: "Deleted: {file_path}"
+
+$ARGUMENTS

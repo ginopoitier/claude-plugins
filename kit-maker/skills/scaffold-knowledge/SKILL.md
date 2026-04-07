@@ -230,3 +230,17 @@ internal sealed class CancelOrderHandler(AppDbContext db)
 | Topic changes frequently (versions) | Knowledge doc (easier to update than embedded in skill) |
 | One-off code sample for a single task | Keep inline in skill Patterns section |
 | Knowledge doc > 300 lines | Split into two focused docs |
+
+## Execution
+
+1. Parse `$ARGUMENTS` as the topic name; if blank, ask "What topic does this knowledge doc cover?"
+2. Ask which skill will reference this doc (needed for the `## Deep Reference` link)
+3. Gather 3–5 key patterns from the user; for each, ask "What is the most common mistake with this pattern?"
+4. Write the setup/installation block first (complete, copy-paste-ready)
+5. Write each pattern section with runnable code and WHY comments (no pseudocode, no placeholders)
+6. Write the `## Anti-patterns` section (BAD → GOOD format)
+7. Write file to `{kit-name}/knowledge/{topic-name}.md` in kebab-case
+8. Add `## Deep Reference` section to the referencing skill's SKILL.md: `@~/.claude/knowledge/{kit-name}/{topic}.md`
+9. Confirm file written and reference added
+
+$ARGUMENTS

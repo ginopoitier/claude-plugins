@@ -161,3 +161,16 @@ git show abc123
 | Changes between two branches | `git diff main..<feature-branch>` |
 | Search commit messages by keyword | `git log --grep="<keyword>"` |
 | Changes by a specific author | `git log --author="<name>"` |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: `log`, `blame <file>`, `bisect`, `search <term>`
+2. If no argument: ask user what they're trying to find (overview, specific file, breaking commit, string)
+3. **log** → `git log --oneline --graph --all` with relevant filters from arguments
+4. **blame `<file>`** → `git blame -L <range>` if line range given, else full file
+5. **bisect** → walk user through start/bad/good, offer to automate with a test script
+6. **search `<term>`** → `git log -S "<term>" -p --oneline` (pickaxe)
+7. Use `--follow` automatically when inspecting single-file history
+8. Present results in readable format; highlight the most relevant commits
+
+$ARGUMENTS

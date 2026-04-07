@@ -277,3 +277,15 @@ logger.LogInformation("Request: {@Request}", httpContext.Request);
 | Audit trails | `AuditTo` (synchronous, exceptions propagate) |
 | Log levels by environment | `MinimumLevel.Override` per namespace in appsettings |
 | OpenTelemetry integration | `Serilog.Sinks.OpenTelemetry` (no SDK dependency) |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: initial setup, add sink, add enricher, configure filtering, fix log noise
+2. For **initial setup**: write two-stage bootstrap in `Program.cs` (bootstrap logger → `AddSerilog()` with DI); add `appsettings.json` `Serilog` section with `MinimumLevel.Override` per namespace
+3. Add `UseSerilogRequestLogging()` with custom message template and level selector
+4. For **add sink**: add `WriteTo.Seq(...)` or `WriteTo.File(...)` or `WriteTo.OpenTelemetry(...)` in config and appsettings
+5. For **enricher**: add `Enrich.WithProperty()` or `LogContext.PushProperty()` in middleware for scoped properties
+6. For **filtering noise**: add `Filter.ByExcluding(...)` with Serilog.Expressions patterns
+7. Verify: no `$"..."` interpolation in log calls; `CloseAndFlushAsync()` in `finally` block; destructuring limits configured
+
+$ARGUMENTS

@@ -154,3 +154,16 @@ git reset --hard HEAD~1              # undo last commit + discard changes
 | Undo a bad merge (pushed) | `git revert -m 1 <merge-sha>` | Yes |
 | Recover a deleted commit | `git reflog` → `git switch -c recovery <sha>` | Yes |
 | Recover deleted stash | `git fsck --lost-found` | n/a |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect scope: `--working-tree`, `--staged`, `--commit`, `--pushed`, `--recover`
+2. If no argument: ask what the user wants to undo (uncommitted change, last commit, pushed commit, something lost)
+3. **--working-tree** → show `git diff` first, confirm, then `git restore <files>`
+4. **--staged** → `git restore --staged <files>` (safe — doesn't discard changes)
+5. **--commit** → determine if pushed: if not, `git reset --soft HEAD~1`; if pushed, refuse reset and offer `git revert <sha>`
+6. **--pushed** → `git revert <sha>` only; never suggest `reset --hard` + force push
+7. **--recover** → run `git reflog`, identify likely commit, create recovery branch at that sha
+8. Always run `git diff` / `git log` before any destructive operation to confirm scope
+
+$ARGUMENTS

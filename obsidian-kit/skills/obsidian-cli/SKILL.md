@@ -104,3 +104,15 @@ obsidian dev:mobile on
 ```
 
 Run `obsidian help` to see additional developer commands including CDP and debugger controls.
+
+## Execution
+
+1. Parse `$ARGUMENTS` — identify the operation (read, create, search, append, property:set, tasks, plugin:reload, etc.)
+2. If Obsidian is not open or CLI is unavailable: warn the user that Obsidian must be running
+3. Resolve file targeting: use `file=<name>` for wikilink-style lookup, `path=<path>` for exact paths, or active file if neither given
+4. Compose the `obsidian <command> [params] [flags]` call with correct syntax (no `--` prefix, `=` for params)
+5. For plugin dev cycle: reload → check errors → screenshot/DOM inspect → check console (in that order)
+6. Run the command; report output to user
+7. If command is unfamiliar: suggest `obsidian help` to enumerate available commands
+
+$ARGUMENTS

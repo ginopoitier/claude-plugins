@@ -185,3 +185,18 @@ description: "Integration tests must hit real database; mocked tests mask migrat
 | Similar memory already exists | Update existing, never duplicate |
 | User provides raw content via $ARGUMENTS | Skip extraction step, proceed to classify |
 | Confidence < 0.6 on auto-classification | Ask user to confirm type before proceeding |
+
+## Execution
+
+1. Extract content from `$ARGUMENTS` or ask user what to capture
+2. Call `memory_classify` with the content; show detected type + confidence
+3. If confidence < 0.6: ask user to confirm or override type
+4. If type is `feedback`: generalize from specific correction to class-level rule, show user to confirm
+5. Call `memory_search` with suggested name + key terms (limit 3) to find duplicates
+6. If duplicate found: ask "Update existing '{name}'?" — yes → update via `memory_store` with same filename
+7. Confirm or override the suggested name and description (auto-generated from content)
+8. Structure body: feedback/project → rule + **Why:** + **How to apply:**; user/reference → plain
+9. Call `memory_store` with name, description, type, body, source: "manual"
+10. Report: "Captured to memory: {name} ({type}) → {file_path}"
+
+$ARGUMENTS

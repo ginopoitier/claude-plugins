@@ -37,6 +37,10 @@ Run `/confluence-setup` to configure. Project config **overrides** user config w
 When config is missing → the `check-settings` hook will prompt automatically.
 When Atlassian MCP is not authenticated → run `/mcp authenticate atlassian`.
 
+## Knowledge
+
+- `knowledge/atlassian-mcp-reference.md` — complete `mcp__atlassian__confluence_*` and `mcp__atlassian__jira_*` tool reference with CQL/JQL examples, config reading patterns, and error handling
+
 ## Skills Available
 
 ### Decision Records
@@ -45,3 +49,7 @@ When Atlassian MCP is not authenticated → run `/mcp authenticate atlassian`.
 
 ### Setup
 - `/confluence-setup` — configure user-level and project-level confluence-kit settings
+
+## Specialist Agents
+
+- `doc-writer` — documentation specialist for complex authoring sessions: ADRs, SDRs, retrospectives, post-mortems with full Confluence formatting and cross-links

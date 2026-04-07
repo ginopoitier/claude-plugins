@@ -132,3 +132,16 @@ git revert <sha>   # safe: creates an undo commit, preserves history
 | Need conventional format | Check `COMMIT_CONVENTION` in `.claude/git.config.md` |
 | Long explanation needed | `git commit` (no -m, opens editor for multi-line) |
 | Targeting prior commit for cleanup | `git commit --fixup=<sha>` |
+
+## Execution
+
+1. Run `git status` and `git diff --staged` to understand current state
+2. Parse `$ARGUMENTS` — detect mode: plain message, `--amend`, `--fixup <sha>`, `--conventional`
+3. Read `COMMIT_STYLE` / `COMMIT_CONVENTION` from config to determine message format
+4. If nothing staged: suggest `git add -p` to stage precisely
+5. Draft commit message following the correct format (conventional or free-form)
+6. Run the verification loop — check staged diff, message quality, secrets scan
+7. Execute `git commit -m "..."` (or `--amend` / `--fixup` based on mode)
+8. Confirm with `git log --oneline -1`
+
+$ARGUMENTS

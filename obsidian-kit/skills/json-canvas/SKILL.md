@@ -234,6 +234,19 @@ After creating or editing a canvas file, verify:
 
 If validation fails, check for duplicate IDs, dangling edge references, or malformed JSON strings (especially unescaped newlines in text content).
 
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: create new canvas, add node, connect nodes, edit existing
+2. Read vault path from `~/.claude/obsidian-kit.config.md` to resolve canvas file location
+3. For **new canvas**: initialize `{"nodes": [], "edges": []}`, generate 16-char hex IDs, lay out nodes with 50-100px spacing
+4. For **add node**: read existing `.canvas` file, generate non-colliding ID, position to avoid overlaps, append node
+5. For **connect nodes**: identify source/target IDs, generate edge ID, set fromSide/toSide if specified, append edge
+6. For **edit**: read, locate node/edge by ID, modify attributes, write back
+7. After every write: run the Validation Checklist (unique IDs, no dangling edge refs, valid JSON)
+8. Confirm file written and validate JSON is parseable
+
+$ARGUMENTS
+
 ## Complete Examples
 
 See [references/EXAMPLES.md](references/EXAMPLES.md) for full canvas examples including mind maps, project boards, research canvases, and flowcharts.

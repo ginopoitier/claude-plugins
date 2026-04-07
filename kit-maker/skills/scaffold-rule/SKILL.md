@@ -182,3 +182,16 @@ follow good patterns when writing queries and make sure to handle errors properl
 | Rule would be > 80 lines | Split into two focused rules |
 | Rule applies only to one feature | Don't make it a rule — add it to the relevant skill |
 | Enforcement should be automated | Rule + hook script to validate |
+
+## Execution
+
+1. Parse `$ARGUMENTS` as the rule domain/topic; if blank, ask "What domain does this rule cover? Give a concrete enforcement example."
+2. Extract constraints from user input: categorize each as DO (always do) or DON'T (never do)
+3. Write 5+ DO items — each must start with an action verb and include a code snippet
+4. Write 4+ DON'T items — each must start with "Don't" and explain the consequence
+5. Decide if a Deep Reference is needed: if 3+ sub-topics or >20 lines of code examples, offer to run `/scaffold-knowledge`
+6. Write the rule file to `{kit-name}/rules/{domain-name}.md` in kebab-case
+7. Verify the rule file is <60 lines; if over, split into two focused rules
+8. Confirm file written and advise adding it to the kit's `CLAUDE.md` `@`-refs
+
+$ARGUMENTS

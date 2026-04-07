@@ -1,11 +1,25 @@
 {
   "name": "cost-optimizer-kit",
-  "version": "0.1.0",
-  "description": "Generates an optimized CLAUDE.md file in your repository to make Claude use kits more effectively.",
+  "version": "0.3.1",
+  "description": "Token cost optimization toolkit. Model selection matrix, context audit with letter grades, Ruflo-inspired 30-50% token reduction patterns (ReasoningBank, smart routing, caching, batching), and CLAUDE.md generation.",
   "author": {
-    "name": "Gino Poitier"
+    "name": "Gino Poitier",
+    "email": "gino.poitier@gmail.com"
+  },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/cost-optimizer-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
   },
   "license": "MIT",
-  "keywords": ["cost-optimization", "claude-md", "kit-selection", "efficiency"],
+  "keywords": ["cost-optimization", "token-efficiency", "model-selection", "claude-md", "kit-selection", "caching", "batching", "ruflo"],
+  "tags": ["cost", "tokens", "optimization", "model-routing", "reasoning-bank", "meta"],
+  "category": "tooling",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/"
 }

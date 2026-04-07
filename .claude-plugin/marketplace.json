@@ -5,54 +5,114 @@
     "email": "gino.poitier@gmail.com"
   },
   "metadata": {
-    "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, and Obsidian personal notes.",
-    "version": "2.0.3"
+    "description": "Personal Claude Code plugin marketplace — .NET/Vue developer toolkit, kit builder, git workflows, GitHub and Bitbucket platform kits, Jira sprint work, Confluence documentation, Obsidian personal notes, intelligent memory management, and token cost optimization.",
+    "version": "3.0.0",
+    "homepage": "https://github.com/ginopoitier/claude-plugins"
   },
   "plugins": [
     {
       "name": "dotnet-kit",
       "source": "./dotnet-kit",
       "description": "Production-ready .NET Clean Architecture developer toolkit. CQRS, EF Core, Minimal APIs, Serilog+Seq, CI/CD pipeline generation, and full tech lead workflow (SDLC compliance, PR prep, code review). Powered by devkit-mcp Roslyn analysis server.",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
-      "keywords": [
-        "dotnet", "csharp", "clean-architecture", "cqrs", "ef-core",
-        "mediatr", "serilog", "sql-server", "teamcity", "octopus", "github-actions"
+      "keywords": ["dotnet", "csharp", "clean-architecture", "cqrs", "ef-core", "mediatr", "serilog", "sql-server", "teamcity", "octopus", "github-actions"],
+      "tags": ["dotnet", "csharp", "clean-architecture", "cqrs", "ef-core", "minimal-api"],
+      "category": "development",
+      "features": [
+        "44 skills covering full .NET development lifecycle",
+        "15 specialist agents (architect, EF Core, security, performance, devops)",
+        "CQRS/MediatR scaffolding with Clean Architecture layers",
+        "EF Core migrations, query optimization, and schema tooling",
+        "Minimal API endpoint scaffolding with versioning and OpenAPI",
+        "Serilog structured logging with Seq sink configuration",
+        "TeamCity / Octopus Deploy / GitHub Actions CI/CD pipeline generation",
+        "Tech lead workflow: SDLC compliance, PR prep, code review, wrap-up ritual",
+        "Split-memory CLAUDE.md strategy for large .NET projects",
+        "devkit-mcp Roslyn analysis MCP server for deep code inspection"
       ],
-      "category": "development"
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "mcp": ["devkit-mcp"]
+      }
     },
     {
       "name": "vue-kit",
       "source": "./vue-kit",
-      "description": "Vue 3 + TypeScript developer toolkit. Composition API, Pinia stores, SignalR integration, TailwindCSS, Vite config, and typed API client patterns. Powered by vue-mcp SFC analysis server.",
-      "version": "0.2.1",
+      "description": "Vue 3 + TypeScript developer toolkit. Component scaffolding, Pinia stores, typed API clients, Vitest testing, Vue Router patterns, SignalR integration, error handling, performance optimization, and TailwindCSS. Powered by vue-mcp SFC analysis server.",
+      "version": "0.3.1",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
-      "keywords": [
-        "vue", "typescript", "pinia", "vite", "tailwindcss", "signalr"
+      "keywords": ["vue", "typescript", "pinia", "vite", "tailwindcss", "signalr"],
+      "tags": ["vue", "typescript", "pinia", "vite", "vitest", "tailwindcss", "composition-api"],
+      "category": "development",
+      "features": [
+        "Vue 3 Composition API component scaffolding with TypeScript",
+        "Pinia store scaffolding with actions, getters, and persistence",
+        "Typed API client generation with error handling and interceptors",
+        "Vitest testing patterns for components, composables, and stores",
+        "Vue Router patterns: dynamic routes, navigation guards, lazy loading",
+        "SignalR hub integration for real-time Vue components",
+        "TailwindCSS component patterns and responsive design utilities",
+        "Performance optimization: virtual scrolling, lazy loading, bundle analysis",
+        "Tech lead and security auditor agents for Vue codebases",
+        "vue-mcp SFC analysis MCP server for component inspection"
       ],
-      "category": "development"
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "mcp": ["vue-mcp"]
+      }
     },
     {
       "name": "kit-maker",
       "source": "./kit-maker",
       "description": "Meta-kit for creating, auditing, and publishing marketplace-ready Claude Code plugins. Includes skill scaffolding wizards, kit health checks, self-evolution, and quality standards enforcement.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["meta", "kit-creation", "scaffolding", "tooling", "auditing"],
-      "category": "tooling"
+      "tags": ["meta", "scaffolding", "kit-creation", "quality", "auditing"],
+      "category": "tooling",
+      "features": [
+        "Interactive scaffold wizards for skills, rules, knowledge docs, agents, hooks",
+        "/scaffold-kit: create a complete kit from scratch in one command",
+        "kit-health-check: full audit with structure, coverage, and quality scores",
+        "skill-auditor: validate trigger keywords, examples, and anti-patterns",
+        "kit-packager: version-bump, validate, and sync marketplace.json",
+        "9 specialist agents covering every component of kit creation",
+        "kit-anatomy.md: deep reference for kit structure and conventions",
+        "Quality gates enforced on every scaffold output"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0"
+      }
     },
     {
       "name": "git-kit",
       "source": "./git-kit",
       "description": "Git CLI toolkit — smarter commits, branching, rebase, conflict resolution, stash, undo, repo health, and hooks. Two specialist agents (git-historian, git-surgeon) and installable commit-msg validator and pre-push guard hooks.",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["git", "version-control", "commits", "branching", "rebase", "cli"],
-      "category": "development"
+      "tags": ["git", "commits", "branches", "rebase", "stash", "history", "conflicts"],
+      "category": "development",
+      "features": [
+        "Smart commit skill with conventional commit format enforcement",
+        "Branch management: create, switch, rename, delete with safety checks",
+        "Interactive rebase guidance with conflict resolution assistance",
+        "Conflict resolution: file-by-file merge with context explanation",
+        "Stash workflow: save, list, apply, drop with description tracking",
+        "Undo operations: revert, reset, restore with safety guardrails",
+        "Repo health check: dangling refs, large files, hook status",
+        "git-historian agent: log analysis, blame, bisect, pickaxe search",
+        "git-surgeon agent: complex history rewriting, cherry-pick, subtree",
+        "Installable commit-msg and pre-push hooks via /git-setup"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0"
+      }
     },
     {
       "name": "github-kit",
@@ -62,7 +122,21 @@
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["github", "pull-requests", "releases", "platform"],
-      "category": "development"
+      "tags": ["github", "pr", "pull-requests", "releases", "gh-cli", "code-review"],
+      "category": "development",
+      "features": [
+        "PR creation with structured body: why/what/test-plan template",
+        "PR review with mentoring (coaching) or gatekeeper (strict) modes",
+        "GitHub releases: semantic versioning, auto-generated release notes",
+        "gh CLI integration for all GitHub operations",
+        "Two-level config: user/device level + project level overrides",
+        "pr-reviewer agent: automated review with severity grading",
+        "release-engineer agent: manages release process and changelogs"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "tools": ["gh"]
+      }
     },
     {
       "name": "bitbucket-kit",
@@ -72,7 +146,21 @@
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["bitbucket", "pull-requests", "platform"],
-      "category": "development"
+      "tags": ["bitbucket", "pr", "pull-requests", "releases", "rest-api", "code-review"],
+      "category": "development",
+      "features": [
+        "PR creation via Bitbucket REST API v2 (no Pipelines required)",
+        "PR review with mentoring and gatekeeper modes",
+        "Bitbucket releases and tag management",
+        "BITBUCKET_API_TOKEN env-var auth with no credentials in source",
+        "Two-level config: user/device level + project level overrides",
+        "bb-historian and bb-reviewer specialist agents",
+        "Python-based API calls (no jq dependency)"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "env": ["BITBUCKET_API_TOKEN"]
+      }
     },
     {
       "name": "jira-kit",
@@ -82,8 +170,20 @@
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["jira", "sprint", "agile", "stories", "atlassian"],
+      "tags": ["jira", "sprint", "agile", "stories", "epics", "standup", "atlassian"],
       "category": "productivity",
-      "requires": ["atlassian-mcp-oauth"]
+      "features": [
+        "Epic creation with structured hierarchy and acceptance criteria",
+        "Story writing: business description + technical breakdown in one command",
+        "Tech refinement: story decomposition with sizing and dependencies",
+        "Daily standup prep: pull yesterday/today/blockers from Jira",
+        "sprint-planner agent: sprint planning, velocity tracking, board management",
+        "Atlassian MCP OAuth: single auth session covers Jira and Confluence"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "mcp": ["atlassian-mcp"]
+      }
     },
     {
       "name": "confluence-kit",
@@ -93,39 +193,97 @@
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["confluence", "documentation", "adr", "sdr", "atlassian"],
+      "tags": ["confluence", "documentation", "adr", "sdr", "sdlc", "atlassian"],
       "category": "productivity",
-      "requires": ["atlassian-mcp-oauth"]
+      "features": [
+        "ADR (Architecture Decision Record) creation with full context and status",
+        "SDR (Software Decision Record) for technical implementation decisions",
+        "SDLC page management: sprint pages, release notes, post-mortems",
+        "Structured templates with status tracking (proposed/accepted/deprecated)",
+        "doc-writer agent: documentation specialist for complex page authoring",
+        "Atlassian MCP OAuth: single auth session covers Jira and Confluence",
+        "Cross-links between ADRs and related Jira epics/stories"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "mcp": ["atlassian-mcp"]
+      }
     },
     {
       "name": "obsidian-kit",
       "source": "./obsidian-kit",
       "description": "Obsidian personal knowledge base toolkit — create, search, and manage notes in your local vault. Daily dev journal and project note integration with dotnet-kit or vue-kit session management.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["obsidian", "notes", "personal-knowledge", "markdown", "journal"],
-      "category": "productivity"
+      "tags": ["obsidian", "notes", "knowledge-base", "markdown", "json-canvas", "vault"],
+      "category": "productivity",
+      "features": [
+        "Note creation with templates: dev journal, project, reference, meeting",
+        "Vault search and navigation across all notes and tags",
+        "JSON Canvas creation for visual knowledge mapping",
+        "Obsidian Bases integration for structured data in notes",
+        "Obsidian Flavored Markdown: callouts, embeds, wikilinks",
+        "Defuddle web extraction: clean article text into vault notes",
+        "CLI vault interaction via obsidian-cli",
+        "vault-curator agent: vault organization, orphan cleanup, tag maintenance"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0"
+      }
     },
     {
       "name": "memory-kit",
       "source": "./memory-kit",
       "description": "Intelligent memory management meta-kit for Claude Code. Auto-captures corrections and discoveries via hooks, injects relevant memories at session start, provides semantic retrieval, deduplication, and lifecycle management via the memory-mcp server.",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
       "keywords": ["memory", "meta", "auto-capture", "hooks", "knowledge-management", "persistence"],
+      "tags": ["memory", "persistence", "auto-capture", "semantic-search", "deduplication", "meta"],
       "category": "tooling",
-      "requires": ["memory-mcp"]
+      "features": [
+        "Auto-capture hook: detects corrections and discoveries after each response",
+        "Session inject hook: loads MEMORY.md into context at session start",
+        "Semantic memory search via memory-mcp TF-IDF engine",
+        "memory-health: audit for stale entries, duplicates, index drift",
+        "memory-consolidate: deduplicate and merge similar memories",
+        "memory-capture: manually store a memory with auto-classification",
+        "memory-recall: surface top relevant memories for current work",
+        "memory-forget: deprecate or permanently delete memories",
+        "memory-curator agent: deep curation sessions with conflict resolution"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0",
+        "mcp": ["memory-mcp"]
+      }
     },
     {
       "name": "cost-optimizer-kit",
       "source": "./cost-optimizer-kit",
-      "description": "Generates an optimized CLAUDE.md file in your repository to make Claude use kits more effectively. Prompts for kit selection and creates a CLAUDE.md that enforces efficient kit usage patterns.",
-      "version": "0.1.0",
+      "description": "Token cost optimization toolkit. Model selection matrix, context audit with letter grades, Ruflo-inspired 30-50% token reduction patterns (ReasoningBank, smart routing, caching, batching), and CLAUDE.md generation.",
+      "version": "0.3.1",
       "author": { "name": "Gino Poitier" },
       "license": "MIT",
-      "keywords": ["cost-optimization", "claude-md", "kit-selection", "efficiency"],
-      "category": "tooling"
+      "keywords": ["cost-optimization", "token-efficiency", "model-selection", "claude-md", "ruflo"],
+      "tags": ["cost", "tokens", "optimization", "model-routing", "reasoning-bank", "meta"],
+      "category": "tooling",
+      "features": [
+        "Context audit with letter grades (A-F) across 5 efficiency dimensions",
+        "Model selection matrix: Haiku/Sonnet/Opus routing by task complexity",
+        "ReasoningBank: store and retrieve reasoning patterns (~32% token saving)",
+        "Cache efficiency analysis: stable prefix detection, dynamic content warnings",
+        "Kit selection guide: prune irrelevant kits for up to 8,000 tokens/turn saved",
+        "CLAUDE.md generation: produce an optimized config from scratch",
+        "Budget alert hook: warns at 80%/100% of monthly spend threshold",
+        "model-router agent: classify any task and recommend cheapest viable model",
+        "token-analyzer agent: comprehensive token footprint audit with savings estimates",
+        "Overall GPA scoring with prioritized savings recommendations"
+      ],
+      "requirements": {
+        "claudeCode": ">=1.0.0"
+      }
     }
   ]
 }

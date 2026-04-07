@@ -118,3 +118,15 @@ git push origin main
 | First push to new remote | Phase 3 (full history scan) + Phase 4 |
 | Amending a commit | Phase 1 + 2 |
 | Merging/rebasing complete | Phase 1 + 4 |
+
+## Execution
+
+1. Determine which phases to run based on operation context (see Decision Guide)
+2. **Phase 1** — run `git diff --staged --stat` then `git diff --staged`; flag unintended files, debug artifacts, conflict markers
+3. **Phase 2** — check subject line length (≤72), mood (imperative), specificity (not "fix" / "WIP")
+4. **Phase 3** — scan staged diff with grep patterns for secrets; halt and report if any match
+5. **Phase 4** — confirm current branch with `git branch --show-current`; verify remote hasn't changed with `git fetch --dry-run`
+6. If any Phase 1–3 check fails: **stop**, report the issue, do not proceed
+7. If all phases pass: report "Verification passed" and proceed with the git operation
+
+$ARGUMENTS

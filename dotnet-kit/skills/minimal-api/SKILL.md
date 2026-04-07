@@ -316,3 +316,15 @@ app.MapGet("/orders/{id}", async (Guid id, AppDbContext db) =>
 | Rate limiting | `AddRateLimiter` + `.RequireRateLimiting()` |
 | Response caching | `AddOutputCache` + `.CacheOutput()` |
 | Complex model binding | `[AsParameters]` with a record type |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: scaffold endpoint group, add endpoint, add filter, configure OpenAPI, add rate limiting
+2. For **new project / first endpoint group**: scaffold `IEndpointGroup` interface + `EndpointExtensions.MapEndpoints()` + wire `app.MapEndpoints()` in `Program.cs`
+3. For **new endpoint group**: create `{Feature}Endpoints : IEndpointGroup`, implement `Map()` with `MapGroup` + tags
+4. For **each endpoint**: use `TypedResults` with explicit union return type; apply `.WithName()`, `.WithSummary()`, `.Produces<T>()`
+5. For **validation**: add `ValidationFilter<TRequest>` wired via `.AddEndpointFilter<>()`
+6. For **rate limiting**: add `AddRateLimiter` policy + `.RequireRateLimiting()` on group
+7. Verify: no endpoints defined in `Program.cs`, all use `TypedResults` not `Results`, responses are DTOs not entities
+
+$ARGUMENTS

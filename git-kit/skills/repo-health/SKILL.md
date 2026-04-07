@@ -138,3 +138,16 @@ echo "*.mp4" >> .gitignore
 | Check for corruption | `git fsck` |
 | Preview untracked file cleanup | `git clean -nd` |
 | Remove untracked files | `git clean -fd` (after dry run) |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect scope: `--branches`, `--size`, `--gc`, `--integrity`, `--all`
+2. **--branches**: fetch --prune, list merged branches, show stale branch report, confirm before deleting
+3. **--size**: run `git count-objects -vH` and large-object rev-list scan; report top 10 by size
+4. **--gc**: run `git gc` (suggest `--aggressive` if repo is large or fragmented)
+5. **--integrity**: run `git fsck` and report any dangling or corrupt objects
+6. **--all (default)**: run all checks in sequence, produce summary report
+7. Always show what will be removed before any destructive operation
+8. For untracked file cleanup: `git clean -nd` first, then prompt before `git clean -fd`
+
+$ARGUMENTS

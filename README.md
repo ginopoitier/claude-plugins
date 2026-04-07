@@ -36,17 +36,17 @@ Update all plugins:
 
 | Plugin | Version | Description |
 |--------|---------|-------------|
-| [`dotnet-kit`](./dotnet-kit/) | 0.3.2 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
-| [`vue-kit`](./vue-kit/) | 0.2.0 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, TailwindCSS, Vite |
-| [`kit-maker`](./kit-maker/) | 1.2.0 | Build and audit Claude Code plugins |
-| [`git-kit`](./git-kit/) | 1.0.3 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
-| [`github-kit`](./github-kit/) | 1.1.0 | GitHub platform — PR creation, review, releases (home machine) |
-| [`bitbucket-kit`](./bitbucket-kit/) | 1.2.0 | Bitbucket platform — PR creation, review, and releases (work machine) |
-| [`jira-kit`](./jira-kit/) | 1.2.0 | Jira sprint work — epics, stories, refinement, standup |
-| [`confluence-kit`](./confluence-kit/) | 1.1.0 | Confluence docs — ADRs, SDRs, SDLC pages |
-| [`obsidian-kit`](./obsidian-kit/) | 1.2.0 | Obsidian personal notes and dev journal |
-| [`memory-kit`](./memory-kit/) | 1.0.0 | Intelligent memory management — semantic search, auto-capture, deduplication, session injection |
-| [`cost-optimizer-kit`](./cost-optimizer-kit/) | 0.1.0 | Cost optimization toolkit — selective kit loading, agent routing, efficiency monitoring |
+| [`dotnet-kit`](./dotnet-kit/) | 0.3.4 | .NET Clean Architecture developer toolkit — CQRS, EF Core, Minimal APIs, Serilog, CI/CD |
+| [`vue-kit`](./vue-kit/) | 0.3.1 | Vue 3 + TypeScript developer toolkit — Pinia, SignalR, Vitest, Vue Router, component scaffolding |
+| [`kit-maker`](./kit-maker/) | 1.2.2 | Build and audit Claude Code plugins |
+| [`git-kit`](./git-kit/) | 1.0.5 | Git CLI toolkit — commits, branching, rebase, conflict resolution, undo, repo health |
+| [`github-kit`](./github-kit/) | 1.1.1 | GitHub platform — PR creation, review, releases; pr-reviewer + release-engineer agents |
+| [`bitbucket-kit`](./bitbucket-kit/) | 1.2.1 | Bitbucket platform — PR creation, review, and releases |
+| [`jira-kit`](./jira-kit/) | 1.2.1 | Jira sprint work — epics, stories, refinement, standup; sprint-planner agent |
+| [`confluence-kit`](./confluence-kit/) | 1.1.1 | Confluence docs — ADRs, SDRs, SDLC pages; doc-writer agent |
+| [`obsidian-kit`](./obsidian-kit/) | 1.2.2 | Obsidian personal notes and dev journal; vault-curator agent |
+| [`memory-kit`](./memory-kit/) | 1.0.5 | Intelligent memory management — semantic search, auto-capture, deduplication, session injection |
+| [`cost-optimizer-kit`](./cost-optimizer-kit/) | 0.3.1 | Token cost optimization — model selection matrix, ReasoningBank, context audit, 30-50% reduction |
 
 ## Typical install combinations
 

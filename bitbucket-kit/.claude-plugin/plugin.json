@@ -6,7 +6,20 @@
     "name": "Gino Poitier",
     "email": "gino.poitier@gmail.com"
   },
+  "homepage": "https://github.com/ginopoitier/claude-plugins/tree/main/bitbucket-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ginopoitier/claude-plugins"
+  },
+  "bugs": {
+    "url": "https://github.com/ginopoitier/claude-plugins/issues"
+  },
   "license": "MIT",
   "keywords": ["bitbucket", "pull-requests", "platform", "releases", "code-review"],
+  "tags": ["bitbucket", "pr", "pull-requests", "releases", "rest-api", "code-review"],
+  "category": "development",
+  "engines": {
+    "claudeCode": ">=1.0.0"
+  },
   "commands": "./skills/"
 }

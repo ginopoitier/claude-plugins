@@ -26,6 +26,11 @@ Run `/github-setup` to configure. Project config **overrides** user config where
 When config is missing → the `check-settings` hook will prompt automatically.
 When a skill needs config and it is missing → tell user to run `/github-setup`.
 
+## Knowledge
+
+- `knowledge/gh-cli-reference.md` — complete `gh` CLI command reference (PRs, releases, issues, workflows)
+- `knowledge/pr-review-patterns.md` — review checklists, severity levels, mentoring vs gatekeeper output templates
+
 ## Skills Available
 
 ### Pull Requests
@@ -37,3 +42,8 @@ When a skill needs config and it is missing → tell user to run `/github-setup`
 
 ### Setup
 - `/github-setup` — configure user-level and project-level github-kit settings
+
+## Specialist Agents
+
+- `pr-reviewer` — automated PR review with severity-graded findings (BLOCKING / WARNING / ADVISORY); mentoring or gatekeeper mode
+- `release-engineer` — manages the full release process: version bump, tag, release notes, GitHub publish

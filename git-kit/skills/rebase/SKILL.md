@@ -153,3 +153,16 @@ fixup d4e5f6 Fix typo
 | Conflict during rebase | Resolve → `git add` → `git rebase --continue` |
 | Abort a rebase | `git rebase --abort` |
 | Push after rebase | `git push --force-with-lease` |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect mode: `--interactive HEAD~N`, `--onto <base>`, `--autosquash`
+2. Create a backup branch first: `git branch backup/<current-branch>`
+3. **interactive HEAD~N** → open `git rebase -i HEAD~N`; suggest appropriate actions (fixup/squash/reword/drop) based on commit messages
+4. **--autosquash** → find all `fixup!` commits with `git log --oneline`, then run `git rebase -i --autosquash HEAD~N`
+5. **--onto `<base>`** → run `git rebase --onto <new-base> <old-base> <branch>`
+6. **update with main (no flag)** → `git fetch origin && git rebase origin/main`
+7. If conflicts arise: resolve per file, `git add`, `git rebase --continue`
+8. After completion: remind user to use `--force-with-lease` if pushing
+
+$ARGUMENTS

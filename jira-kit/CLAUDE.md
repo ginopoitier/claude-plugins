@@ -46,3 +46,7 @@ When Atlassian MCP is not authenticated → run `/mcp authenticate atlassian`.
 
 ### Setup
 - `/jira-setup` — configure user-level and project-level jira-kit settings
+
+## Specialist Agents
+
+- `sprint-planner` — sprint planning and health specialist: capacity analysis, dependency mapping, commitment recommendations, mid-sprint replanning

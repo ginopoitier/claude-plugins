@@ -209,3 +209,16 @@ Register these hooks in ~/.claude/settings.json? (y/n): y
 | URL returns non-200 | Warn but don't block — services may be offline |
 | settings.json missing | Create it with just the hooks block |
 | settings.json already has hooks | Merge, don't overwrite the existing hooks |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect kit name, or run global config if blank
+2. Check if `~/.claude/kit.config.md` exists — if yes, show current values and ask which to reconfigure
+3. Find the config template: `~/.claude/knowledge/{kit-name}/kit.config.template.md` or `{KITS_BASE_PATH}/{kit-name}/config/kit.config.template.md`
+4. For each `KEY=` line in the template: explain the key, show current value (if any), ask user for value, validate (paths: check existence; URLs: ping)
+5. Write the completed config to `~/.claude/kit.config.md`
+6. Check `~/.claude/hooks/{kit-name}/` for hook scripts; if found, show what will be added and confirm before merging into `~/.claude/settings.json`
+7. Run a smoke test (e.g. `/scaffold-skill test-skill` for kit-maker) to confirm installation works
+8. Report: config written, hooks registered, smoke test result
+
+$ARGUMENTS

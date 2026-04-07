@@ -39,3 +39,13 @@ defuddle parse <url> -p domain
 | `--json` | JSON with both HTML and markdown |
 | (none) | HTML |
 | `-p <name>` | Specific metadata property |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — extract the URL to fetch
+2. If no URL provided: ask user for the URL
+3. Check if `defuddle` is installed: run `defuddle --version` (if missing, suggest `npm install -g defuddle`)
+4. Run `defuddle parse <url> --md` to extract clean markdown
+5. Present the extracted content; offer to save with `-o <filename>.md` if the user wants to keep it
+
+$ARGUMENTS

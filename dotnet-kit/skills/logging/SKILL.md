@@ -162,3 +162,15 @@ app.MapHealthChecks("/health/ready", new() { Predicate = c => c.Tags.Contains("r
 | Container health | `/health/live` and `/health/ready` endpoints |
 | Log storage | Seq (development), Elastic/Grafana (production) |
 | Log levels | Debug in dev, Information in staging, Warning in production |
+
+## Execution
+
+1. Parse `$ARGUMENTS` — detect intent: setup logging, add health checks, add correlation ID, configure OpenTelemetry
+2. For **Serilog setup**: add two-stage bootstrap in `Program.cs`, configure `UseSerilogRequestLogging()`; see the `serilog` skill for full config
+3. For **health checks**: add `AddHealthChecks()` with dependencies tagged "ready"; wire `/health/live` and `/health/ready` endpoints
+4. For **correlation ID**: add `CorrelationIdMiddleware`, register before other middleware, configure `LogContext.PushProperty()`
+5. For **OpenTelemetry tracing/metrics**: see the `opentelemetry` skill
+6. Verify: no string interpolation in `LogInformation`/`LogError` calls; no sensitive data logged
+7. Confirm `appsettings.json` has `Serilog` section with per-namespace overrides
+
+$ARGUMENTS

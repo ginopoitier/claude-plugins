@@ -215,3 +215,18 @@ C:/Users/ginop/.claude/rules/...      ← hardcoded, breaks everywhere else
 
 For full marketplace spec, plugin.json schema, and distribution guidelines:
 @~/.claude/knowledge/kit-maker/marketplace-spec.md
+
+## Execution
+
+1. Parse `$ARGUMENTS` — extract kit path and version bump level (`major`, `minor`, `patch`)
+2. Run `/kit-health-check` on the kit — if GPA < 3.0, stop and list issues to fix first
+3. Run the Pre-Package Checklist: valid JSON, complete frontmatter, no hardcoded paths, README uses `/plugin install`
+4. Determine bump level from `git diff --stat` and bump policy (breaking = major, new skill/rule = minor, fix = patch)
+5. Update `{kit}/.claude-plugin/plugin.json` version
+6. Update matching entry in `.claude-plugin/marketplace.json` version (must match exactly)
+7. Update version table row in `README.md`
+8. Verify version sync: confirm `plugin.json` == `marketplace.json` == `README.md`
+9. Stage all three files together: `git add {kit}/.claude-plugin/plugin.json .claude-plugin/marketplace.json README.md`
+10. Report: "Ready to commit. Version bumped to {new-version}."
+
+$ARGUMENTS
