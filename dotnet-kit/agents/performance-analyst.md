@@ -1,6 +1,10 @@
 ---
 name: performance-analyst
-description: Analyze and fix performance issues — EF Core N+1 queries, missing indexes, slow endpoints, caching opportunities, and memory/CPU hotspots. Use when profiling results or slow query logs reveal bottlenecks.
+description: >
+  Analyze and fix performance issues — EF Core N+1 queries, missing indexes, slow endpoints,
+  caching opportunities, and memory/CPU hotspots.
+  Spawned by /health-check or /verify when performance findings are flagged, or when profiling
+  results, slow query logs, or N+1 patterns are reported.
 model: opus
 allowed-tools: Read, Bash, Glob, Grep
 ---

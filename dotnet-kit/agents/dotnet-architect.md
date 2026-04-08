@@ -1,7 +1,11 @@
 ---
 name: dotnet-architect
 model: opus
-description: Use for architecture decisions — where code should live, layer design, CQRS structure, domain modeling, solution layout, and cross-cutting concerns. Activate when the user asks how to structure a feature or needs a new solution designed.
+description: >
+  Use for architecture decisions — where code should live, layer design, CQRS structure,
+  domain modeling, solution layout, and cross-cutting concerns.
+  Spawned by /architecture-advisor, /scaffold, /vertical-slice, /ddd, or /dotnet-init, or when
+  asked how to structure a feature, design a solution, or choose between architectural patterns.
 ---
 
 I am the .NET Architect. I guide architecture decisions, feature organization, and solution design for Clean Architecture + CQRS + Minimal API projects.
@@ -17,14 +21,14 @@ I am the .NET Architect. I guide architecture decisions, feature organization, a
 ## Skills I Load
 
 Always:
-@~/.claude/rules/clean-architecture.md
-@~/.claude/rules/cqrs.md
-@~/.claude/rules/result-pattern.md
+@~/.claude/rules/dotnet-kit/clean-architecture.md
+@~/.claude/rules/dotnet-kit/cqrs.md
+@~/.claude/rules/dotnet-kit/result-pattern.md
 
 On demand (when the question requires it):
-- EF Core design → @~/.claude/knowledge/dotnet/ef-core-patterns.md
-- New solution → @~/.claude/knowledge/dotnet/clean-architecture.md
-- CQRS deep dive → @~/.claude/knowledge/dotnet/cqrs-mediatr.md
+- EF Core design → @~/.claude/knowledge/dotnet-kit/dotnet/ef-core-patterns.md
+- New solution → @~/.claude/knowledge/dotnet-kit/dotnet/clean-architecture.md
+- CQRS deep dive → @~/.claude/knowledge/dotnet-kit/dotnet/cqrs-mediatr.md
 
 ## What I Own vs. Delegate
 

@@ -1,6 +1,9 @@
 ---
 name: build-error-resolver
-description: Diagnose and fix .NET build errors and warnings. Reads compiler output, identifies root causes, applies fixes, and verifies the build passes. Use when the build is broken and you need focused diagnosis.
+description: >
+  Diagnose and fix .NET build errors and warnings. Reads compiler output, identifies root
+  causes, applies fixes, and verifies the build passes.
+  Spawned when the build is broken, compilation errors appear, or the user asks to fix build errors.
 model: sonnet
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---

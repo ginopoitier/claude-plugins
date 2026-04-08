@@ -1,6 +1,6 @@
 {
   "name": "vue-kit",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Vue 3 + TypeScript developer toolkit. Covers Composition API, Pinia stores, SignalR integration, TailwindCSS, Vite config, typed API clients, Vitest testing, Vue Router patterns, error handling, performance, and component scaffolding.",
   "author": {
     "name": "Gino Poitier",

@@ -14,6 +14,7 @@ Obsidian notes are plain Markdown files in a local vault directory. This kit rea
 ## Always-Active Rules
 
 @~/.claude/rules/obsidian-kit/note-conventions.md
+@~/.claude/rules/obsidian-kit/agents.md
 
 ## Two-Level Config System
 

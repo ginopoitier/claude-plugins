@@ -5,7 +5,8 @@ description: >
   Automated PR reviewer that performs a structured, multi-file code review against
   the project's conventions, security standards, and quality bar. Produces a scored
   review with categorized findings (blocking vs. advisory) and concrete action items.
-  Use when you want a systematic review of a PR diff before the human review step.
+  Spawned by /review or when asked to review a PR, review this diff, or check code
+  before merging.
 tools: Bash, Read, Grep
 effort: medium
 ---

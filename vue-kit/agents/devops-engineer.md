@@ -1,6 +1,10 @@
 ---
 name: devops-engineer
-description: Handle DevOps tasks for Vue 3 / TypeScript frontends — CI/CD pipeline setup, Docker configuration, GitHub Actions workflows, Vite build optimisation, and deployment configuration. Use when setting up automation, containerising, or configuring deployments.
+description: >
+  Handle DevOps tasks for Vue 3 / TypeScript frontends — CI/CD pipeline setup, Docker
+  configuration, GitHub Actions workflows, Vite build optimisation, and deployment configuration.
+  Spawned by /ci-cd or /docker for Vue frontend pipelines, Docker multi-stage builds,
+  Nginx config, or deployment automation.
 model: sonnet
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---

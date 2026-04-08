@@ -1,6 +1,10 @@
 ---
 name: security-auditor
-description: Deep security audit of a .NET codebase — finds vulnerabilities, reviews auth/authz configuration, checks for secrets, and produces a prioritized remediation plan. Use when preparing for a release, after a security incident, or on request.
+description: >
+  Deep security audit of a .NET codebase — finds vulnerabilities, reviews auth/authz
+  configuration, checks for secrets, and produces a prioritized remediation plan.
+  Spawned by /security-scan or when asked for a security audit, OWASP review, or pre-release
+  vulnerability check.
 model: opus
 allowed-tools: Read, Bash, Glob, Grep
 ---

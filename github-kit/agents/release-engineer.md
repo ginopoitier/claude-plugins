@@ -4,7 +4,8 @@ model: sonnet
 description: >
   Manages the GitHub release process end-to-end: version bump, tag creation,
   release notes generation from commits, and GitHub release publication.
-  Use when preparing or publishing a release from the current branch.
+  Spawned by /release or when asked to prepare a release, bump the version, create
+  a release tag, or publish release notes.
 tools: Bash, Read, Edit
 effort: medium
 ---

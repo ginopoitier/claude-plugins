@@ -1,6 +1,10 @@
 ---
 name: devops-engineer
-description: Handle DevOps tasks — CI/CD pipeline setup, Docker configuration, GitHub Actions workflows, deployment scripts, and infrastructure configuration. Use when setting up automation, containerizing apps, or configuring deployments.
+description: >
+  Handle DevOps tasks — CI/CD pipeline setup, Docker configuration, GitHub Actions workflows,
+  deployment scripts, and infrastructure configuration.
+  Spawned by /ci-cd or /docker, or when asked to set up pipelines, containerize an app,
+  or configure deployment automation.
 model: sonnet
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---

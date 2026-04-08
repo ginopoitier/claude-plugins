@@ -1,6 +1,9 @@
 ---
 name: refactor-cleaner
-description: Clean up and refactor code — extract methods, rename for clarity, remove duplication, apply modern C# idioms, and eliminate technical debt. Use when asked to clean up a file, refactor a method, or reduce complexity.
+description: >
+  Clean up and refactor code — extract methods, rename for clarity, remove duplication,
+  apply modern C# idioms, and eliminate technical debt.
+  Spawned by /de-sloppify or when asked to refactor, clean up, reduce complexity, or modernize C# code.
 model: sonnet
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---

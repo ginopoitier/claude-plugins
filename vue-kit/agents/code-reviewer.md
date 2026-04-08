@@ -1,6 +1,11 @@
 ---
 name: code-reviewer
-description: Performs a thorough code review of staged git changes, a specific file, or a set of files in a Vue 3 / TypeScript project. Reviews for correctness, Vue patterns, security, performance, and code quality. Use after implementing a feature, before creating a PR, or when asked to "review this code".
+description: >
+  Performs a thorough code review of staged git changes, a specific file, or a set of files
+  in a Vue 3 / TypeScript project. Reviews for correctness, Vue patterns, security,
+  performance, and code quality.
+  Spawned by /testing review step, after implementing a feature, before creating a PR,
+  or when asked to "review this code" or "review this Vue file".
 model: opus
 allowed-tools: Read, Bash, Glob, Grep
 ---

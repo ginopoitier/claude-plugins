@@ -1,6 +1,11 @@
 ---
 name: security-auditor
-description: Deep security audit of a Vue 3 + TypeScript frontend — finds XSS risks, CSRF gaps, exposed secrets, insecure API usage, and vulnerable dependencies. Produces a prioritized remediation plan. Use when preparing for a release, after a security incident, or on request.
+description: >
+  Deep security audit of a Vue 3 + TypeScript frontend — finds XSS risks, CSRF gaps,
+  exposed secrets, insecure API usage, and vulnerable dependencies. Produces a prioritized
+  remediation plan.
+  Spawned by /security-scan or when asked for a Vue 3 security audit, XSS review,
+  or pre-release vulnerability check.
 model: opus
 allowed-tools: Read, Bash, Glob, Grep
 ---

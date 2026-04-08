@@ -4,7 +4,9 @@ model: sonnet
 description: >
   Obsidian vault organization specialist. Audits vault structure, finds orphaned notes,
   identifies duplicate content, suggests folder restructuring, cleans up broken wikilinks,
-  and produces a vault health report. Use for periodic vault maintenance sessions.
+  and produces a vault health report.
+  Spawned when the user asks to audit the vault, curate the vault, check vault health,
+  find orphaned notes, fix broken links, organize the vault, or run a vault cleanup.
 tools: Bash, Read, Glob, Grep
 effort: medium
 ---

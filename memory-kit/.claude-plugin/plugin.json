@@ -1,6 +1,6 @@
 {
   "name": "memory-kit",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Intelligent memory management meta-kit for Claude Code. Auto-capture corrections via hooks, semantic retrieval, deduplication, and memory lifecycle management powered by the memory-mcp server.",
   "author": {
     "name": "Gino Poitier",
